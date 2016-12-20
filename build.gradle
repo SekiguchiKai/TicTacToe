@@ -1,0 +1,27 @@
+group 'jp.co.topgate.kai.sekiguchi.ox'
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'jp.co.topgate.kai.sekiguchi.ox.Main'
+
+// gradleラッパー、これを使ってビルドするとGradleが自動的にダウンロードされ、それを使ってビルドが実行される
+
+defaultTasks 'wrapper', 'build', 'run', 'test'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile(group: 'junit', name: 'junit', version: '4.11') {
+        // これで hamcrest-core の依存を除外する
+        exclude module: 'hamcrest-core'
+    }
+
+    // 改めて hamcrest-all の依存を追加する
+    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+}
