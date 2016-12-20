@@ -1,6 +1,8 @@
 group 'jp.co.topgate.kai.sekiguchi.ox'
 apply plugin: 'java'
 apply plugin: 'application'
+//
+apply plugin: 'war'
 
 mainClassName = 'jp.co.topgate.kai.sekiguchi.ox.Main'
 
@@ -20,8 +22,12 @@ dependencies {
     testCompile(group: 'junit', name: 'junit', version: '4.11') {
         // これで hamcrest-core の依存を除外する
         exclude module: 'hamcrest-core'
+        //
+        providedCompile group: 'javax', name: 'javaee-api', version: '7.0'
     }
 
     // 改めて hamcrest-all の依存を追加する
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+
 }
+

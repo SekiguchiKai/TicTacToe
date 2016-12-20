@@ -8,6 +8,44 @@ public class Terminal {
      * @param moveArray Moveを格納した配列
      */
     public void drawBoard(Moves[] moveArray) {
+        System.out.print(" ____");
+        System.out.print("  ____");
+        System.out.println("  ____");
+        System.out.print("|    |");
+        System.out.print("|    |");
+        System.out.println("|    |");
+        System.out.print("|    |");
+        System.out.print("|    |");
+        System.out.println("|    |");
+        System.out.print(" ----");
+        System.out.print("  ----");
+        System.out.println("  ----");
+
+        System.out.print(" ____");
+        System.out.print("  ____");
+        System.out.println("  ____");
+        System.out.print("|    |");
+        System.out.print("|    |");
+        System.out.println("|    |");
+        System.out.print("|    |");
+        System.out.print("|    |");
+        System.out.println("|    |");
+        System.out.print(" ----");
+        System.out.print("  ----");
+        System.out.println("  ----");
+
+        System.out.print(" ____");
+        System.out.print("  ____");
+        System.out.println("  ____");
+        System.out.print("|    |");
+        System.out.print("|    |");
+        System.out.println("|    |");
+        System.out.print("|    |");
+        System.out.print("|    |");
+        System.out.println("|    |");
+        System.out.print(" ----");
+        System.out.print("  ----");
+        System.out.println("  ----");
 
     }
 
@@ -17,6 +55,7 @@ public class Terminal {
      */
     public void drawResult(String result){
 
+
     }
 
     /**
@@ -25,5 +64,6 @@ public class Terminal {
      */
     public int receiveCommand() {
         return 0;
+
     }
 }
