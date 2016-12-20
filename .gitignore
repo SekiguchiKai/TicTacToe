@@ -1,17 +1,31 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Java template
+<<<<<<< HEAD
 *.class
+=======
+
+>>>>>>> 86e6e098870fa5635f2086b68919d20a7e6c0f9c
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+<<<<<<< HEAD
 .idea/
 
 # Package Files #
 *.jar
+=======
+# Package Files #
+
+>>>>>>> 86e6e098870fa5635f2086b68919d20a7e6c0f9c
 *.war
 *.ear
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+<<<<<<< HEAD
+=======
+# intelliJ
+.idea/
+>>>>>>> 86e6e098870fa5635f2086b68919d20a7e6c0f9c
