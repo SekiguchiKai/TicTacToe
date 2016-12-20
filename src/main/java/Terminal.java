@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.HashMap;
 
 /**
@@ -56,9 +57,11 @@ public class Terminal {
      * コマンドラインからの入力を受け取る
      *
      * @return 盤の場所を返す
+     * @throws java.io.IOException コンソールからの入力を正常に受けてれませんでした
      */
-    public int receiveCommand() {
-        return 0;
-
+    public int receiveCommand() throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String buf = bufferedReader.readLine();
+        return Integer.parseInt(buf);
     }
 }
