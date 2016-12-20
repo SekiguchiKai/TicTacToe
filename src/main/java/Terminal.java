@@ -25,5 +25,6 @@ public class Terminal {
      */
     public int receiveCommand() {
         return 0;
+
     }
 }

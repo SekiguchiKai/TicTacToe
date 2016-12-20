@@ -56,6 +56,7 @@ public class NormalGameLogicTest {
     @Test
     public void judgeResult() {
 
+
     }
 
 }
