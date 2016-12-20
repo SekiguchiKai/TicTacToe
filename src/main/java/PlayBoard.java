@@ -1,3 +1,5 @@
+import java.util.stream.IntStream;
+
 /**
  * ゲーム番を表すクラス
  * Created by sekiguchikai on 2016/12/20.
@@ -6,16 +8,31 @@ public class PlayBoard {
     /**
      * 打ち手を格納するための配列
      */
-    private Moves[] movesArray = new Moves[9];
+    private Stones[] stonesArray = new Stones[9];
+
+    /**
+     * コンストラクタ
+     * initStonesArrayメソッドを呼び出す
+     */
+    public PlayBoard(){
+        this.initStonesArray();
+    }
+
+    /**
+     * stonesArrayを初期化するためのメソッド
+     */
+    public void initStonesArray() {
+        IntStream.range(0, 9).forEach(i -> stonesArray[i] = Stones.EMPTY);
+    }
 
     /**
      * ゲーム盤に打ち手を打つためのメソッド
      *
-     * @param point ゲーム盤の場所
-     * @param moves 各プレーヤーの打ち手
+     * @param point  ゲーム盤の場所
+     * @param stones 各プレーヤーの打ち手
      */
-    public void addMoves(int point, Moves moves) {
-        movesArray[point] = moves;
+    public void addMoves(int point, Stones stones) {
+        stonesArray[point] = stones;
     }
 
     /**
@@ -23,16 +40,17 @@ public class PlayBoard {
      *
      * @return 打ち手を格納するための配列
      */
-    public Moves[] getMovesArray() {
-        return this.movesArray;
+    public Stones[] getStonesArray() {
+        return this.stonesArray;
     }
 
     /**
      * movesArrayに格納されている打ち手を返す
+     *
      * @param index moves
      * @return Movesの定数
      */
-    public Moves getMoves(int index){
-        return movesArray[index];
+    public Stones getMoves(int index) {
+        return stonesArray[index];
     }
 }

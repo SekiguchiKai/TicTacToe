@@ -1,4 +1,5 @@
-
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ノーマルモードのゲームを表すクラス
@@ -13,6 +14,7 @@ public class NormalGameLogic {
 
     private Move userMove;
     private Move cpuMove;
+
 
     /**
      * コンストラクタゲーム盤を設定
@@ -46,11 +48,16 @@ public class NormalGameLogic {
         if (userOrder == 1) {
             userMove.setOrder(1);
             cpuMove.setOrder(2);
+            userMove.setStone(Stones.CIRCLE);
+            cpuMove.setStone(Stones.CROSS);
         } else {
             userMove.setOrder(2);
             cpuMove.setOrder(1);
+            userMove.setStone(Stones.CROSS);
+            cpuMove.setStone(Stones.CIRCLE);
         }
     }
+
 
     /**
      * 勝敗を決定するメソッド

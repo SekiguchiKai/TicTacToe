@@ -1,4 +1,5 @@
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 
@@ -27,20 +28,20 @@ public class PlayBoardTest {
         int evenArray[] = {0, 2, 4, 6, 8};
 
 
-        Arrays.stream(oddArray).forEach(i -> playBoard.addMoves(i, Moves.USERMOVE));
-        Arrays.stream(evenArray).forEach(i -> playBoard.addMoves(i, Moves.CPUMOVE));
+        Arrays.stream(oddArray).forEach(i -> playBoard.addMoves(i, Stones.CIRCLE));
+        Arrays.stream(evenArray).forEach(i -> playBoard.addMoves(i, Stones.CROSS));
 
-        Moves[] movesArray = playBoard.getMovesArray();
+        Stones[] stonesArray = playBoard.getStonesArray();
 
-        List<Moves> userMovesList = new ArrayList<>();
-        List<Moves> cpuMovesList = new ArrayList<>();
+        List<Stones> userStonesList = new ArrayList<>();
+        List<Stones> cpuStonesList = new ArrayList<>();
 
 
-        Arrays.stream(oddArray).forEach(i -> userMovesList.add(movesArray[i]));
-        Arrays.stream(evenArray).forEach(i -> cpuMovesList.add(movesArray[i]));
+        Arrays.stream(oddArray).forEach(i -> userStonesList.add(stonesArray[i]));
+        Arrays.stream(evenArray).forEach(i -> cpuStonesList.add(stonesArray[i]));
 
-        IntStream.range(0, oddArray.length).filter(i -> i % 2 == 1).forEach(v -> assertThat(userMovesList.get(v), is(Moves.USERMOVE)));
-        IntStream.range(0, evenArray.length).filter(i -> i % 2 == 0).forEach(v -> assertThat(cpuMovesList.get(v), is(Moves.CPUMOVE)));
+        IntStream.range(0, oddArray.length).filter(i -> i % 2 == 1).forEach(v -> assertThat(userStonesList.get(v), is(Stones.CIRCLE)));
+        IntStream.range(0, evenArray.length).filter(i -> i % 2 == 0).forEach(v -> assertThat(cpuStonesList.get(v), is(Stones.CROSS)));
 
     }
 
@@ -50,8 +51,8 @@ public class PlayBoardTest {
     @Test
     public void getMoveArray() {
         PlayBoard playBoard = new PlayBoard();
-        IntStream.range(0, 9).forEach(i -> playBoard.addMoves(i, Moves.CPUMOVE));
-        IntStream.range(0, 9).forEach(i -> assertThat(playBoard.getMoves(i), is(Moves.CPUMOVE)));
+        IntStream.range(0, 9).forEach(i -> playBoard.addMoves(i, Stones.CIRCLE));
+        IntStream.range(0, 9).forEach(i -> assertThat(playBoard.getMoves(i), is(Stones.CIRCLE)));
     }
 
 }

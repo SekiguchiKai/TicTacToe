@@ -14,6 +14,11 @@ public abstract class Move {
     int order;
 
     /**
+     * プレーヤーの打ち手の石
+     */
+    Stones stone;
+
+    /**
      * コンストラクタ
      * playBoardを初期化する
      *
@@ -29,10 +34,10 @@ public abstract class Move {
     public abstract void decideMove();
 
     /**
-     * @param moves プレーヤーの打ち手
+     * @param stones プレーヤーの打ち手
      * @param point ゲーム盤の場所
      */
-    public void doMove(Moves moves, int point) {
+    public void doMove(Stones stones, int point) {
 
     }
 
@@ -50,5 +55,21 @@ public abstract class Move {
      */
     public int getOrder() {
         return this.order;
+    }
+
+    /**
+     * playerのstoneを設定するためのメソッド
+     * @param stone playerのstone
+     */
+    public void setStone(Stones stone) {
+        this.stone = stone;
+    }
+
+    /**
+     * playerのstoneを返すためのメソッド
+     * @return playerのstone
+     */
+    public Stones getStone() {
+        return this.stone;
     }
 }

@@ -45,8 +45,8 @@ public class NormalGameLogicTest {
             cpuOrderList.add(cpuMove.getOrder());
         });
 
-        assertThat(userOrderList, hasItem(1));
-        assertThat(cpuOrderList, hasItem(1));
+        assertThat(userOrderList, hasItems(1, 2));
+        assertThat(cpuOrderList, hasItems(1, 2));
 
     }
 
