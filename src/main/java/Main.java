@@ -4,46 +4,11 @@
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("アプリケーションを開始します");
-        System.out.print(" ____");
-        System.out.print("  ____");
-        System.out.println("  ____");
-        System.out.print("|    |");
-        System.out.print("|    |");
-        System.out.println("|    |");
-        System.out.print("|    |");
-        System.out.print("|    |");
-        System.out.println("|    |");
-        System.out.print(" ----");
-        System.out.print("  ----");
-        System.out.println("  ----");
 
-        System.out.print(" ____");
-        System.out.print("  ____");
-        System.out.println("  ____");
-        System.out.print("|    |");
-        System.out.print("|    |");
-        System.out.println("|    |");
-        System.out.print("|    |");
-        System.out.print("|    |");
-        System.out.println("|    |");
-        System.out.print(" ----");
-        System.out.print("  ----");
-        System.out.println("  ----");
-
-        System.out.print(" ____");
-        System.out.print("  ____");
-        System.out.println("  ____");
-        System.out.print("|    |");
-        System.out.print("|    |");
-        System.out.println("|    |");
-        System.out.print("|    |");
-        System.out.print("|    |");
-        System.out.println("|    |");
-        System.out.print(" ----");
-        System.out.print("  ----");
-        System.out.println("  ----");
-
+        PlayBoard playBoard = new PlayBoard();
+        playBoard.addMoves(1, Stones.CIRCLE);
+        Terminal terminal = new Terminal();
+        terminal.drawBoard(playBoard.getStonesArray());
 
     }
 }
