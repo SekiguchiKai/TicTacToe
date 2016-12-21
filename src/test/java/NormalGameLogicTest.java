@@ -31,24 +31,24 @@ public class NormalGameLogicTest {
 
     }
 
-    /**
-     * decideOrderクラスをテストするためのメソッド
-     */
-    @Test
-    public void decideOrder() {
-        List<Integer> userOrderList = new ArrayList<>();
-        List<Integer> cpuOrderList = new ArrayList<>();
-
-        IntStream.range(0, 100).forEach(i -> {
-            normalGameLogic.decideOrder();
-            userOrderList.add(userMove.getOrder());
-            cpuOrderList.add(cpuMove.getOrder());
-        });
-
-        assertThat(userOrderList, hasItems(1, 2));
-        assertThat(cpuOrderList, hasItems(1, 2));
-
-    }
+//    /**
+//     * decideOrderクラスをテストするためのメソッド
+//     */
+//    @Test
+//    public void decideOrder() {
+//        List<Integer> userOrderList = new ArrayList<>();
+//        List<Integer> cpuOrderList = new ArrayList<>();
+//
+//        IntStream.range(0, 100).forEach(i -> {
+//            normalGameLogic.decideOrder();
+//            userOrderList.add(userMove.getOrder());
+//            cpuOrderList.add(cpuMove.getOrder());
+//        });
+//
+//        assertThat(userOrderList, hasItems(1, 2));
+//        assertThat(cpuOrderList, hasItems(1, 2));
+//
+//    }
 
     /**
      * judgeResultクラスをテストするためのメソッド

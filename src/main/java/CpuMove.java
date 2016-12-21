@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  * CPUの打ち手を表すクラス
  * Created by sekiguchikai on 2016/12/20.
@@ -14,10 +16,5 @@ public class CpuMove extends Move {
         super(playBoard);
     }
 
-    /**
-     * 打ち手を決めるためのメソッド
-     */
-    public void decideMove() {
 
-    }
 }

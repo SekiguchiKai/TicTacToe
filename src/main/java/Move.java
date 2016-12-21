@@ -16,7 +16,7 @@ public abstract class Move {
     /**
      * プレーヤーの打ち手の石
      */
-    Stones stone;
+    MOVES stone;
 
     /**
      * コンストラクタ
@@ -29,16 +29,10 @@ public abstract class Move {
     }
 
     /**
-     * 打ち手を決めるためのメソッド
+     * @param point  ゲーム盤の場所
+     * @param MOVES プレーヤーの打ち手
      */
-    public abstract void decideMove();
-
-    /**
-     * @param stones プレーヤーの打ち手
-     * @param point ゲーム盤の場所
-     */
-    public void doMove(Stones stones, int point) {
-
+    public void doMove(int point, MOVES MOVES) {
     }
 
     /**
@@ -59,17 +53,19 @@ public abstract class Move {
 
     /**
      * playerのstoneを設定するためのメソッド
+     *
      * @param stone playerのstone
      */
-    public void setStone(Stones stone) {
+    public void setStone(MOVES stone) {
         this.stone = stone;
     }
 
     /**
      * playerのstoneを返すためのメソッド
+     *
      * @return playerのstone
      */
-    public Stones getStone() {
+    public MOVES getStone() {
         return this.stone;
     }
 }

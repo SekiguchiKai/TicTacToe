@@ -14,11 +14,5 @@ public class UserMove extends Move {
         super(playBoard);
     }
 
-    /**
-     * 打ち手を決めるためのメソッド
-     */
-    public void decideMove() {
-
-    }
 
 }

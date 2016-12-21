@@ -8,13 +8,13 @@ public class PlayBoard {
     /**
      * 打ち手を格納するための配列
      */
-    private Stones[] stonesArray = new Stones[9];
+    private MOVES[][] MOVESArray = new MOVES[3][3];
 
     /**
      * コンストラクタ
      * initStonesArrayメソッドを呼び出す
      */
-    public PlayBoard(){
+    public PlayBoard() {
         this.initStonesArray();
     }
 
@@ -22,17 +22,18 @@ public class PlayBoard {
      * stonesArrayを初期化するためのメソッド
      */
     public void initStonesArray() {
-        IntStream.range(0, 9).forEach(i -> stonesArray[i] = Stones.EMPTY);
+        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> MOVESArray[i][j] = MOVES.EMPTY));
     }
 
     /**
      * ゲーム盤に打ち手を打つためのメソッド
      *
-     * @param point  ゲーム盤の場所
-     * @param stones 各プレーヤーの打ち手
+     * @param y      ゲーム盤のy座標
+     * @param x      ゲーム盤のx座標
+     * @param MOVES 各プレーヤーの打ち手
      */
-    public void addMoves(int point, Stones stones) {
-        stonesArray[point] = stones;
+    public void addMoves(int y, int x, MOVES MOVES) {
+        MOVESArray[y][x] = MOVES;
     }
 
     /**
@@ -40,17 +41,18 @@ public class PlayBoard {
      *
      * @return 打ち手を格納するための配列
      */
-    public Stones[] getStonesArray() {
-        return this.stonesArray;
+    public MOVES[][] getMOVESArray() {
+        return this.MOVESArray;
     }
 
     /**
      * movesArrayに格納されている打ち手を返す
      *
-     * @param index moves
+     * @param y ゲーム盤のy座標
+     * @param x ゲーム盤のx座標
      * @return Movesの定数
      */
-    public Stones getMoves(int index) {
-        return stonesArray[index];
+    public MOVES getMoves(int y, int x) {
+        return MOVESArray[y][x];
     }
 }
