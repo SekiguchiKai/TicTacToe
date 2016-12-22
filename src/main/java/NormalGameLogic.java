@@ -64,7 +64,7 @@ public class NormalGameLogic {
      *
      * @return 勝敗（勝敗がついていない場合は、「勝負は未定」）
      */
-    String judgeResult(int[] boardArray) {
+    String judgeResult() {
 
         final int CIRCLE = 1;
         final int CROSS = 2;
