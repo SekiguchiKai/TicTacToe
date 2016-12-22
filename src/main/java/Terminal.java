@@ -51,9 +51,9 @@ public class Terminal {
      * @return 石の文字
      */
     String changeMovesToStone(MOVES moves) {
-        if (moves == MOVES.USERMOVE) {
+        if (moves == MOVES.USER_MOVE) {
             return "○";
-        } else if (moves == MOVES.CPUMOVE) {
+        } else if (moves == MOVES.CPU_MOVE) {
             return "×";
         } else {
             return " ";

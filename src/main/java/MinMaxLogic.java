@@ -20,37 +20,48 @@ public class MinMaxLogic {
      * 現在のゲーム木の深さの1個下の階層の点数をMinMaxで取得する
      * その取得した点数が現在保持している一番低い点数（ベストスコア）よりも低い場合は、その点数が保持されるベストスコアとなる
      *
+     * @param depth      ゲーム木の深さ
+     * @param gameBoard  ゲーム盤
+     * @param playerName player名
      * @return ゲーム盤のy軸, x軸を保持したint[][]の二次元配列
      */
-    public Integer[] calcMinMax(MOVES[][] gameBoard, PLAYER_NAME playerName) {
+    public int[] calcMinMax(int depth, MOVES[][] gameBoard, PLAYER_NAME playerName) {
 
         int bestScore = 0;
         int score = 0;
 
-        Integer[] scoreSpot;
-        Integer[] bestScoreSpot = null;
+        int bestRow = 0;
+        int bestColumn = 0;
 
 
-        for (int[] moveSpot : this.makeCapableList(gameBoard)) {
-            if (playerName == PLAYER_NAME.CPU) {
-                Simulator simulator = new Simulator(gameBoard, moveSpot, MOVES.CPUMOVE);
-                score = simulator.getBestScore();
-                scoreSpot = simulator.getBestScoreSpot();
-                if (score > bestScore) {
-                    bestScore = score;
-                    bestScoreSpot = scoreSpot;
+        List<int[]> capableMove = this.makeCapableMOveList(gameBoard);
+        Simulator simulator = new Simulator();
+
+        // 試合が終了か、深さが0の場合は、スコアを
+        if (capableMove.isEmpty() || depth == 0) {
+            bestScore = simulator.calcScore(gameBoard);
+        } else {
+            for (int[] moveSpot : capableMove) {
+                if (playerName == PLAYER_NAME.CPU) {
+                    score = calcMinMax(depth - 1, gameBoard, playerName)[0];
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestRow = moveSpot[0];
+                        bestColumn = moveSpot[1];
+                    }
+                } else {
+                    score = calcMinMax(depth - 1, gameBoard, playerName)[0];
+                    if (bestScore > score) {
+                        bestScore = score;
+                        bestRow = moveSpot[0];
+                        bestColumn = moveSpot[1];
+                    }
                 }
-            } else {
-                Simulator simulator = new Simulator(gameBoard, moveSpot, MOVES.USERMOVE);
-                score = simulator.getBestScore();
-
-                if (bestScore > score) {
-                    bestScore = score;
-                }
-
             }
         }
-        return bestScoreSpot;
+
+
+        return new int[]{bestScore, bestRow, bestColumn};
 
     }
 
@@ -60,7 +71,7 @@ public class MinMaxLogic {
      * @param gameBoard ゲームの盤
      * @return EMPTYが存在するGameBoard上の場所の一覧を格納したList
      */
-    List<int[]> makeCapableList(MOVES[][] gameBoard) {
+    List<int[]> makeCapableMOveList(MOVES[][] gameBoard) {
 
         List<int[]> capableMoveList = new ArrayList<>();
         IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> {
@@ -71,6 +82,9 @@ public class MinMaxLogic {
 
         return capableMoveList;
     }
+
+
+
 
 
 }

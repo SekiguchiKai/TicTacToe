@@ -18,8 +18,8 @@ public class NormalGameLogic {
 //     */
 //    GameBoard gameBoard;
 //
-//    private Move userMove;
-//    private Move cpuMove;
+//    private Move USER_MOVE;
+//    private Move CPU_MOVE;
 //
 //
 //    /**
@@ -27,13 +27,13 @@ public class NormalGameLogic {
 //     * ゲーム盤を設定
 //     *
 //     * @param gameBoard ゲーム盤
-//     * @param userMove  ユーザーの打ち手
-//     * @param cpuMove   cpuの打ち手
+//     * @param USER_MOVE  ユーザーの打ち手
+//     * @param CPU_MOVE   cpuの打ち手
 //     */
-//    public NormalGameLogic(GameBoard gameBoard, Move userMove, Move cpuMove) {
+//    public NormalGameLogic(GameBoard gameBoard, Move USER_MOVE, Move CPU_MOVE) {
 //        this.gameBoard = gameBoard;
-//        this.userMove = userMove;
-//        this.cpuMove = cpuMove;
+//        this.USER_MOVE = USER_MOVE;
+//        this.CPU_MOVE = CPU_MOVE;
 //    }
 
 
@@ -45,15 +45,15 @@ public class NormalGameLogic {
 //    void decideOrder() {
 //        int userOrder = (int) (Math.random() * 2 + 1);
 //        if (userOrder == 1) {
-//            userMove.setOrder(1);
-//            cpuMove.setOrder(2);
-//            userMove.setStone(MOVES.CIRCLE);
-//            cpuMove.setStone(MOVES.CROSS);
+//            USER_MOVE.setOrder(1);
+//            CPU_MOVE.setOrder(2);
+//            USER_MOVE.setStone(MOVES.CIRCLE);
+//            CPU_MOVE.setStone(MOVES.CROSS);
 //        } else {
-//            userMove.setOrder(2);
-//            cpuMove.setOrder(1);
-//            userMove.setStone(MOVES.CROSS);
-//            cpuMove.setStone(MOVES.CIRCLE);
+//            USER_MOVE.setOrder(2);
+//            CPU_MOVE.setOrder(1);
+//            USER_MOVE.setStone(MOVES.CROSS);
+//            CPU_MOVE.setStone(MOVES.CIRCLE);
 //        }
 //    }
 

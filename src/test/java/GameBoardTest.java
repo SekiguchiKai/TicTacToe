@@ -20,13 +20,13 @@ public class GameBoardTest {
 //    public void addMove() {
 //        GameBoard gameBoard = new GameBoard();
 //
-//        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> gameBoard.addMoves(i, j, MOVES.USERMOVE)));
+//        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> gameBoard.addMoves(i, j, MOVES.USER_MOVE)));
 //        MOVES[][] gameBoard2 = gameBoard.getgameBoard();
-//        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> assertThat(gameBoard[i][j], is(MOVES.USERMOVE))));
+//        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> assertThat(gameBoard[i][j], is(MOVES.USER_MOVE))));
 //
-//        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> gameBoard.addMoves(i, j, MOVES.CPUMOVE)));
+//        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> gameBoard.addMoves(i, j, MOVES.CPU_MOVE)));
 //        MOVES[][] gameBoard2 = gameBoard.getgameBoard();
-//        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> assertThat(gameBoard2[i][j], is(MOVES.CPUMOVE))));
+//        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> assertThat(gameBoard2[i][j], is(MOVES.CPU_MOVE))));
 //
 //    }
 //

@@ -9,9 +9,9 @@ public class NormalGameLogicTest {
 
 //    private gameBoard gameBoard = new gameBoard();
 //
-//    Move userMove = new User(gameBoard);
-//    Move cpuMove = new Cpu(gameBoard);
-//    private NormalGameLogic normalGameLogic = new NormalGameLogic(gameBoard, userMove, cpuMove);
+//    Move USER_MOVE = new User(gameBoard);
+//    Move CPU_MOVE = new Cpu(gameBoard);
+//    private NormalGameLogic normalGameLogic = new NormalGameLogic(gameBoard, USER_MOVE, CPU_MOVE);
 //
 //    /**
 //     * playGameをテストするためのメソッド
@@ -33,8 +33,8 @@ public class NormalGameLogicTest {
 ////
 ////        IntStream.range(0, 100).forEach(i -> {
 ////            normalGameLogic.decideOrder();
-////            userOrderList.add(userMove.getOrder());
-////            cpuOrderList.add(cpuMove.getOrder());
+////            userOrderList.add(USER_MOVE.getOrder());
+////            cpuOrderList.add(CPU_MOVE.getOrder());
 ////        });
 ////
 ////        assertThat(userOrderList, hasItems(1, 2));

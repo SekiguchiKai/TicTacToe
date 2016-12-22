@@ -3,6 +3,6 @@
  * Created by sekiguchikai on 2016/12/20.
  */
 public enum MOVES {
-    USERMOVE, CPUMOVE, EMPTY
+    USER_MOVE, CPU_MOVE, EMPTY
 
 }
