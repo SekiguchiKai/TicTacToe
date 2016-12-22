@@ -4,17 +4,17 @@ import java.util.stream.IntStream;
  * ゲーム番を表すクラス
  * Created by sekiguchikai on 2016/12/20.
  */
-public class PlayBoard {
+public class GameBoard {
     /**
      * 打ち手を格納するための配列
      */
-    private MOVES[][] MOVESArray = new MOVES[3][3];
+    private MOVES[][] gameBoard = new MOVES[3][3];
 
     /**
      * コンストラクタ
      * initStonesArrayメソッドを呼び出す
      */
-    public PlayBoard() {
+    public GameBoard() {
         this.initStonesArray();
     }
 
@@ -22,7 +22,7 @@ public class PlayBoard {
      * stonesArrayを初期化するためのメソッド
      */
     public void initStonesArray() {
-        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> MOVESArray[i][j] = MOVES.EMPTY));
+        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> gameBoard[i][j] = MOVES.EMPTY));
     }
 
     /**
@@ -33,7 +33,7 @@ public class PlayBoard {
      * @param MOVES 各プレーヤーの打ち手
      */
     public void addMoves(int y, int x, MOVES MOVES) {
-        MOVESArray[y][x] = MOVES;
+        gameBoard[y][x] = MOVES;
     }
 
     /**
@@ -41,18 +41,18 @@ public class PlayBoard {
      *
      * @return 打ち手を格納するための配列
      */
-    public MOVES[][] getMOVESArray() {
-        return this.MOVESArray;
+    public MOVES[][] getgameBoard() {
+        return this.gameBoard;
     }
 
     /**
-     * movesArrayに格納されている打ち手を返す
+     * gameBoardに格納されている打ち手を返す
      *
      * @param y ゲーム盤のy座標
      * @param x ゲーム盤のx座標
      * @return Movesの定数
      */
     public MOVES getMoves(int y, int x) {
-        return MOVESArray[y][x];
+        return gameBoard[y][x];
     }
 }

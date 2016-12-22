@@ -8,15 +8,15 @@ public class Terminal {
     /**
      * コマンドライン上にゲーム番を描くためのメソッド
      */
-    public void drawBoard(MOVES[][] movesArray, int userOrder, int cpuOrder) {
+    public void drawBoard(MOVES[][] gameBoard, int userOrder, int cpuOrder) {
 
 
         System.out.print(" ___");
         System.out.print("  ___");
         System.out.println("  ___");
-        System.out.print("| " + this.changeMovesToStone(movesArray[0][0]) + " |");
-        System.out.print("| " + this.changeMovesToStone(movesArray[0][1]) + " |");
-        System.out.println("|" + this.changeMovesToStone(movesArray[0][2]) + "  |");
+        System.out.print("| " + this.changeMovesToStone(gameBoard[0][0]) + " |");
+        System.out.print("| " + this.changeMovesToStone(gameBoard[0][1]) + " |");
+        System.out.println("|" + this.changeMovesToStone(gameBoard[0][2]) + "  |");
         System.out.print(" ---");
         System.out.print("  ---");
         System.out.println("  ---");
@@ -24,9 +24,9 @@ public class Terminal {
         System.out.print(" ___");
         System.out.print("  ___");
         System.out.println("  ___");
-        System.out.print("| " + this.changeMovesToStone(movesArray[1][0]) + " |");
-        System.out.print("| " + this.changeMovesToStone(movesArray[1][1]) + " |");
-        System.out.println("|" + this.changeMovesToStone(movesArray[1][2]) + "  |");
+        System.out.print("| " + this.changeMovesToStone(gameBoard[1][0]) + " |");
+        System.out.print("| " + this.changeMovesToStone(gameBoard[1][1]) + " |");
+        System.out.println("|" + this.changeMovesToStone(gameBoard[1][2]) + "  |");
         System.out.print(" ---");
         System.out.print("  ---");
         System.out.println("  ---");
@@ -34,9 +34,9 @@ public class Terminal {
         System.out.print(" ___");
         System.out.print("  ___");
         System.out.println("  ___");
-        System.out.print("| " + this.changeMovesToStone(movesArray[2][0]) + " |");
-        System.out.print("| " + this.changeMovesToStone(movesArray[2][1]) + " |");
-        System.out.println("|" + this.changeMovesToStone(movesArray[2][2]) + "  |");
+        System.out.print("| " + this.changeMovesToStone(gameBoard[2][0]) + " |");
+        System.out.print("| " + this.changeMovesToStone(gameBoard[2][1]) + " |");
+        System.out.println("|" + this.changeMovesToStone(gameBoard[2][2]) + "  |");
         System.out.print(" ---");
         System.out.print("  ---");
         System.out.println("  ---");

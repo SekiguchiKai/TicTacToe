@@ -13,28 +13,28 @@ public class NormalGameLogic {
     // とりあえず user= ○, cpu= ×とする
 
 
-    /**
-     * ゲーム版
-     */
-    PlayBoard playBoard;
-
-    private Move userMove;
-    private Move cpuMove;
-
-
-    /**
-     * コンストラクタ
-     * ゲーム盤を設定
-     *
-     * @param playBoard ゲーム盤
-     * @param userMove  ユーザーの打ち手
-     * @param cpuMove   cpuの打ち手
-     */
-    public NormalGameLogic(PlayBoard playBoard, Move userMove, Move cpuMove) {
-        this.playBoard = playBoard;
-        this.userMove = userMove;
-        this.cpuMove = cpuMove;
-    }
+//    /**
+//     * ゲーム版
+//     */
+//    GameBoard gameBoard;
+//
+//    private Move userMove;
+//    private Move cpuMove;
+//
+//
+//    /**
+//     * コンストラクタ
+//     * ゲーム盤を設定
+//     *
+//     * @param gameBoard ゲーム盤
+//     * @param userMove  ユーザーの打ち手
+//     * @param cpuMove   cpuの打ち手
+//     */
+//    public NormalGameLogic(GameBoard gameBoard, Move userMove, Move cpuMove) {
+//        this.gameBoard = gameBoard;
+//        this.userMove = userMove;
+//        this.cpuMove = cpuMove;
+//    }
 
 
 //    /**

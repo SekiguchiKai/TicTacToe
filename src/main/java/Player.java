@@ -2,12 +2,12 @@
  * 各プレーヤーの打ち手を表す抽象クラス
  * Created by sekiguchikai on 2016/12/20.
  */
-public abstract class Move {
+public abstract class Player {
 
     /**
      * ゲーム盤
      */
-    PlayBoard playBoard;
+    GameBoard gameBoard;
     /**
      * プレーヤーの打ち手の順番
      */
@@ -20,16 +20,16 @@ public abstract class Move {
 
     /**
      * コンストラクタ
-     * playBoardを初期化する
+     * gameBoardを初期化する
      *
-     * @param playBoard ゲーム盤
+     * @param gameBoard ゲーム盤
      */
-    public Move(PlayBoard playBoard) {
-        this.playBoard = playBoard;
+    public Player(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
     }
 
     /**
-     * @param point  ゲーム盤の場所
+     * @param point ゲーム盤の場所
      * @param MOVES プレーヤーの打ち手
      */
     public void doMove(int point, MOVES MOVES) {
