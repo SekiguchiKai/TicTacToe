@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.io.*;
 
 /**
  * コマンドラインとのやりとりを行うクラス
@@ -8,15 +8,15 @@ public class Terminal {
     /**
      * コマンドライン上にゲーム番を描くためのメソッド
      */
-    public void drawBoard(Stones[] stonesArray) {
+    public void drawBoard(MOVES[][] gameBoard, int userOrder, int cpuOrder) {
 
 
         System.out.print(" ___");
         System.out.print("  ___");
         System.out.println("  ___");
-        System.out.print("| " + stonesArray[0].getStone() + " |");
-        System.out.print("| " + stonesArray[1].getStone() + " |");
-        System.out.println("|" + stonesArray[2].getStone() + "  |");
+        System.out.print("| " + this.changeMovesToStone(gameBoard[0][0]) + " |");
+        System.out.print("| " + this.changeMovesToStone(gameBoard[0][1]) + " |");
+        System.out.println("|" + this.changeMovesToStone(gameBoard[0][2]) + "  |");
         System.out.print(" ---");
         System.out.print("  ---");
         System.out.println("  ---");
@@ -24,9 +24,9 @@ public class Terminal {
         System.out.print(" ___");
         System.out.print("  ___");
         System.out.println("  ___");
-        System.out.print("| " + stonesArray[3].getStone() + " |");
-        System.out.print("| " + stonesArray[4].getStone() + " |");
-        System.out.println("|" + stonesArray[5].getStone() + "  |");
+        System.out.print("| " + this.changeMovesToStone(gameBoard[1][0]) + " |");
+        System.out.print("| " + this.changeMovesToStone(gameBoard[1][1]) + " |");
+        System.out.println("|" + this.changeMovesToStone(gameBoard[1][2]) + "  |");
         System.out.print(" ---");
         System.out.print("  ---");
         System.out.println("  ---");
@@ -34,13 +34,30 @@ public class Terminal {
         System.out.print(" ___");
         System.out.print("  ___");
         System.out.println("  ___");
-        System.out.print("| " + stonesArray[6].getStone() + " |");
-        System.out.print("| " + stonesArray[7].getStone() + " |");
-        System.out.println("|" + stonesArray[8].getStone() + "  |");
+        System.out.print("| " + this.changeMovesToStone(gameBoard[2][0]) + " |");
+        System.out.print("| " + this.changeMovesToStone(gameBoard[2][1]) + " |");
+        System.out.println("|" + this.changeMovesToStone(gameBoard[2][2]) + "  |");
         System.out.print(" ---");
         System.out.print("  ---");
         System.out.println("  ---");
 
+    }
+
+
+    /**
+     * MOVESから石の文字に変換するためのメソッド
+     *
+     * @param moves MOVESのEnumの要素
+     * @return 石の文字
+     */
+    String changeMovesToStone(MOVES moves) {
+        if (moves == MOVES.USER_MOVE) {
+            return "○";
+        } else if (moves == MOVES.CPU_MOVE) {
+            return "×";
+        } else {
+            return " ";
+        }
     }
 
     /**
@@ -56,9 +73,11 @@ public class Terminal {
      * コマンドラインからの入力を受け取る
      *
      * @return 盤の場所を返す
+     * @throws java.io.IOException コンソールからの入力を正常に受けてれませんでした
      */
-    public int receiveCommand() {
-        return 0;
-
+    public int receiveCommand() throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String buf = bufferedReader.readLine();
+        return Integer.parseInt(buf);
     }
 }
