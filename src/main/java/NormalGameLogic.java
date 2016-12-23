@@ -10,67 +10,9 @@ import java.util.stream.IntStream;
 public class NormalGameLogic {
 
 
-    // とりあえず user= ○, cpu= ×とする
+    // とりあえず user= ○, cpu= ×
 
 
-//    /**
-//     * ゲーム版
-//     */
-//    GameBoard gameBoard;
-//
-//    private Move USER_MOVE;
-//    private Move CPU_MOVE;
-//
-//
-//    /**
-//     * コンストラクタ
-//     * ゲーム盤を設定
-//     *
-//     * @param gameBoard ゲーム盤
-//     * @param USER_MOVE  ユーザーの打ち手
-//     * @param CPU_MOVE   cpuの打ち手
-//     */
-//    public NormalGameLogic(GameBoard gameBoard, Move USER_MOVE, Move CPU_MOVE) {
-//        this.gameBoard = gameBoard;
-//        this.USER_MOVE = USER_MOVE;
-//        this.CPU_MOVE = CPU_MOVE;
-//    }
-
-
-//    /**
-//     * プレーヤーの打ち手の順番を決定するメソッド
-//     *
-//     * @return 打ち手の順番を表す数字とそれに紐づけられた各々のプレーヤーを格納するためのMap
-//     */
-//    void decideOrder() {
-//        int userOrder = (int) (Math.random() * 2 + 1);
-//        if (userOrder == 1) {
-//            USER_MOVE.setOrder(1);
-//            CPU_MOVE.setOrder(2);
-//            USER_MOVE.setStone(MOVES.CIRCLE);
-//            CPU_MOVE.setStone(MOVES.CROSS);
-//        } else {
-//            USER_MOVE.setOrder(2);
-//            CPU_MOVE.setOrder(1);
-//            USER_MOVE.setStone(MOVES.CROSS);
-//            CPU_MOVE.setStone(MOVES.CIRCLE);
-//        }
-//    }
-
-
-<<<<<<< HEAD
-    /**
-     * コンストラクタゲーム盤を設定
-     *
-     * @param playBoard ゲーム盤
-     * @param userMove  ユーザーの打ち手
-     * @param cpuMove   cpuの打ち手
-     */
-    public NormalGameLogic(PlayBoard playBoard, Move userMove, Move cpuMove) {
-        this.playBoard = playBoard;
-        this.userMove = userMove;
-        this.cpuMove = cpuMove;
-    }
 
     /**
      * ゲームを進行していくロジックを担当するメソッド
@@ -87,71 +29,72 @@ public class NormalGameLogic {
      * @return 打ち手の順番を表す数字とそれに紐づけられた各々のプレーヤーを格納するためのMap
      */
     void decideOrder() {
-        int userOrder = (int) (Math.random() * 2 + 1);
-        if (userOrder == 1) {
-            userMove.setOrder(1);
-            cpuMove.setOrder(2);
-            userMove.setStone(Stones.CIRCLE);
-            cpuMove.setStone(Stones.CROSS);
-        } else {
-            userMove.setOrder(2);
-            cpuMove.setOrder(1);
-            userMove.setStone(Stones.CROSS);
-            cpuMove.setStone(Stones.CIRCLE);
-        }
+       
     }
 
 
     /**
-     * 勝敗を決定するメソッド
+     * 勝敗を判断するためのメソッド
+     * 勝敗によって返す点数が異なる
+     * <p>
+     * CPUが勝利した場合 : 100
+     * USERが勝利した場合 : -100
+     * 引き分けの場合 : 50
+     * 未決の場合 : 0
      *
-     * @return 勝敗（勝敗がついていない場合は、「勝負は未定」）
+     * @param gameBoard ゲーム盤
+     * @return 勝敗の結果
      */
-    String judgeResult() {
+    int judgeResult(MOVES[][] gameBoard) {
 
-        final int CIRCLE = 1;
-        final int CROSS = 2;
 
         // 縦
-        for (int i = 0; i < 3; i = i++) {
-            if (boardArray[i] == CIRCLE && boardArray[i + 3] == CIRCLE && boardArray[i + 6] == CIRCLE) {
-                return "君の勝ちだ";
-            } else if (boardArray[i] == CROSS && boardArray[i + 3] == CROSS && boardArray[i + 6] == CROSS) {
-                return "君の負けだ";
-            }
+
+        if ((gameBoard[0][0] == MOVES.USER_MOVE && gameBoard[1][0] == MOVES.USER_MOVE && gameBoard[2][0] == MOVES.USER_MOVE) ||
+                (gameBoard[0][1] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[2][1] == MOVES.USER_MOVE) ||
+                (gameBoard[0][2] == MOVES.USER_MOVE && gameBoard[1][2] == MOVES.USER_MOVE && gameBoard[2][2] == MOVES.USER_MOVE)) {
+            return -100;
+        } else if ((
+                gameBoard[0][0] == MOVES.CPU_MOVE && gameBoard[1][0] == MOVES.CPU_MOVE && gameBoard[2][0] == MOVES.CPU_MOVE) ||
+                (gameBoard[0][1] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[2][1] == MOVES.CPU_MOVE) ||
+                (gameBoard[0][2] == MOVES.CPU_MOVE && gameBoard[1][2] == MOVES.CPU_MOVE && gameBoard[2][2] == MOVES.CPU_MOVE)) {
+            return 100;
         }
+
 
         // 横
-        for (int i = 1; i < 3; i = i + 3) {
-            if (boardArray[i] == CIRCLE && boardArray[i + 1] == CIRCLE && boardArray[i + 2] == CIRCLE) {
-                return "君の勝ちだ";
-            } else if (boardArray[i] == CROSS && boardArray[i + 1] == CROSS && boardArray[i + 2] == CROSS) {
-                return "君の負けだ";
-            }
+
+        if ((gameBoard[0][0] == MOVES.USER_MOVE && gameBoard[0][1] == MOVES.USER_MOVE && gameBoard[0][2] == MOVES.USER_MOVE) ||
+                (gameBoard[1][0] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[1][2] == MOVES.USER_MOVE) ||
+                (gameBoard[2][0] == MOVES.USER_MOVE && gameBoard[2][1] == MOVES.USER_MOVE && gameBoard[2][2] == MOVES.USER_MOVE)) {
+            return -100;
+        } else if ((gameBoard[0][0] == MOVES.CPU_MOVE && gameBoard[0][1] == MOVES.CPU_MOVE && gameBoard[0][2] == MOVES.CPU_MOVE) ||
+                (gameBoard[1][0] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[1][2] == MOVES.CPU_MOVE) ||
+                (gameBoard[2][0] == MOVES.CPU_MOVE && gameBoard[2][1] == MOVES.CPU_MOVE && gameBoard[2][2] == MOVES.CPU_MOVE)) {
+            return 100;
         }
+
 
         // 斜め
-        if (boardArray[0] == CIRCLE && boardArray[4] == CIRCLE && boardArray[8] == CIRCLE) {
-            return "君の勝ちだ";
-        } else if (boardArray[0] == CROSS && boardArray[4] == CROSS && boardArray[8] == CROSS) {
-            return "君の負けだ";
-        } else if (boardArray[2] == CIRCLE && boardArray[4] == CIRCLE && boardArray[6] == CIRCLE) {
-            return "君の勝ちだ";
-        } else if (boardArray[2] == CROSS && boardArray[4] == CROSS && boardArray[6] == CROSS) {
-            return "君の負けだ";
+        if ((gameBoard[0][0] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[2][2] == MOVES.USER_MOVE) ||
+                (gameBoard[0][2] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[2][0] == MOVES.USER_MOVE)) {
+            return -100;
+        } else if ((gameBoard[0][0] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[2][2] == MOVES.CPU_MOVE) ||
+                (gameBoard[0][2] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[2][0] == MOVES.CPU_MOVE)) {
+            return 100;
         }
+
 
         // 全部埋まった
-        for (int idx : boardArray) {
-            if (idx != 0) {
-                return "引き分けです";
-            }
+        List<MOVES> checkList = new ArrayList<>();
+        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> checkList.add(gameBoard[i][j])));
+
+        if (!checkList.contains(MOVES.EMPTY)) {
+            return 50;
         }
 
-        return "勝負は未定";
-
+        return 0;
     }
-=======
->>>>>>> 027c6f51ab883c8f58af1937c7e400b39bd444b5
+
 }
 
