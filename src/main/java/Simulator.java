@@ -21,7 +21,7 @@ public class Simulator {
      * @param gameBoard ゲーム盤
      * @return 勝敗の結果
      */
-    int calcScore(MOVES[][] gameBoard) {
+    int calcScore(MOVES[] gameBoard) {
         int score = 0;
 
         // 横
@@ -33,7 +33,7 @@ public class Simulator {
 
         // 全部埋まった（引き分け）
         List<MOVES> checkList = new ArrayList<>();
-        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> checkList.add(gameBoard[i][j])));
+        IntStream.range(0, 9).forEach(i -> checkList.add(gameBoard[i]));
 
         if (!checkList.contains(MOVES.NO_MOVE)) {
             score += 50;
@@ -48,15 +48,15 @@ public class Simulator {
      * @param gameBoard ゲーム盤
      * @return 勝敗の結果の点数
      */
-    int calcRowScore(MOVES[][] gameBoard) {
-        if ((gameBoard[0][0] == MOVES.USER_MOVE && gameBoard[1][0] == MOVES.USER_MOVE && gameBoard[2][0] == MOVES.USER_MOVE) ||
-                (gameBoard[0][1] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[2][1] == MOVES.USER_MOVE) ||
-                (gameBoard[0][2] == MOVES.USER_MOVE && gameBoard[1][2] == MOVES.USER_MOVE && gameBoard[2][2] == MOVES.USER_MOVE)) {
+    int calcRowScore(MOVES[] gameBoard) {
+        if ((gameBoard[0] == MOVES.USER_MOVE && gameBoard[1] == MOVES.USER_MOVE && gameBoard[2] == MOVES.USER_MOVE) ||
+                (gameBoard[3] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[5] == MOVES.USER_MOVE) ||
+                (gameBoard[6] == MOVES.USER_MOVE && gameBoard[7] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE)) {
             return -100;
         } else if ((
-                gameBoard[0][0] == MOVES.CPU_MOVE && gameBoard[1][0] == MOVES.CPU_MOVE && gameBoard[2][0] == MOVES.CPU_MOVE) ||
-                (gameBoard[0][1] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[2][1] == MOVES.CPU_MOVE) ||
-                (gameBoard[0][2] == MOVES.CPU_MOVE && gameBoard[1][2] == MOVES.CPU_MOVE && gameBoard[2][2] == MOVES.CPU_MOVE)) {
+                gameBoard[0] == MOVES.CPU_MOVE && gameBoard[1] == MOVES.CPU_MOVE && gameBoard[2] == MOVES.CPU_MOVE) ||
+                (gameBoard[3] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[5] == MOVES.CPU_MOVE) ||
+                (gameBoard[6] == MOVES.CPU_MOVE && gameBoard[7] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE)) {
             return 100;
         }
         return 0;
@@ -68,15 +68,15 @@ public class Simulator {
      * @param gameBoard ゲーム盤
      * @return 勝敗の結果の点数
      */
-    int calcColumnScore(MOVES[][] gameBoard) {
+    int calcColumnScore(MOVES[] gameBoard) {
 
-        if ((gameBoard[0][0] == MOVES.USER_MOVE && gameBoard[0][1] == MOVES.USER_MOVE && gameBoard[0][2] == MOVES.USER_MOVE) ||
-                (gameBoard[1][0] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[1][2] == MOVES.USER_MOVE) ||
-                (gameBoard[2][0] == MOVES.USER_MOVE && gameBoard[2][1] == MOVES.USER_MOVE && gameBoard[2][2] == MOVES.USER_MOVE)) {
+        if ((gameBoard[0] == MOVES.USER_MOVE && gameBoard[3] == MOVES.USER_MOVE && gameBoard[6] == MOVES.USER_MOVE) ||
+                (gameBoard[1] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[7] == MOVES.USER_MOVE) ||
+                (gameBoard[2] == MOVES.USER_MOVE && gameBoard[5] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE)) {
             return -100;
-        } else if ((gameBoard[0][0] == MOVES.CPU_MOVE && gameBoard[0][1] == MOVES.CPU_MOVE && gameBoard[0][2] == MOVES.CPU_MOVE) ||
-                (gameBoard[1][0] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[1][2] == MOVES.CPU_MOVE) ||
-                (gameBoard[2][0] == MOVES.CPU_MOVE && gameBoard[2][1] == MOVES.CPU_MOVE && gameBoard[2][2] == MOVES.CPU_MOVE)) {
+        } else if ((gameBoard[0] == MOVES.CPU_MOVE && gameBoard[3] == MOVES.CPU_MOVE && gameBoard[6] == MOVES.CPU_MOVE) ||
+        (gameBoard[1] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[7] == MOVES.CPU_MOVE) ||
+                (gameBoard[2] == MOVES.CPU_MOVE && gameBoard[5] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE)) {
             return 100;
         }
         return 0;
@@ -88,12 +88,12 @@ public class Simulator {
      * @param gameBoard ゲーム盤
      * @return 勝敗の結果の点数
      */
-    int calcSlanting(MOVES[][] gameBoard) {
-        if ((gameBoard[0][0] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[2][2] == MOVES.USER_MOVE) ||
-                (gameBoard[0][2] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[2][0] == MOVES.USER_MOVE)) {
+    int calcSlanting(MOVES[] gameBoard) {
+        if ((gameBoard[0] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE) ||
+                (gameBoard[2] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[6] == MOVES.USER_MOVE)) {
             return -100;
-        } else if ((gameBoard[0][0] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[2][2] == MOVES.CPU_MOVE) ||
-                (gameBoard[0][2] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[2][0] == MOVES.CPU_MOVE)) {
+        } else if ((gameBoard[0] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE) ||
+                (gameBoard[2] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[6] == MOVES.CPU_MOVE)) {
             return 100;
         }
         return 0;
