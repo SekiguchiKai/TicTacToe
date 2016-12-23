@@ -41,7 +41,7 @@ public class GameBoard {
      *
      * @return 打ち手を格納するための配列
      */
-    public MOVES[][] getgameBoard() {
+    public MOVES[][] getGameBoard() {
         return this.gameBoard;
     }
 

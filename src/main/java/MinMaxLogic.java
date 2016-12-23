@@ -22,16 +22,23 @@ public class MinMaxLogic {
      *
      * @param depth      ゲーム木の深さ
      * @param gameBoard  ゲーム盤
-     * @param playerName player名
+     * @param playerMove player名
      * @return ゲーム盤のy軸, x軸を保持したint[][]の二次元配列
      */
-    public int[] calcMinMax(int depth, MOVES[][] gameBoard, PLAYER_NAME playerName) {
+    public int[] calcMinMax(int depth, MOVES[][] gameBoard, MOVES playerMove) {
 
         int bestScore = 0;
-        int score = 0;
+        if (playerMove == MOVES.CPU_MOVE) {
+            bestScore = -100;
+        } else {
+            bestScore = 100;
+        }
 
-        int bestRow = 0;
-        int bestColumn = 0;
+
+        int score;
+
+        int bestRow = -1;
+        int bestColumn = -1;
 
 
         List<int[]> capableMove = this.makeCapableMOveList(gameBoard);
@@ -42,21 +49,26 @@ public class MinMaxLogic {
             bestScore = simulator.calcScore(gameBoard);
         } else {
             for (int[] moveSpot : capableMove) {
-                if (playerName == PLAYER_NAME.CPU) {
-                    score = calcMinMax(depth - 1, gameBoard, playerName)[0];
+
+                gameBoard[moveSpot[0]][moveSpot[1]] = playerMove;
+
+                if (playerMove == MOVES.CPU_MOVE) {
+                    score = calcMinMax(depth - 1, gameBoard, MOVES.USER_MOVE)[0];
                     if (score > bestScore) {
                         bestScore = score;
                         bestRow = moveSpot[0];
                         bestColumn = moveSpot[1];
                     }
-                } else {
-                    score = calcMinMax(depth - 1, gameBoard, playerName)[0];
+                } else if (playerMove == MOVES.USER_MOVE) {
+                    score = calcMinMax(depth - 1, gameBoard, MOVES.CPU_MOVE)[0];
                     if (bestScore > score) {
                         bestScore = score;
                         bestRow = moveSpot[0];
                         bestColumn = moveSpot[1];
                     }
                 }
+
+                gameBoard[moveSpot[0]][moveSpot[1]] = MOVES.EMPTY;
             }
         }
 
@@ -82,9 +94,6 @@ public class MinMaxLogic {
 
         return capableMoveList;
     }
-
-
-
 
 
 }

@@ -29,7 +29,7 @@ public class NormalGameLogic {
      * @return 打ち手の順番を表す数字とそれに紐づけられた各々のプレーヤーを格納するためのMap
      */
     void decideOrder() {
-       
+
     }
 
 
