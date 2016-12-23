@@ -22,14 +22,14 @@ public class GameBoard {
      * stonesArrayを初期化するためのメソッド
      */
     public void initStonesArray() {
-        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> gameBoard[i][j] = MOVES.EMPTY));
+        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> gameBoard[i][j] = MOVES.NO_MOVE));
     }
 
     /**
      * ゲーム盤に打ち手を打つためのメソッド
      *
-     * @param y      ゲーム盤のy座標
-     * @param x      ゲーム盤のx座標
+     * @param y     ゲーム盤のy座標
+     * @param x     ゲーム盤のx座標
      * @param MOVES 各プレーヤーの打ち手
      */
     public void addMoves(int y, int x, MOVES MOVES) {
@@ -48,11 +48,11 @@ public class GameBoard {
     /**
      * gameBoardに格納されている打ち手を返す
      *
-     * @param y ゲーム盤のy座標
-     * @param x ゲーム盤のx座標
+     * @param row    ゲーム盤のy座標
+     * @param column ゲーム盤のx座標
      * @return Movesの定数
      */
-    public MOVES getMoves(int y, int x) {
-        return gameBoard[y][x];
+    public MOVES getMoves(int row, int column) {
+        return gameBoard[row][column];
     }
 }

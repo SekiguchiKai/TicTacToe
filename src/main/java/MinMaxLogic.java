@@ -68,7 +68,7 @@ public class MinMaxLogic {
                     }
                 }
 
-                gameBoard[moveSpot[0]][moveSpot[1]] = MOVES.EMPTY;
+                gameBoard[moveSpot[0]][moveSpot[1]] = MOVES.NO_MOVE;
             }
         }
 
@@ -78,16 +78,16 @@ public class MinMaxLogic {
     }
 
     /**
-     * 現在石を置くことが可能なすべての手をリスト化する（EMPTYが存在しているGameBoardの場所）
+     * 現在石を置くことが可能なすべての手をリスト化する（NO_MOVEが存在しているGameBoardの場所）
      *
      * @param gameBoard ゲームの盤
-     * @return EMPTYが存在するGameBoard上の場所の一覧を格納したList
+     * @return NO_MOVEが存在するGameBoard上の場所の一覧を格納したList
      */
     List<int[]> makeCapableMOveList(MOVES[][] gameBoard) {
 
         List<int[]> capableMoveList = new ArrayList<>();
         IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> {
-            if (gameBoard[i][j] == MOVES.EMPTY) {
+            if (gameBoard[i][j] == MOVES.NO_MOVE) {
                 capableMoveList.add(new int[]{i, j});
             }
         }));

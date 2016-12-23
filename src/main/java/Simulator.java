@@ -35,7 +35,7 @@ public class Simulator {
         List<MOVES> checkList = new ArrayList<>();
         IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> checkList.add(gameBoard[i][j])));
 
-        if (!checkList.contains(MOVES.EMPTY)) {
+        if (!checkList.contains(MOVES.NO_MOVE)) {
             score += 50;
         }
         return score;

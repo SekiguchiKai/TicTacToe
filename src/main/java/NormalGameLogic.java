@@ -1,100 +1,97 @@
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
+
+import java.util.HashMap;
+
+import java.util.Map;
+
 
 /**
  * ノーマルモードのゲームを表すクラス
  * Created by sekiguchikai on 2016/12/20.
  */
-public class NormalGameLogic {
+public class NormalGameLogic implements GameLogic {
 
 
     // とりあえず user= ○, cpu= ×
 
 
-
     /**
      * ゲームを進行していくロジックを担当するメソッド
-     *
-     * @return 勝敗結果
      */
-    public String playGame() {
-        return "";
+    public void playGame() {
+        Simulator simulator = new Simulator();
+        GameBoard gameBoard = new GameBoard();
+        Terminal terminal = new Terminal();
+        MinMaxLogic minMaxLogic = new MinMaxLogic();
+        Player user = new User(gameBoard, minMaxLogic, terminal);
+        Player cpu = new Cpu(gameBoard, minMaxLogic, terminal);
+
+        Player firstPlayer = this.decideOrder(user, cpu).get(1);
+        Player secondPlayer = this.decideOrder(user, cpu).get(2);
+
+        terminal.drawBoard(gameBoard.getGameBoard());
+
+        int depthCount = 0;
+
+        while (this.judgeResult(gameBoard.getGameBoard(), simulator) == RESULT.PENDING) {
+
+            firstPlayer.doMove(depthCount);
+            depthCount++;
+
+            secondPlayer.doMove(depthCount);
+            depthCount++;
+
+        }
+
+        // ここターミナルにすること
+        System.out.println(this.judgeResult(gameBoard.getGameBoard(), simulator));
+
+
+    }
+
+
+    Map<Integer, Player> decideOrder(Player user, Player cpu) {
+        int userOrder = (int) (Math.random() * 2 + 1);
+        Map<Integer, Player> orderMap = new HashMap<>();
+        if (userOrder == 1) {
+            orderMap.put(1, user);
+            orderMap.put(2, cpu);
+        } else {
+            orderMap.put(1, cpu);
+            orderMap.put(2, user);
+        }
+
+        return orderMap;
+
     }
 
     /**
-     * プレーヤーの打ち手の順番を決定するメソッド
+     * 勝敗結果を返すためのメソッド
      *
-     * @return 打ち手の順番を表す数字とそれに紐づけられた各々のプレーヤーを格納するためのMap
-     */
-    void decideOrder() {
-
-    }
-
-
-    /**
-     * 勝敗を判断するためのメソッド
-     * 勝敗によって返す点数が異なる
-     * <p>
-     * CPUが勝利した場合 : 100
-     * USERが勝利した場合 : -100
-     * 引き分けの場合 : 50
-     * 未決の場合 : 0
-     *
-     * @param gameBoard ゲーム盤
+     * @param gameBoard gameBoardのインスタンス
+     * @param simulator simulatorのインスタンス
      * @return 勝敗の結果
      */
-    int judgeResult(MOVES[][] gameBoard) {
-
-
-        // 縦
-
-        if ((gameBoard[0][0] == MOVES.USER_MOVE && gameBoard[1][0] == MOVES.USER_MOVE && gameBoard[2][0] == MOVES.USER_MOVE) ||
-                (gameBoard[0][1] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[2][1] == MOVES.USER_MOVE) ||
-                (gameBoard[0][2] == MOVES.USER_MOVE && gameBoard[1][2] == MOVES.USER_MOVE && gameBoard[2][2] == MOVES.USER_MOVE)) {
-            return -100;
-        } else if ((
-                gameBoard[0][0] == MOVES.CPU_MOVE && gameBoard[1][0] == MOVES.CPU_MOVE && gameBoard[2][0] == MOVES.CPU_MOVE) ||
-                (gameBoard[0][1] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[2][1] == MOVES.CPU_MOVE) ||
-                (gameBoard[0][2] == MOVES.CPU_MOVE && gameBoard[1][2] == MOVES.CPU_MOVE && gameBoard[2][2] == MOVES.CPU_MOVE)) {
-            return 100;
-        }
-
-
-        // 横
-
-        if ((gameBoard[0][0] == MOVES.USER_MOVE && gameBoard[0][1] == MOVES.USER_MOVE && gameBoard[0][2] == MOVES.USER_MOVE) ||
-                (gameBoard[1][0] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[1][2] == MOVES.USER_MOVE) ||
-                (gameBoard[2][0] == MOVES.USER_MOVE && gameBoard[2][1] == MOVES.USER_MOVE && gameBoard[2][2] == MOVES.USER_MOVE)) {
-            return -100;
-        } else if ((gameBoard[0][0] == MOVES.CPU_MOVE && gameBoard[0][1] == MOVES.CPU_MOVE && gameBoard[0][2] == MOVES.CPU_MOVE) ||
-                (gameBoard[1][0] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[1][2] == MOVES.CPU_MOVE) ||
-                (gameBoard[2][0] == MOVES.CPU_MOVE && gameBoard[2][1] == MOVES.CPU_MOVE && gameBoard[2][2] == MOVES.CPU_MOVE)) {
-            return 100;
-        }
-
-
-        // 斜め
-        if ((gameBoard[0][0] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[2][2] == MOVES.USER_MOVE) ||
-                (gameBoard[0][2] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[2][0] == MOVES.USER_MOVE)) {
-            return -100;
-        } else if ((gameBoard[0][0] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[2][2] == MOVES.CPU_MOVE) ||
-                (gameBoard[0][2] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[2][0] == MOVES.CPU_MOVE)) {
-            return 100;
-        }
-
-
-        // 全部埋まった
-        List<MOVES> checkList = new ArrayList<>();
-        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> checkList.add(gameBoard[i][j])));
-
-        if (!checkList.contains(MOVES.EMPTY)) {
-            return 50;
-        }
-
-        return 0;
+    RESULT judgeResult(MOVES[][] gameBoard, Simulator simulator) {
+        int score = simulator.calcScore(gameBoard);
+        return this.createResult(score);
     }
+
+    /**
+     * スコアの点数から勝敗結果を導き出すメソッド
+     *
+     * @param score 現在のゲーム盤の点数
+     * @return 勝敗結果
+     */
+    RESULT createResult(int score) {
+        Map<Integer, RESULT> resultScoreMap = new HashMap<>();
+        resultScoreMap.put(100, RESULT.WIN);
+        resultScoreMap.put(-100, RESULT.LOSE);
+        resultScoreMap.put(50, RESULT.DRAW);
+        resultScoreMap.put(0, RESULT.DRAW);
+
+        return resultScoreMap.get(score);
+    }
+
 
 }
 
