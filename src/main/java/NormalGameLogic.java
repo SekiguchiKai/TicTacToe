@@ -1,157 +1,97 @@
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
+
+import java.util.HashMap;
+
+import java.util.Map;
+
 
 /**
  * ノーマルモードのゲームを表すクラス
  * Created by sekiguchikai on 2016/12/20.
  */
-public class NormalGameLogic {
+public class NormalGameLogic implements GameLogic {
 
 
-    // とりあえず user= ○, cpu= ×とする
+    // とりあえず user= ○, cpu= ×
 
-
-//    /**
-//     * ゲーム版
-//     */
-//    GameBoard gameBoard;
-//
-//    private Move USER_MOVE;
-//    private Move CPU_MOVE;
-//
-//
-//    /**
-//     * コンストラクタ
-//     * ゲーム盤を設定
-//     *
-//     * @param gameBoard ゲーム盤
-//     * @param USER_MOVE  ユーザーの打ち手
-//     * @param CPU_MOVE   cpuの打ち手
-//     */
-//    public NormalGameLogic(GameBoard gameBoard, Move USER_MOVE, Move CPU_MOVE) {
-//        this.gameBoard = gameBoard;
-//        this.USER_MOVE = USER_MOVE;
-//        this.CPU_MOVE = CPU_MOVE;
-//    }
-
-
-//    /**
-//     * プレーヤーの打ち手の順番を決定するメソッド
-//     *
-//     * @return 打ち手の順番を表す数字とそれに紐づけられた各々のプレーヤーを格納するためのMap
-//     */
-//    void decideOrder() {
-//        int userOrder = (int) (Math.random() * 2 + 1);
-//        if (userOrder == 1) {
-//            USER_MOVE.setOrder(1);
-//            CPU_MOVE.setOrder(2);
-//            USER_MOVE.setStone(MOVES.CIRCLE);
-//            CPU_MOVE.setStone(MOVES.CROSS);
-//        } else {
-//            USER_MOVE.setOrder(2);
-//            CPU_MOVE.setOrder(1);
-//            USER_MOVE.setStone(MOVES.CROSS);
-//            CPU_MOVE.setStone(MOVES.CIRCLE);
-//        }
-//    }
-
-
-<<<<<<< HEAD
-    /**
-     * コンストラクタゲーム盤を設定
-     *
-     * @param playBoard ゲーム盤
-     * @param userMove  ユーザーの打ち手
-     * @param cpuMove   cpuの打ち手
-     */
-    public NormalGameLogic(PlayBoard playBoard, Move userMove, Move cpuMove) {
-        this.playBoard = playBoard;
-        this.userMove = userMove;
-        this.cpuMove = cpuMove;
-    }
 
     /**
      * ゲームを進行していくロジックを担当するメソッド
+     */
+    public void playGame() {
+        Simulator simulator = new Simulator();
+        GameBoard gameBoard = new GameBoard();
+        Terminal terminal = new Terminal();
+        MinMaxLogic minMaxLogic = new MinMaxLogic();
+        Player user = new User(gameBoard, minMaxLogic, terminal);
+        Player cpu = new Cpu(gameBoard, minMaxLogic, terminal);
+
+        Player firstPlayer = this.decideOrder(user, cpu).get(1);
+        Player secondPlayer = this.decideOrder(user, cpu).get(2);
+
+        terminal.drawBoard(gameBoard.getGameBoard());
+
+        int depthCount = 0;
+
+        while (this.judgeResult(gameBoard.getGameBoard(), simulator) == RESULT.PENDING) {
+
+            firstPlayer.doMove(depthCount);
+            depthCount++;
+
+            secondPlayer.doMove(depthCount);
+            depthCount++;
+
+        }
+
+        // ここターミナルにすること
+        System.out.println(this.judgeResult(gameBoard.getGameBoard(), simulator));
+
+
+    }
+
+
+    Map<Integer, Player> decideOrder(Player user, Player cpu) {
+        int userOrder = (int) (Math.random() * 2 + 1);
+        Map<Integer, Player> orderMap = new HashMap<>();
+        if (userOrder == 1) {
+            orderMap.put(1, user);
+            orderMap.put(2, cpu);
+        } else {
+            orderMap.put(1, cpu);
+            orderMap.put(2, user);
+        }
+
+        return orderMap;
+
+    }
+
+    /**
+     * 勝敗結果を返すためのメソッド
      *
+     * @param gameBoard gameBoardのインスタンス
+     * @param simulator simulatorのインスタンス
+     * @return 勝敗の結果
+     */
+    RESULT judgeResult(MOVES[][] gameBoard, Simulator simulator) {
+        int score = simulator.calcScore(gameBoard);
+        return this.createResult(score);
+    }
+
+    /**
+     * スコアの点数から勝敗結果を導き出すメソッド
+     *
+     * @param score 現在のゲーム盤の点数
      * @return 勝敗結果
      */
-    public String playGame() {
-        return "";
-    }
+    RESULT createResult(int score) {
+        Map<Integer, RESULT> resultScoreMap = new HashMap<>();
+        resultScoreMap.put(100, RESULT.WIN);
+        resultScoreMap.put(-100, RESULT.LOSE);
+        resultScoreMap.put(50, RESULT.DRAW);
+        resultScoreMap.put(0, RESULT.DRAW);
 
-    /**
-     * プレーヤーの打ち手の順番を決定するメソッド
-     *
-     * @return 打ち手の順番を表す数字とそれに紐づけられた各々のプレーヤーを格納するためのMap
-     */
-    void decideOrder() {
-        int userOrder = (int) (Math.random() * 2 + 1);
-        if (userOrder == 1) {
-            userMove.setOrder(1);
-            cpuMove.setOrder(2);
-            userMove.setStone(Stones.CIRCLE);
-            cpuMove.setStone(Stones.CROSS);
-        } else {
-            userMove.setOrder(2);
-            cpuMove.setOrder(1);
-            userMove.setStone(Stones.CROSS);
-            cpuMove.setStone(Stones.CIRCLE);
-        }
+        return resultScoreMap.get(score);
     }
 
 
-    /**
-     * 勝敗を決定するメソッド
-     *
-     * @return 勝敗（勝敗がついていない場合は、「勝負は未定」）
-     */
-    String judgeResult() {
-
-        final int CIRCLE = 1;
-        final int CROSS = 2;
-
-        // 縦
-        for (int i = 0; i < 3; i = i++) {
-            if (boardArray[i] == CIRCLE && boardArray[i + 3] == CIRCLE && boardArray[i + 6] == CIRCLE) {
-                return "君の勝ちだ";
-            } else if (boardArray[i] == CROSS && boardArray[i + 3] == CROSS && boardArray[i + 6] == CROSS) {
-                return "君の負けだ";
-            }
-        }
-
-        // 横
-        for (int i = 1; i < 3; i = i + 3) {
-            if (boardArray[i] == CIRCLE && boardArray[i + 1] == CIRCLE && boardArray[i + 2] == CIRCLE) {
-                return "君の勝ちだ";
-            } else if (boardArray[i] == CROSS && boardArray[i + 1] == CROSS && boardArray[i + 2] == CROSS) {
-                return "君の負けだ";
-            }
-        }
-
-        // 斜め
-        if (boardArray[0] == CIRCLE && boardArray[4] == CIRCLE && boardArray[8] == CIRCLE) {
-            return "君の勝ちだ";
-        } else if (boardArray[0] == CROSS && boardArray[4] == CROSS && boardArray[8] == CROSS) {
-            return "君の負けだ";
-        } else if (boardArray[2] == CIRCLE && boardArray[4] == CIRCLE && boardArray[6] == CIRCLE) {
-            return "君の勝ちだ";
-        } else if (boardArray[2] == CROSS && boardArray[4] == CROSS && boardArray[6] == CROSS) {
-            return "君の負けだ";
-        }
-
-        // 全部埋まった
-        for (int idx : boardArray) {
-            if (idx != 0) {
-                return "引き分けです";
-            }
-        }
-
-        return "勝負は未定";
-
-    }
-=======
->>>>>>> 027c6f51ab883c8f58af1937c7e400b39bd444b5
 }
 

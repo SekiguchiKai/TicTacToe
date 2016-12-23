@@ -36,7 +36,7 @@ public class GameBoardTest {
 //    @Test
 //    public void getgameBoard() {
 //        gameBoard gameBoard = new gameBoard();
-//        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> assertThat(gameBoard.getMoves(i, j), is(MOVES.EMPTY))));
+//        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> assertThat(gameBoard.getMoves(i, j), is(MOVES.NO_MOVE))));
 //    }
 
 }

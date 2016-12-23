@@ -9,7 +9,7 @@ public interface GameLogic {
      *
      * @return 勝敗結果
      */
-     String playGame();
+    public abstract void playGame();
 
 
 }
