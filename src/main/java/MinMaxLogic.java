@@ -27,13 +27,14 @@ public class MinMaxLogic {
      */
     public int[] calcMinMax(int depth, MOVES[] gameBoard, MOVES playerMove, int alpha, int beta) {
 
+        // 石を置くことが可能な全てのゲーム盤の場所を格納したListを作成
+        List<Integer> capableMove = this.makeCapableMOveList(gameBoard);
+
         int score;
 
         int bestSpot = -1;
 
 
-        // 石を置くことが可能な全てのゲーム盤の場所を格納したListを作成
-        List<Integer> capableMove = this.makeCapableMOveList(gameBoard);
         Simulator simulator = new Simulator();
 
         // 試合が終了か、深さが0の場合は、スコアを
@@ -49,14 +50,12 @@ public class MinMaxLogic {
                     score = calcMinMax(depth - 1, gameBoard, MOVES.USER_MOVE, alpha, beta)[0];
                     if (score > alpha) {
                         alpha = score;
-                        System.out.println("cpuのミニマックス");
                         bestSpot = moveSpot;
                     }
                 } else if (playerMove == MOVES.USER_MOVE) {
                     score = calcMinMax(depth - 1, gameBoard, MOVES.CPU_MOVE, alpha, beta)[0];
                     if (beta > score) {
                         beta = score;
-                        System.out.println("userのミニマックス");
                         bestSpot = moveSpot;
                     }
                 }
@@ -66,6 +65,7 @@ public class MinMaxLogic {
             }
             return new int[]{(playerMove == MOVES.CPU_MOVE) ? alpha : beta, bestSpot};
         }
+
     }
 
     /**

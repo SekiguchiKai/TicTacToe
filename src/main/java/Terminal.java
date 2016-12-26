@@ -88,7 +88,7 @@ public class Terminal {
         List<MOVES> gameBoardList = new ArrayList<>();
         IntStream.range(0, 9).forEach(i -> gameBoardList.add(gameBoard[i]));
 
-        if (gameBoardList.get(userInput - 1) == MOVES.NO_MOVE) {
+        if (!(gameBoardList.get(userInput - 1) == MOVES.NO_MOVE)) {
             System.out.println("すでに打ち手が入力されています");
             System.out.println("再度数字を入力してください");
         } else if (userInput > 8) {
