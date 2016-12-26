@@ -23,58 +23,49 @@ public class MinMaxLogic {
      * @param depth      ゲーム木の深さ
      * @param gameBoard  ゲーム盤
      * @param playerMove player名
-     * @return ゲーム盤のy軸, x軸を保持したint[][]の二次元配列
+     * @return ゲーム盤の位置
      */
-    public int[] calcMinMax(int depth, MOVES[][] gameBoard, MOVES playerMove) {
-
-        int bestScore = 0;
-        if (playerMove == MOVES.CPU_MOVE) {
-            bestScore = -100;
-        } else {
-            bestScore = 100;
-        }
-
+    public int[] calcMinMax(int depth, MOVES[] gameBoard, MOVES playerMove, int alpha, int beta) {
 
         int score;
 
-        int bestRow = -1;
-        int bestColumn = -1;
+        int bestSpot = -1;
 
 
-        List<int[]> capableMove = this.makeCapableMOveList(gameBoard);
+        // 石を置くことが可能な全てのゲーム盤の場所を格納したListを作成
+        List<Integer> capableMove = this.makeCapableMOveList(gameBoard);
         Simulator simulator = new Simulator();
 
         // 試合が終了か、深さが0の場合は、スコアを
         if (capableMove.isEmpty() || depth == 0) {
-            bestScore = simulator.calcScore(gameBoard);
+            score = simulator.calcScore(gameBoard);
+            return new int[]{score, bestSpot};
         } else {
-            for (int[] moveSpot : capableMove) {
+            for (int moveSpot : capableMove) {
 
-                gameBoard[moveSpot[0]][moveSpot[1]] = playerMove;
+                gameBoard[moveSpot] = playerMove;
 
                 if (playerMove == MOVES.CPU_MOVE) {
-                    score = calcMinMax(depth - 1, gameBoard, MOVES.USER_MOVE)[0];
-                    if (score > bestScore) {
-                        bestScore = score;
-                        bestRow = moveSpot[0];
-                        bestColumn = moveSpot[1];
+                    score = calcMinMax(depth - 1, gameBoard, MOVES.USER_MOVE, alpha, beta)[0];
+                    if (score > alpha) {
+                        alpha = score;
+                        System.out.println("cpuのミニマックス");
+                        bestSpot = moveSpot;
                     }
                 } else if (playerMove == MOVES.USER_MOVE) {
-                    score = calcMinMax(depth - 1, gameBoard, MOVES.CPU_MOVE)[0];
-                    if (bestScore > score) {
-                        bestScore = score;
-                        bestRow = moveSpot[0];
-                        bestColumn = moveSpot[1];
+                    score = calcMinMax(depth - 1, gameBoard, MOVES.CPU_MOVE, alpha, beta)[0];
+                    if (beta > score) {
+                        beta = score;
+                        System.out.println("userのミニマックス");
+                        bestSpot = moveSpot;
                     }
                 }
 
-                gameBoard[moveSpot[0]][moveSpot[1]] = MOVES.NO_MOVE;
+                gameBoard[moveSpot] = MOVES.NO_MOVE;
+                if (alpha >= beta) break;
             }
+            return new int[]{(playerMove == MOVES.CPU_MOVE) ? alpha : beta, bestSpot};
         }
-
-
-        return new int[]{bestScore, bestRow, bestColumn};
-
     }
 
     /**
@@ -83,14 +74,14 @@ public class MinMaxLogic {
      * @param gameBoard ゲームの盤
      * @return NO_MOVEが存在するGameBoard上の場所の一覧を格納したList
      */
-    List<int[]> makeCapableMOveList(MOVES[][] gameBoard) {
+    List<Integer> makeCapableMOveList(MOVES[] gameBoard) {
 
-        List<int[]> capableMoveList = new ArrayList<>();
-        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> {
-            if (gameBoard[i][j] == MOVES.NO_MOVE) {
-                capableMoveList.add(new int[]{i, j});
+        List<Integer> capableMoveList = new ArrayList<>();
+        IntStream.range(0, 9).forEach(i -> {
+            if (gameBoard[i] == MOVES.NO_MOVE) {
+                capableMoveList.add(i);
             }
-        }));
+        });
 
         return capableMoveList;
     }

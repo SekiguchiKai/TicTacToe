@@ -8,7 +8,7 @@ public class GameBoard {
     /**
      * 打ち手を格納するための配列
      */
-    private MOVES[][] gameBoard = new MOVES[3][3];
+    private MOVES[] gameBoard = new MOVES[9];
 
     /**
      * コンストラクタ
@@ -22,18 +22,17 @@ public class GameBoard {
      * stonesArrayを初期化するためのメソッド
      */
     public void initStonesArray() {
-        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> gameBoard[i][j] = MOVES.NO_MOVE));
+        IntStream.range(0, 9).forEach(i -> gameBoard[i] = MOVES.NO_MOVE);
     }
 
     /**
      * ゲーム盤に打ち手を打つためのメソッド
      *
-     * @param y     ゲーム盤のy座標
-     * @param x     ゲーム盤のx座標
+     * @param spot  ゲーム盤の場所
      * @param MOVES 各プレーヤーの打ち手
      */
-    public void addMoves(int y, int x, MOVES MOVES) {
-        gameBoard[y][x] = MOVES;
+    public void addMoves(int spot, MOVES MOVES) {
+        gameBoard[spot] = MOVES;
     }
 
     /**
@@ -41,18 +40,17 @@ public class GameBoard {
      *
      * @return 打ち手を格納するための配列
      */
-    public MOVES[][] getGameBoard() {
+    public MOVES[] getGameBoard() {
         return this.gameBoard;
     }
 
     /**
      * gameBoardに格納されている打ち手を返す
      *
-     * @param row    ゲーム盤のy座標
-     * @param column ゲーム盤のx座標
+     * @param spot ゲーム盤の場所
      * @return Movesの定数
      */
-    public MOVES getMoves(int row, int column) {
-        return gameBoard[row][column];
+    public MOVES getMoves(int spot) {
+        return gameBoard[spot];
     }
 }

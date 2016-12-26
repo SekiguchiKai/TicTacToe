@@ -23,7 +23,7 @@ public class User extends Player {
      */
     public void doMove(int depth) {
         try {
-            gameBoard.addMoves(terminal.receiveCommand()[0], terminal.receiveCommand()[1], MOVES.USER_MOVE);
+            gameBoard.addMoves(terminal.receiveCommand(gameBoard.getGameBoard()), MOVES.USER_MOVE);
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();

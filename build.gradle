@@ -4,7 +4,7 @@ apply plugin: 'application'
 //
 apply plugin: 'war'
 
-mainClassName = 'jp.co.topgate.kai.sekiguchi.ox.Main'
+mainClassName = 'Main'
 
 // gradleラッパー、これを使ってビルドするとGradleが自動的にダウンロードされ、それを使ってビルドが実行される
 
