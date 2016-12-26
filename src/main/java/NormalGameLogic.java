@@ -71,7 +71,7 @@ public class NormalGameLogic implements GameLogic {
      * @param simulator simulatorのインスタンス
      * @return 勝敗の結果
      */
-    RESULT judgeResult(MOVES[][] gameBoard, Simulator simulator) {
+    RESULT judgeResult(MOVES[] gameBoard, Simulator simulator) {
         int score = simulator.calcScore(gameBoard);
         return this.createResult(score);
     }

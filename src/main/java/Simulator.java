@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.IntStream;
 
 
 /**
@@ -10,96 +9,71 @@ public class Simulator {
 
 
     /**
-     * 勝敗を判断するためのメソッド
-     * 勝敗によって返す点数が異なる
-     * <p>
-     * CPUが勝利した場合 : 100
-     * USERが勝利した場合 : -100
-     * 引き分けの場合 : 50
-     * 未決の場合 : 0
+     * 現在のゲーム盤の状況で、指定された場所に石を置いた時の点数を計算するためのメソッド
      *
      * @param gameBoard ゲーム盤
-     * @return 勝敗の結果
+     * @return そのゲーム盤の点数の合計
      */
-    int calcScore(MOVES[][] gameBoard) {
+    int calcScore(MOVES[] gameBoard) {
+        int totalScore = 0;
+        // 横
+        totalScore += calcLineScore(gameBoard[0], gameBoard[1], gameBoard[2]);
+        totalScore += calcLineScore(gameBoard[3], gameBoard[4], gameBoard[5]);
+        totalScore += calcLineScore(gameBoard[6], gameBoard[7], gameBoard[8]);
+
+        // 縦
+        totalScore += calcLineScore(gameBoard[0], gameBoard[3], gameBoard[6]);
+        totalScore += calcLineScore(gameBoard[1], gameBoard[4], gameBoard[7]);
+        totalScore += calcLineScore(gameBoard[2], gameBoard[5], gameBoard[8]);
+
+        // 斜め
+        totalScore += calcLineScore(gameBoard[0], gameBoard[4], gameBoard[8]);
+        totalScore += calcLineScore(gameBoard[2], gameBoard[4], gameBoard[6]);
+
+        return totalScore;
+
+    }
+
+    /**
+     * 引数として受け取ったラインの点数を求める
+     * 点数の計算方法は以下
+     * <p>
+     * CPUの石1つ : 1
+     * USERの石1つ : -1
+     * EMPTY : 0
+     * <p>
+     * 合計
+     * 【CPU】
+     * CPUの石が3つ揃っていた場合 : 3
+     * CPUの石が2つ揃っていた場合 : 2
+     * CPUの石が1つ揃っていた場合 : 1
+     * <p>
+     * 【USER】
+     * USERの石が3つ揃っていた場合 : -3
+     * USERの石が2つ揃っていた場合 : -2
+     * USERの石が1つ揃っていた場合 : -1
+     * <p>
+     * 【EMPTY】
+     * EMPTYの場合 : 0
+     *
+     * @param moves1 石1
+     * @param moves2 石2
+     * @param moves3 石3
+     * @return ラインの合計点数
+     */
+    int calcLineScore(MOVES moves1, MOVES moves2, MOVES moves3) {
+        List<MOVES> movesList = Arrays.asList(moves1, moves2, moves3);
         int score = 0;
 
-        // 横
-        score += this.calcRowScore(gameBoard);
-        // 縦
-        score += this.calcColumnScore(gameBoard);
-        // 斜め
-        score += this.calcSlanting(gameBoard);
-
-        // 全部埋まった（引き分け）
-        List<MOVES> checkList = new ArrayList<>();
-        IntStream.range(0, 3).forEach(i -> IntStream.range(0, 3).forEach(j -> checkList.add(gameBoard[i][j])));
-
-        if (!checkList.contains(MOVES.NO_MOVE)) {
-            score += 50;
+        for (MOVES moves : movesList) {
+            if (moves == MOVES.CPU_MOVE) {
+                score += 1;
+            } else if (moves == MOVES.USER_MOVE) {
+                score -= (-1);
+            }
         }
         return score;
     }
-
-
-    /**
-     * 横のラインで勝敗が決定したか確認するメソッド
-     *
-     * @param gameBoard ゲーム盤
-     * @return 勝敗の結果の点数
-     */
-    int calcRowScore(MOVES[][] gameBoard) {
-        if ((gameBoard[0][0] == MOVES.USER_MOVE && gameBoard[1][0] == MOVES.USER_MOVE && gameBoard[2][0] == MOVES.USER_MOVE) ||
-                (gameBoard[0][1] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[2][1] == MOVES.USER_MOVE) ||
-                (gameBoard[0][2] == MOVES.USER_MOVE && gameBoard[1][2] == MOVES.USER_MOVE && gameBoard[2][2] == MOVES.USER_MOVE)) {
-            return -100;
-        } else if ((
-                gameBoard[0][0] == MOVES.CPU_MOVE && gameBoard[1][0] == MOVES.CPU_MOVE && gameBoard[2][0] == MOVES.CPU_MOVE) ||
-                (gameBoard[0][1] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[2][1] == MOVES.CPU_MOVE) ||
-                (gameBoard[0][2] == MOVES.CPU_MOVE && gameBoard[1][2] == MOVES.CPU_MOVE && gameBoard[2][2] == MOVES.CPU_MOVE)) {
-            return 100;
-        }
-        return 0;
-    }
-
-    /**
-     * 縦のラインで勝敗が決定したか確認するメソッド
-     *
-     * @param gameBoard ゲーム盤
-     * @return 勝敗の結果の点数
-     */
-    int calcColumnScore(MOVES[][] gameBoard) {
-
-        if ((gameBoard[0][0] == MOVES.USER_MOVE && gameBoard[0][1] == MOVES.USER_MOVE && gameBoard[0][2] == MOVES.USER_MOVE) ||
-                (gameBoard[1][0] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[1][2] == MOVES.USER_MOVE) ||
-                (gameBoard[2][0] == MOVES.USER_MOVE && gameBoard[2][1] == MOVES.USER_MOVE && gameBoard[2][2] == MOVES.USER_MOVE)) {
-            return -100;
-        } else if ((gameBoard[0][0] == MOVES.CPU_MOVE && gameBoard[0][1] == MOVES.CPU_MOVE && gameBoard[0][2] == MOVES.CPU_MOVE) ||
-                (gameBoard[1][0] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[1][2] == MOVES.CPU_MOVE) ||
-                (gameBoard[2][0] == MOVES.CPU_MOVE && gameBoard[2][1] == MOVES.CPU_MOVE && gameBoard[2][2] == MOVES.CPU_MOVE)) {
-            return 100;
-        }
-        return 0;
-    }
-
-    /**
-     * 斜めのラインで勝敗が決定したか確認するメソッド
-     *
-     * @param gameBoard ゲーム盤
-     * @return 勝敗の結果の点数
-     */
-    int calcSlanting(MOVES[][] gameBoard) {
-        if ((gameBoard[0][0] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[2][2] == MOVES.USER_MOVE) ||
-                (gameBoard[0][2] == MOVES.USER_MOVE && gameBoard[1][1] == MOVES.USER_MOVE && gameBoard[2][0] == MOVES.USER_MOVE)) {
-            return -100;
-        } else if ((gameBoard[0][0] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[2][2] == MOVES.CPU_MOVE) ||
-                (gameBoard[0][2] == MOVES.CPU_MOVE && gameBoard[1][1] == MOVES.CPU_MOVE && gameBoard[2][0] == MOVES.CPU_MOVE)) {
-            return 100;
-        }
-        return 0;
-    }
-
-
 }
 
 
