@@ -4,7 +4,7 @@ apply plugin: 'application'
 //
 apply plugin: 'war'
 
-mainClassName = 'jp.co.topgate.kai.sekiguchi.ox.Main'
+mainClassName = 'Main'
 
 // gradleラッパー、これを使ってビルドするとGradleが自動的にダウンロードされ、それを使ってビルドが実行される
 
@@ -29,5 +29,10 @@ dependencies {
     // 改めて hamcrest-all の依存を追加する
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
 
+}
+
+// Gradleで標準入力を受け取ることができるようにする
+run {
+    standardInput = System.in
 }
 
