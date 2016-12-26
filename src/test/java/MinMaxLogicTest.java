@@ -13,6 +13,7 @@ public class MinMaxLogicTest {
      */
     @Test
     public void calcMinMax() {
+
 //        GameBoard gameBoard = new GameBoard();
 //        gameBoard.addMoves(0, MOVES.USER_MOVE);
 //
@@ -21,6 +22,7 @@ public class MinMaxLogicTest {
 //        int nextOnes = minMaxLogic.calcMinMax(4, gameBoard.getGameBoard(), MOVES.CPU_MOVE, Integer.MIN_VALUE, Integer.MAX_VALUE)[0];
 //
 //        assertThat(nextOnes, is(4));
+
 //
 //        GameBoard gameBoard2 = new GameBoard();
 //        gameBoard2.addMoves(2, MOVES.CPU_MOVE);
