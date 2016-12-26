@@ -20,7 +20,7 @@ public class Terminal {
         System.out.println("  ___");
         System.out.print("| " + this.changeMovesToStone(gameBoard[0], 1) + " |");
         System.out.print("| " + this.changeMovesToStone(gameBoard[1], 2) + " |");
-        System.out.println("|" + this.changeMovesToStone(gameBoard[2], 3) + "  |");
+        System.out.println("| " + this.changeMovesToStone(gameBoard[2], 3) + " |");
         System.out.print(" ---");
         System.out.print("  ---");
         System.out.println("  ---");
@@ -30,7 +30,7 @@ public class Terminal {
         System.out.println("  ___");
         System.out.print("| " + this.changeMovesToStone(gameBoard[3], 4) + " |");
         System.out.print("| " + this.changeMovesToStone(gameBoard[4], 5) + " |");
-        System.out.println("|" + this.changeMovesToStone(gameBoard[5], 6) + "  |");
+        System.out.println("| " + this.changeMovesToStone(gameBoard[5], 6) + " |");
         System.out.print(" ---");
         System.out.print("  ---");
         System.out.println("  ---");
@@ -40,7 +40,7 @@ public class Terminal {
         System.out.println("  ___");
         System.out.print("| " + this.changeMovesToStone(gameBoard[6], 7) + " |");
         System.out.print("| " + this.changeMovesToStone(gameBoard[7], 8) + " |");
-        System.out.println("|" + this.changeMovesToStone(gameBoard[8], 9) + "  |");
+        System.out.println("| " + this.changeMovesToStone(gameBoard[8], 9) + " |");
         System.out.print(" ---");
         System.out.print("  ---");
         System.out.println("  ---");

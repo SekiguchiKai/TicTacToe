@@ -25,20 +25,27 @@ public class NormalGameLogic implements GameLogic {
         Player user = new User(gameBoard, minMaxLogic, terminal);
         Player cpu = new Cpu(gameBoard, minMaxLogic, terminal);
 
-        Player firstPlayer = this.decideOrder(user, cpu).get(1);
-        Player secondPlayer = this.decideOrder(user, cpu).get(2);
+//        Player firstPlayer = this.decideOrder(user, cpu).get(1);
+//        Player secondPlayer = this.decideOrder(user, cpu).get(2);
 
         terminal.drawBoard(gameBoard.getGameBoard());
 
-        int depthCount = 0;
+        int depthCount = 9;
+
 
         while (this.judgeResult(gameBoard.getGameBoard(), simulator) == RESULT.PENDING) {
 
-            firstPlayer.doMove(depthCount);
-            depthCount++;
+//            firstPlayer.doMove(depthCount);
 
-            secondPlayer.doMove(depthCount);
-            depthCount++;
+
+//            secondPlayer.doMove(depthCount);
+            user.doMove(depthCount);
+
+            depthCount --;
+
+
+            cpu.doMove(depthCount);
+
 
         }
 
@@ -87,7 +94,7 @@ public class NormalGameLogic implements GameLogic {
         resultScoreMap.put(100, RESULT.WIN);
         resultScoreMap.put(-100, RESULT.LOSE);
         resultScoreMap.put(50, RESULT.DRAW);
-        resultScoreMap.put(0, RESULT.DRAW);
+        resultScoreMap.put(0, RESULT.PENDING);
 
         return resultScoreMap.get(score);
     }

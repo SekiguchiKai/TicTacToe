@@ -32,8 +32,7 @@ public class Simulator {
         score += this.calcSlanting(gameBoard);
 
         // 全部埋まった（引き分け）
-        List<MOVES> checkList = new ArrayList<>();
-        IntStream.range(0, 9).forEach(i -> checkList.add(gameBoard[i]));
+        List<MOVES> checkList = Arrays.asList(gameBoard);
 
         if (!checkList.contains(MOVES.NO_MOVE)) {
             score += 50;
@@ -75,7 +74,7 @@ public class Simulator {
                 (gameBoard[2] == MOVES.USER_MOVE && gameBoard[5] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE)) {
             return -100;
         } else if ((gameBoard[0] == MOVES.CPU_MOVE && gameBoard[3] == MOVES.CPU_MOVE && gameBoard[6] == MOVES.CPU_MOVE) ||
-        (gameBoard[1] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[7] == MOVES.CPU_MOVE) ||
+                (gameBoard[1] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[7] == MOVES.CPU_MOVE) ||
                 (gameBoard[2] == MOVES.CPU_MOVE && gameBoard[5] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE)) {
             return 100;
         }

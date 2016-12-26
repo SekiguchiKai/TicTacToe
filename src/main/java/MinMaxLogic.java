@@ -25,53 +25,47 @@ public class MinMaxLogic {
      * @param playerMove player名
      * @return ゲーム盤の位置
      */
-    public int calcMinMax(int depth, MOVES[] gameBoard, MOVES playerMove) {
-
-        int bestScore = 0;
-        if (playerMove == MOVES.CPU_MOVE) {
-            bestScore = -100;
-        } else {
-            bestScore = 100;
-        }
-
+    public int[] calcMinMax(int depth, MOVES[] gameBoard, MOVES playerMove, int alpha, int beta) {
 
         int score;
 
         int bestSpot = -1;
 
 
+        // 石を置くことが可能な全てのゲーム盤の場所を格納したListを作成
         List<Integer> capableMove = this.makeCapableMOveList(gameBoard);
         Simulator simulator = new Simulator();
 
         // 試合が終了か、深さが0の場合は、スコアを
         if (capableMove.isEmpty() || depth == 0) {
-            bestScore = simulator.calcScore(gameBoard);
+            score = simulator.calcScore(gameBoard);
+            return new int[]{score, bestSpot};
         } else {
             for (int moveSpot : capableMove) {
 
                 gameBoard[moveSpot] = playerMove;
 
                 if (playerMove == MOVES.CPU_MOVE) {
-                    score = calcMinMax(depth - 1, gameBoard, MOVES.USER_MOVE);
-                    if (score > bestScore) {
-                        bestScore = score;
+                    score = calcMinMax(depth - 1, gameBoard, MOVES.USER_MOVE, alpha, beta)[0];
+                    if (score > alpha) {
+                        alpha = score;
+                        System.out.println("cpuのミニマックス");
                         bestSpot = moveSpot;
                     }
                 } else if (playerMove == MOVES.USER_MOVE) {
-                    score = calcMinMax(depth - 1, gameBoard, MOVES.CPU_MOVE);
-                    if (bestScore > score) {
-                        bestScore = score;
+                    score = calcMinMax(depth - 1, gameBoard, MOVES.CPU_MOVE, alpha, beta)[0];
+                    if (beta > score) {
+                        beta = score;
+                        System.out.println("userのミニマックス");
                         bestSpot = moveSpot;
                     }
                 }
 
                 gameBoard[moveSpot] = MOVES.NO_MOVE;
+                if (alpha >= beta) break;
             }
+            return new int[]{(playerMove == MOVES.CPU_MOVE) ? alpha : beta, bestSpot};
         }
-
-
-        return bestSpot;
-
     }
 
     /**

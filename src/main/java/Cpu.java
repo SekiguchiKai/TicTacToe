@@ -21,7 +21,8 @@ public class Cpu extends Player {
      * 打ち手を打つメソッド
      */
     public void doMove(int depth) {
-        int spot = super.minMaxLogic.calcMinMax(depth, gameBoard.getGameBoard(), MOVES.CPU_MOVE);
+        int spot = super.minMaxLogic.calcMinMax(depth, gameBoard.getGameBoard(), MOVES.CPU_MOVE, Integer.MIN_VALUE, Integer.MAX_VALUE)[1];
+        System.out.println("CPUの打ち手は、" + spot);
         gameBoard.addMoves(spot, MOVES.CPU_MOVE);
 
         terminal.drawBoard(gameBoard.getGameBoard());
