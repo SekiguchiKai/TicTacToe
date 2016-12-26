@@ -1,7 +1,7 @@
 
-import java.util.HashMap;
+import com.sun.org.apache.regexp.internal.RE;
 
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -25,25 +25,32 @@ public class NormalGameLogic implements GameLogic {
         Player user = new User(gameBoard, minMaxLogic, terminal);
         Player cpu = new Cpu(gameBoard, minMaxLogic, terminal);
 
-        Player firstPlayer = this.decideOrder(user, cpu).get(1);
-        Player secondPlayer = this.decideOrder(user, cpu).get(2);
+//        Player firstPlayer = this.decideOrder(user, cpu).get(1);
+//        Player secondPlayer = this.decideOrder(user, cpu).get(2);
 
         terminal.drawBoard(gameBoard.getGameBoard());
 
-        int depthCount = 0;
+        int depthCount = 4;
 
-        while (this.judgeResult(gameBoard.getGameBoard(), simulator) == RESULT.PENDING) {
 
-            firstPlayer.doMove(depthCount);
-            depthCount++;
+        while (this.judgeResult(gameBoard.getGameBoard()) == RESULT.PENDING) {
 
-            secondPlayer.doMove(depthCount);
-            depthCount++;
+//            firstPlayer.doMove(depthCount);
+
+
+//            secondPlayer.doMove(depthCount);
+            user.doMove(depthCount);
+
+            depthCount--;
+
+
+            cpu.doMove(depthCount);
+
 
         }
 
         // ここターミナルにすること
-        System.out.println(this.judgeResult(gameBoard.getGameBoard(), simulator));
+        System.out.println(this.judgeResult(gameBoard.getGameBoard()));
 
 
     }
@@ -64,34 +71,29 @@ public class NormalGameLogic implements GameLogic {
 
     }
 
-    /**
-     * 勝敗結果を返すためのメソッド
-     *
-     * @param gameBoard gameBoardのインスタンス
-     * @param simulator simulatorのインスタンス
-     * @return 勝敗の結果
-     */
-    RESULT judgeResult(MOVES[] gameBoard, Simulator simulator) {
-        int score = simulator.calcScore(gameBoard);
-        return this.createResult(score);
+    RESULT judgeResult(MOVES[] gameBoard) {
+        if (gameBoard[0] == MOVES.CPU_MOVE && gameBoard[1] == MOVES.CPU_MOVE && gameBoard[2] == MOVES.CPU_MOVE ||
+                gameBoard[3] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[5] == MOVES.CPU_MOVE ||
+                gameBoard[6] == MOVES.CPU_MOVE && gameBoard[7] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE
+                ) {
+            return RESULT.LOSE;
+        } else if (gameBoard[0] == MOVES.USER_MOVE && gameBoard[1] == MOVES.USER_MOVE && gameBoard[2] == MOVES.USER_MOVE ||
+                gameBoard[3] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[5] == MOVES.USER_MOVE ||
+                gameBoard[6] == MOVES.USER_MOVE && gameBoard[7] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE
+                ) {
+            return RESULT.WIN;
+        }
+
+        List<MOVES> gameBoardList = Arrays.asList(gameBoard);
+
+        if (!gameBoardList.contains(MOVES.NO_MOVE)) {
+            return RESULT.DRAW;
+        }
+
+        return RESULT.PENDING;
     }
-
-    /**
-     * スコアの点数から勝敗結果を導き出すメソッド
-     *
-     * @param score 現在のゲーム盤の点数
-     * @return 勝敗結果
-     */
-    RESULT createResult(int score) {
-        Map<Integer, RESULT> resultScoreMap = new HashMap<>();
-        resultScoreMap.put(100, RESULT.WIN);
-        resultScoreMap.put(-100, RESULT.LOSE);
-        resultScoreMap.put(50, RESULT.DRAW);
-        resultScoreMap.put(0, RESULT.DRAW);
-
-        return resultScoreMap.get(score);
-    }
-
-
 }
+
+
+
 
