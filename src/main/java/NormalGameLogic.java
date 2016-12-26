@@ -1,5 +1,4 @@
 
-import com.sun.org.apache.regexp.internal.RE;
 
 import java.util.*;
 
@@ -25,8 +24,6 @@ public class NormalGameLogic implements GameLogic {
         Player user = new User(gameBoard, minMaxLogic, terminal);
         Player cpu = new Cpu(gameBoard, minMaxLogic, terminal);
 
-//        Player firstPlayer = this.decideOrder(user, cpu).get(1);
-//        Player secondPlayer = this.decideOrder(user, cpu).get(2);
 
         terminal.drawBoard(gameBoard.getGameBoard());
 
@@ -35,16 +32,13 @@ public class NormalGameLogic implements GameLogic {
 
         while (this.judgeResult(gameBoard.getGameBoard()) == RESULT.PENDING) {
 
-//            firstPlayer.doMove(depthCount);
-
-
-//            secondPlayer.doMove(depthCount);
             user.doMove(depthCount);
 
             depthCount--;
 
-
-            cpu.doMove(depthCount);
+            if (this.judgeResult(gameBoard.getGameBoard()) == RESULT.PENDING) {
+                cpu.doMove(depthCount);
+            }
 
 
         }
@@ -72,14 +66,25 @@ public class NormalGameLogic implements GameLogic {
     }
 
     RESULT judgeResult(MOVES[] gameBoard) {
+
         if (gameBoard[0] == MOVES.CPU_MOVE && gameBoard[1] == MOVES.CPU_MOVE && gameBoard[2] == MOVES.CPU_MOVE ||
                 gameBoard[3] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[5] == MOVES.CPU_MOVE ||
-                gameBoard[6] == MOVES.CPU_MOVE && gameBoard[7] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE
+                gameBoard[6] == MOVES.CPU_MOVE && gameBoard[7] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE ||
+                gameBoard[0] == MOVES.CPU_MOVE && gameBoard[3] == MOVES.CPU_MOVE && gameBoard[6] == MOVES.CPU_MOVE ||
+                gameBoard[1] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[7] == MOVES.CPU_MOVE ||
+                gameBoard[2] == MOVES.CPU_MOVE && gameBoard[5] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE ||
+                gameBoard[0] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE ||
+                gameBoard[2] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[6] == MOVES.CPU_MOVE
                 ) {
             return RESULT.LOSE;
         } else if (gameBoard[0] == MOVES.USER_MOVE && gameBoard[1] == MOVES.USER_MOVE && gameBoard[2] == MOVES.USER_MOVE ||
                 gameBoard[3] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[5] == MOVES.USER_MOVE ||
-                gameBoard[6] == MOVES.USER_MOVE && gameBoard[7] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE
+                gameBoard[6] == MOVES.USER_MOVE && gameBoard[7] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE ||
+                gameBoard[0] == MOVES.USER_MOVE && gameBoard[3] == MOVES.USER_MOVE && gameBoard[6] == MOVES.USER_MOVE ||
+                gameBoard[1] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[7] == MOVES.USER_MOVE ||
+                gameBoard[2] == MOVES.USER_MOVE && gameBoard[5] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE ||
+                gameBoard[0] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE ||
+                gameBoard[2] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[6] == MOVES.USER_MOVE
                 ) {
             return RESULT.WIN;
         }

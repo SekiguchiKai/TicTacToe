@@ -1,4 +1,3 @@
-import java.util.*;
 
 /**
  * CPUの打ち手を表すクラス
@@ -26,7 +25,5 @@ public class Cpu extends Player {
         gameBoard.addMoves(spot, MOVES.CPU_MOVE);
 
         terminal.drawBoard(gameBoard.getGameBoard());
-
-
     }
 }

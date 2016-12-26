@@ -67,24 +67,73 @@ public class Simulator {
      */
 
     int calcLineScore(MOVES moves1, MOVES moves2, MOVES moves3) {
+//        int score = 0;
+//
+//        List<MOVES> aList = Arrays.asList(moves1, moves2, moves3);
+//
+//
+//        for (MOVES moves : aList) {
+//            if (moves == MOVES.CPU_MOVE) {
+//                score += 10;
+//            } else if (moves == MOVES.USER_MOVE) {
+//                score -= 10;
+//            }
+//        }
+//
+//        // 勝敗がつくときには、点数の差を大きくする
+//        if (score == 30) {
+//            score = 100;
+//        } else if (score == -30) {
+//            score = -100;
+//        }
+//
+//        return score;
+
         int score = 0;
 
-        List<MOVES> aList = Arrays.asList(moves1, moves2, moves3);
+        // 1つ目
+        if (moves1 == MOVES.CPU_MOVE) {
+            score = 1;
+        } else if (moves1 == MOVES.USER_MOVE) {
+            score = -1;
+        }
 
-
-        for (MOVES moves : aList) {
-            if (moves == MOVES.CPU_MOVE) {
-                score += 10;
-            } else if (moves == MOVES.USER_MOVE) {
-                score -= 10;
+        // 2つ目
+        if (moves2 == MOVES.CPU_MOVE) {
+            if (score == 1) {
+                score = 10;
+            } else if (score == -1) {
+                return 0;
+            } else {
+                score = 1;
+            }
+        } else if (moves2 == MOVES.USER_MOVE) {
+            if (score == -1) {
+                score = -10;
+            } else if (score == 1) {
+                return 0;
+            } else {
+                score = -1;
             }
         }
 
-        // 勝敗がつくときには、点数の差を大きくする
-        if (score == 30) {
-            score = 100;
-        } else if (score == -30) {
-            score = -100;
+        // 3つ目
+        if (moves3 == MOVES.CPU_MOVE) {
+            if (score > 0) {
+                score *= 100;
+            } else if (score < 0) {
+                return 0;
+            } else {
+                score = 1;
+            }
+        } else if (moves3 == MOVES.USER_MOVE) {
+            if (score < 0) {
+                score *= 100;
+            } else if (score > 1) {
+                return 0;
+            } else {
+                score = -1;
+            }
         }
 
         return score;

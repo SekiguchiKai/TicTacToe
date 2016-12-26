@@ -31,3 +31,8 @@ dependencies {
 
 }
 
+// Gradleで標準入力を受け取ることができるようにする
+run {
+    standardInput = System.in
+}
+
