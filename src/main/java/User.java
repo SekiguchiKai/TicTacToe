@@ -12,8 +12,8 @@ public class User extends Player {
      *
      * @param board ゲーム盤
      */
-    public User(Board board, MinMaxLogic minMaxLogic, Terminal terminal) {
-        super(board, minMaxLogic, terminal);
+    public User(Board board, MinMaxLogic minMaxLogic, CommandLineIO commandLineIO) {
+        super(board, minMaxLogic, commandLineIO);
     }
 
     /**
@@ -23,12 +23,25 @@ public class User extends Player {
      */
     public void doMove(int depth) {
         try {
-            board.addMoves(terminal.receiveCommand(board.getGameBoard()), MOVES.USER_MOVE);
+            int userInput = commandLineIO.receiveCommand(board.getGameBoard());
+
+            while (userInput == Integer.MAX_VALUE || userInput == Integer.MIN_VALUE) {
+                userInput = commandLineIO.receiveCommand(board.getGameBoard());
+
+                if (userInput == Integer.MAX_VALUE) {
+                    commandLineIO.drawExistingCaution();
+                } else if (userInput == Integer.MIN_VALUE) {
+                    commandLineIO.drawInappropriateCaution();
+                } else {
+                    board.addMoves(userInput, MOVES.USER_MOVE);
+                }
+            }
+
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();
         }
-        terminal.drawBoard(board.getGameBoard());
+        commandLineIO.drawBoard(board.getGameBoard());
 
     }
 }

@@ -11,8 +11,8 @@ public class Cpu extends Player {
      *
      * @param board ゲーム盤
      */
-    public Cpu(Board board, MinMaxLogic minMaxLogic, Terminal terminal) {
-        super(board, minMaxLogic, terminal);
+    public Cpu(Board board, MinMaxLogic minMaxLogic, CommandLineIO commandLineIO) {
+        super(board, minMaxLogic, commandLineIO);
     }
 
 
@@ -24,6 +24,6 @@ public class Cpu extends Player {
         System.out.println("CPUの打ち手は、" + spot);
         board.addMoves(spot, MOVES.CPU_MOVE);
 
-        terminal.drawBoard(board.getGameBoard());
+        commandLineIO.drawBoard(board.getGameBoard());
     }
 }

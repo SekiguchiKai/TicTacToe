@@ -16,13 +16,13 @@ public class NormalGameLogic implements GameLogic {
      */
     public void playGame() {
         Board board = new Board();
-        Terminal terminal = new Terminal();
+        CommandLineIO commandLineIO = new CommandLineIO();
         MinMaxLogic minMaxLogic = new MinMaxLogic();
-        Player user = new User(board, minMaxLogic, terminal);
-        Player cpu = new Cpu(board, minMaxLogic, terminal);
+        Player user = new User(board, minMaxLogic, commandLineIO);
+        Player cpu = new Cpu(board, minMaxLogic, commandLineIO);
 
 
-        terminal.drawBoard(board.getGameBoard());
+        commandLineIO.drawBoard(board.getGameBoard());
 
         int depthCount = 2;
 
@@ -40,7 +40,7 @@ public class NormalGameLogic implements GameLogic {
         }
 
         // ここターミナルにすること
-        terminal.drawResult(this.judgeResult(board.getGameBoard()));
+        commandLineIO.drawResult(this.judgeResult(board.getGameBoard()));
 
 
     }

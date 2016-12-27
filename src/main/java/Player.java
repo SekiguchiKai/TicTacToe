@@ -14,7 +14,7 @@ public abstract class Player {
      */
     MinMaxLogic minMaxLogic;
 
-    Terminal terminal;
+    CommandLineIO commandLineIO;
 
 
     /**
@@ -23,10 +23,10 @@ public abstract class Player {
      *
      * @param board ゲーム盤
      */
-    public Player(Board board, MinMaxLogic minMaxLogic, Terminal terminal) {
+    public Player(Board board, MinMaxLogic minMaxLogic, CommandLineIO commandLineIO) {
         this.board = board;
         this.minMaxLogic = minMaxLogic;
-        this.terminal = terminal;
+        this.commandLineIO = commandLineIO;
     }
 
     /**

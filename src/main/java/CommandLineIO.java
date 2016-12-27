@@ -1,12 +1,11 @@
 import java.io.*;
 import java.util.*;
-import java.util.stream.IntStream;
 
 /**
  * コマンドラインとのやりとりを行うクラス
  * Created by sekiguchikai on 2016/12/20.
  */
-public class Terminal {
+public class CommandLineIO {
 
 
     /**
@@ -20,9 +19,9 @@ public class Terminal {
         System.out.print(" ___");
         System.out.print("  ___");
         System.out.println("  ___");
-        System.out.print("| " + this.changeMovesToStone(gameBoard[0], 1) + " |");
-        System.out.print("| " + this.changeMovesToStone(gameBoard[1], 2) + " |");
-        System.out.println("| " + this.changeMovesToStone(gameBoard[2], 3) + " |");
+        System.out.print("| " + this.changeMovesToSignal(gameBoard[0], 1) + " |");
+        System.out.print("| " + this.changeMovesToSignal(gameBoard[1], 2) + " |");
+        System.out.println("| " + this.changeMovesToSignal(gameBoard[2], 3) + " |");
         System.out.print(" ---");
         System.out.print("  ---");
         System.out.println("  ---");
@@ -30,9 +29,9 @@ public class Terminal {
         System.out.print(" ___");
         System.out.print("  ___");
         System.out.println("  ___");
-        System.out.print("| " + this.changeMovesToStone(gameBoard[3], 4) + " |");
-        System.out.print("| " + this.changeMovesToStone(gameBoard[4], 5) + " |");
-        System.out.println("| " + this.changeMovesToStone(gameBoard[5], 6) + " |");
+        System.out.print("| " + this.changeMovesToSignal(gameBoard[3], 4) + " |");
+        System.out.print("| " + this.changeMovesToSignal(gameBoard[4], 5) + " |");
+        System.out.println("| " + this.changeMovesToSignal(gameBoard[5], 6) + " |");
         System.out.print(" ---");
         System.out.print("  ---");
         System.out.println("  ---");
@@ -40,9 +39,9 @@ public class Terminal {
         System.out.print(" ___");
         System.out.print("  ___");
         System.out.println("  ___");
-        System.out.print("| " + this.changeMovesToStone(gameBoard[6], 7) + " |");
-        System.out.print("| " + this.changeMovesToStone(gameBoard[7], 8) + " |");
-        System.out.println("| " + this.changeMovesToStone(gameBoard[8], 9) + " |");
+        System.out.print("| " + this.changeMovesToSignal(gameBoard[6], 7) + " |");
+        System.out.print("| " + this.changeMovesToSignal(gameBoard[7], 8) + " |");
+        System.out.println("| " + this.changeMovesToSignal(gameBoard[8], 9) + " |");
         System.out.print(" ---");
         System.out.print("  ---");
         System.out.println("  ---");
@@ -59,7 +58,7 @@ public class Terminal {
      * @param spotNumber
      * @return
      */
-    String changeMovesToStone(MOVES moves, int spotNumber) {
+    String changeMovesToSignal(MOVES moves, int spotNumber) {
         if (moves == MOVES.USER_MOVE) {
             return SIGNAL.CIRCLE.getSignal();
         } else if (moves == MOVES.CPU_MOVE) {
@@ -81,25 +80,37 @@ public class Terminal {
     /**
      * コマンドラインからの入力を受け取る
      *
-     * @return 盤の場所を返す
+     * @return 盤の場所を返す（ユーザーからの入力がすでに石が置いてある場合場所だった場合:MAX_VALUE、ユーザーからの入力が不適切な数字だった場合 : MIN_VALUEを返す)
      * @throws java.io.IOException コンソールからの入力を正常に受けてれませんでした
      */
     public int receiveCommand(MOVES[] gameBoard) throws IOException {
         Scanner scanner = new Scanner(System.in);
         int userInput = scanner.nextInt();
 
-        List<MOVES> gameBoardList = new ArrayList<>();
-        IntStream.range(0, 9).forEach(i -> gameBoardList.add(gameBoard[i]));
 
-        if (!(gameBoardList.get(userInput - 1) == MOVES.NO_MOVE)) {
-            System.out.println("すでに打ち手が入力されています");
-            System.out.println("再度数字を入力してください");
-        } else if (userInput > 8) {
+        if (userInput > 8) {
             System.out.println("不適切な数字です");
             System.out.println("再度数字を入力してください");
+            return Integer.MIN_VALUE;
+        } else if (!(gameBoard[userInput - 1] == MOVES.NO_MOVE)) {
+            System.out.println("すでに打ち手が入力されています");
+            System.out.println("再度数字を入力してください");
+            return Integer.MAX_VALUE;
         }
 
         return userInput - 1;
     }
+
+
+    public void drawExistingCaution() {
+        System.out.println("すでに打ち手が入力されています");
+        System.out.println("再度数字を入力してください");
+    }
+
+    public void drawInappropriateCaution() {
+        System.out.println("不適切な数字です");
+        System.out.println("再度数字を入力してください");
+    }
+
 
 }
