@@ -1,3 +1,5 @@
+import com.sun.org.apache.regexp.internal.RE;
+
 import java.io.*;
 import java.util.*;
 import java.util.stream.IntStream;
@@ -10,7 +12,9 @@ public class Terminal {
 
 
     /**
-     * コマンドライン上にゲーム番を描くためのメソッド
+     * コマンドライン上にゲーム盤を描くためのメソッド
+     *
+     * @param gameBoard ゲーム盤
      */
     public void drawBoard(MOVES[] gameBoard) {
 
@@ -51,16 +55,17 @@ public class Terminal {
 
 
     /**
-     * MOVESから石の文字に変換するためのメソッド
+     * 列挙型MOVESの各要素を○や×の記号に変換するためのメソッド
      *
-     * @param moves MOVESのEnumの要素
-     * @return 石の文字
+     * @param moves
+     * @param spotNumber
+     * @return
      */
     String changeMovesToStone(MOVES moves, int spotNumber) {
         if (moves == MOVES.USER_MOVE) {
-            return "○";
+            return RESULT.WIN.getResult();
         } else if (moves == MOVES.CPU_MOVE) {
-            return "×";
+            return RESULT.LOSE.getResult();
         }
         return String.valueOf(spotNumber);
 
@@ -71,8 +76,8 @@ public class Terminal {
      *
      * @param result 勝敗結果
      */
-    public void drawResult(String result) {
-        System.out.println(result);
+    public void drawResult(RESULT result) {
+        System.out.println(result.getResult());
     }
 
     /**

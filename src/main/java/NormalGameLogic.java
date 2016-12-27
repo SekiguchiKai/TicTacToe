@@ -9,9 +9,7 @@ import java.util.*;
  */
 public class NormalGameLogic implements GameLogic {
 
-
     // とりあえず user= ○, cpu= ×
-
 
     /**
      * ゲームを進行していくロジックを担当するメソッド
@@ -42,26 +40,11 @@ public class NormalGameLogic implements GameLogic {
         }
 
         // ここターミナルにすること
-        System.out.println(this.judgeResult(board.getGameBoard()));
+        terminal.drawResult(this.judgeResult(board.getGameBoard()));
 
 
     }
 
-
-    Map<Integer, Player> decideOrder(Player user, Player cpu) {
-        int userOrder = (int) (Math.random() * 2 + 1);
-        Map<Integer, Player> orderMap = new HashMap<>();
-        if (userOrder == 1) {
-            orderMap.put(1, user);
-            orderMap.put(2, cpu);
-        } else {
-            orderMap.put(1, cpu);
-            orderMap.put(2, user);
-        }
-
-        return orderMap;
-
-    }
 
     RESULT judgeResult(MOVES[] gameBoard) {
 

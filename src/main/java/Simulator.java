@@ -66,36 +66,6 @@ public class Simulator {
      */
 
     int calcLineScore(MOVES moves1, MOVES moves2, MOVES moves3, int depth) {
-//        int score = 0;
-//
-//        List<MOVES> movesList = Arrays.asList(moves1, moves2, moves3);
-//
-//
-//        for (MOVES moves : movesList) {
-//            if (moves == MOVES.CPU_MOVE) {
-//                score += 10;
-//            } else if (moves == MOVES.USER_MOVE) {
-//                score -= 10;
-//            }
-//        }
-//
-//
-//        // 勝敗がつくときには、点数の差を大きくする
-//        if (score == 20) {
-//            score = 1000;
-//        } else if (score == -20) {
-//            score = 1000;
-//        }
-//
-//        // 勝敗がつくときには、点数の差を大きくする
-//        if (score == 30) {
-//            score = 10000 - depth;
-//        } else if (score == -30) {
-//            score = depth - 10000;
-//        }
-//
-//        return score;
-
 
         int score = 0;
 

@@ -4,5 +4,4 @@
  */
 public enum MOVES {
     USER_MOVE, CPU_MOVE, NO_MOVE
-
 }
