@@ -16,22 +16,22 @@ public class Simulator {
      * @param gameBoard ゲーム盤
      * @return そのゲーム盤の点数の合計
      */
-    int calcScore(MOVES[] gameBoard) {
+    int calcScore(MOVES[] gameBoard, int depth) {
 
         int totalScore = 0;
         // 横
-        totalScore += calcLineScore(gameBoard[0], gameBoard[1], gameBoard[2]);
-        totalScore += calcLineScore(gameBoard[3], gameBoard[4], gameBoard[5]);
-        totalScore += calcLineScore(gameBoard[6], gameBoard[7], gameBoard[8]);
+        totalScore += calcLineScore(gameBoard[0], gameBoard[1], gameBoard[2], depth);
+        totalScore += calcLineScore(gameBoard[3], gameBoard[4], gameBoard[5], depth);
+        totalScore += calcLineScore(gameBoard[6], gameBoard[7], gameBoard[8], depth);
 
         // 縦
-        totalScore += calcLineScore(gameBoard[0], gameBoard[3], gameBoard[6]);
-        totalScore += calcLineScore(gameBoard[1], gameBoard[4], gameBoard[7]);
-        totalScore += calcLineScore(gameBoard[2], gameBoard[5], gameBoard[8]);
+        totalScore += calcLineScore(gameBoard[0], gameBoard[3], gameBoard[6], depth);
+        totalScore += calcLineScore(gameBoard[1], gameBoard[4], gameBoard[7], depth);
+        totalScore += calcLineScore(gameBoard[2], gameBoard[5], gameBoard[8], depth);
 
         // 斜め
-        totalScore += calcLineScore(gameBoard[0], gameBoard[4], gameBoard[8]);
-        totalScore += calcLineScore(gameBoard[2], gameBoard[4], gameBoard[6]);
+        totalScore += calcLineScore(gameBoard[0], gameBoard[4], gameBoard[8], depth);
+        totalScore += calcLineScore(gameBoard[2], gameBoard[4], gameBoard[6], depth);
 
         return totalScore;
     }
@@ -65,77 +65,86 @@ public class Simulator {
      * @return ラインの合計点数
      */
 
-    int calcLineScore(MOVES moves1, MOVES moves2, MOVES moves3) {
-        int score = 0;
-
-        List<MOVES> movesList = Arrays.asList(moves1, moves2, moves3);
-
-
-        for (MOVES moves : movesList) {
-            if (moves == MOVES.CPU_MOVE) {
-                score += 10;
-            } else if (moves == MOVES.USER_MOVE) {
-                score -= 10;
-            }
-        }
-
-        // 勝敗がつくときには、点数の差を大きくする
-        if (score == 30) {
-            score = 100;
-        } else if (score == -30) {
-            score = -100;
-        }
-
-        return score;
-//
+    int calcLineScore(MOVES moves1, MOVES moves2, MOVES moves3, int depth) {
 //        int score = 0;
 //
-//        // 1つ目
-//        if (moves1 == MOVES.CPU_MOVE) {
-//            score = 1;
-//        } else if (moves1 == MOVES.USER_MOVE) {
-//            score = -1;
-//        }
+//        List<MOVES> movesList = Arrays.asList(moves1, moves2, moves3);
 //
-//        // 2つ目
-//        if (moves2 == MOVES.CPU_MOVE) {
-//            if (score == 1) {
-//                score = 10;
-//            } else if (score == -1) {
-//                return 0;
-//            } else {
-//                score = 1;
-//            }
-//        } else if (moves2 == MOVES.USER_MOVE) {
-//            if (score == -1) {
-//                score = -10;
-//            } else if (score == 1) {
-//                return 0;
-//            } else {
-//                score = -1;
+//
+//        for (MOVES moves : movesList) {
+//            if (moves == MOVES.CPU_MOVE) {
+//                score += 10;
+//            } else if (moves == MOVES.USER_MOVE) {
+//                score -= 10;
 //            }
 //        }
 //
-//        // 3つ目
-//        if (moves3 == MOVES.CPU_MOVE) {
-//            if (score > 0) {
-//                score *= 100;
-//            } else if (score < 0) {
-//                return 0;
-//            } else {
-//                score = 1;
-//            }
-//        } else if (moves3 == MOVES.USER_MOVE) {
-//            if (score < 0) {
-//                score *= 100;
-//            } else if (score > 1) {
-//                return 0;
-//            } else {
-//                score = -1;
-//            }
+//
+//        // 勝敗がつくときには、点数の差を大きくする
+//        if (score == 20) {
+//            score = 1000;
+//        } else if (score == -20) {
+//            score = 1000;
+//        }
+//
+//        // 勝敗がつくときには、点数の差を大きくする
+//        if (score == 30) {
+//            score = 10000 - depth;
+//        } else if (score == -30) {
+//            score = depth - 10000;
 //        }
 //
 //        return score;
+
+
+        int score = 0;
+
+        // 1つ目
+        if (moves1 == MOVES.CPU_MOVE) {
+            score = 1;
+        } else if (moves1 == MOVES.USER_MOVE) {
+            score = -1;
+        }
+
+        // 2つ目
+        if (moves2 == MOVES.CPU_MOVE) {
+            if (score == 1) {
+                score = 10;
+            } else if (score == -1) {
+                return 0;
+            } else {
+                score = 1;
+            }
+        } else if (moves2 == MOVES.USER_MOVE) {
+            if (score == -1) {
+                score = -10;
+            } else if (score == 1) {
+                return 0;
+            } else {
+                score = -1;
+            }
+        }
+
+        // 3つ目
+        if (moves3 == MOVES.CPU_MOVE) {
+            if (score > 0) {
+                score *= 100;
+            } else if (score < 0) {
+                return 0;
+            } else {
+                score = 1;
+            }
+        } else if (moves3 == MOVES.USER_MOVE) {
+            if (score < 0) {
+                score *= 100;
+            } else if (score > 1) {
+                return 0;
+            } else {
+                score = -1;
+            }
+        }
+
+        return score;
 
 
     }

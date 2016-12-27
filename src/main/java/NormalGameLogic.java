@@ -17,7 +17,6 @@ public class NormalGameLogic implements GameLogic {
      * ゲームを進行していくロジックを担当するメソッド
      */
     public void playGame() {
-        Simulator simulator = new Simulator();
         GameBoard gameBoard = new GameBoard();
         Terminal terminal = new Terminal();
         MinMaxLogic minMaxLogic = new MinMaxLogic();
@@ -27,14 +26,13 @@ public class NormalGameLogic implements GameLogic {
 
         terminal.drawBoard(gameBoard.getGameBoard());
 
-        int depthCount = 4;
+        int depthCount = 2;
 
 
         while (this.judgeResult(gameBoard.getGameBoard()) == RESULT.PENDING) {
 
             user.doMove(depthCount);
 
-            depthCount--;
 
             if (this.judgeResult(gameBoard.getGameBoard()) == RESULT.PENDING) {
                 cpu.doMove(depthCount);

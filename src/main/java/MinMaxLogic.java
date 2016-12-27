@@ -39,7 +39,7 @@ public class MinMaxLogic {
 
         // 試合が終了か、深さが0の場合は、スコアを
         if (capableMove.isEmpty() || depth == 0) {
-            score = simulator.calcScore(gameBoard);
+            score = simulator.calcScore(gameBoard, depth);
             return new int[]{score, bestSpot};
         } else {
             for (int moveSpot : capableMove) {
@@ -47,13 +47,13 @@ public class MinMaxLogic {
                 gameBoard[moveSpot] = playerMove;
 
                 if (playerMove == MOVES.CPU_MOVE) {
-                    score = calcMinMax(depth - 1, gameBoard, MOVES.USER_MOVE, alpha, beta)[0];
+                    score = calcMinMax(depth-1, gameBoard, MOVES.USER_MOVE, alpha, beta)[0];
                     if (score > alpha) {
                         alpha = score;
                         bestSpot = moveSpot;
                     }
                 } else if (playerMove == MOVES.USER_MOVE) {
-                    score = calcMinMax(depth - 1, gameBoard, MOVES.CPU_MOVE, alpha, beta)[0];
+                    score = calcMinMax(depth-1, gameBoard, MOVES.CPU_MOVE, alpha, beta)[0];
                     if (beta > score) {
                         beta = score;
                         bestSpot = moveSpot;
