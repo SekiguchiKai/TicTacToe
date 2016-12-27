@@ -1,7 +1,5 @@
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -31,33 +29,5 @@ public class CommandLineIOTest {
         assertThat(commandLineIO.changeMovesToSignal(data1, data2), is(expected));
     }
 
-
-    /**
-     * receiveCommandメソッドをテストするためのメソッド
-     */
-    @Test
-    public void receiveCommand() {
-
-
-        // 1 すでに入力
-
-        // 2不適切
-
-        // 妥当
-
-    }
-
-    private void receiveCommandProcess(byte input){
-        byte[] b = new byte[]{input};
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(b);
-      System.setIn(byteArrayInputStream);
-
-
-
-    }
-
-    private void receiveCommandHelper() {
-
-    }
 
 }
