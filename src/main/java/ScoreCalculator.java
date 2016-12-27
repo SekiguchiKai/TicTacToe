@@ -7,9 +7,6 @@ import java.util.List;
  */
 public class ScoreCalculator {
 
-    private String result;
-
-
     /**
      * 現在のゲーム盤の状況で、指定された場所に石を置いた時の点数を計算するためのメソッド
      *
@@ -20,18 +17,18 @@ public class ScoreCalculator {
 
         int totalScore = 0;
         // 横
-        totalScore += calcLineScore(gameBoard[0], gameBoard[1], gameBoard[2], depth);
-        totalScore += calcLineScore(gameBoard[3], gameBoard[4], gameBoard[5], depth);
-        totalScore += calcLineScore(gameBoard[6], gameBoard[7], gameBoard[8], depth);
+        totalScore += calcLineScore(gameBoard[0], gameBoard[1], gameBoard[2]);
+        totalScore += calcLineScore(gameBoard[3], gameBoard[4], gameBoard[5]);
+        totalScore += calcLineScore(gameBoard[6], gameBoard[7], gameBoard[8]);
 
         // 縦
-        totalScore += calcLineScore(gameBoard[0], gameBoard[3], gameBoard[6], depth);
-        totalScore += calcLineScore(gameBoard[1], gameBoard[4], gameBoard[7], depth);
-        totalScore += calcLineScore(gameBoard[2], gameBoard[5], gameBoard[8], depth);
+        totalScore += calcLineScore(gameBoard[0], gameBoard[3], gameBoard[6]);
+        totalScore += calcLineScore(gameBoard[1], gameBoard[4], gameBoard[7]);
+        totalScore += calcLineScore(gameBoard[2], gameBoard[5], gameBoard[8]);
 
         // 斜め
-        totalScore += calcLineScore(gameBoard[0], gameBoard[4], gameBoard[8], depth);
-        totalScore += calcLineScore(gameBoard[2], gameBoard[4], gameBoard[6], depth);
+        totalScore += calcLineScore(gameBoard[0], gameBoard[4], gameBoard[8]);
+        totalScore += calcLineScore(gameBoard[2], gameBoard[4], gameBoard[6]);
 
         return totalScore;
     }
@@ -65,7 +62,7 @@ public class ScoreCalculator {
      * @return ラインの合計点数
      */
 
-    int calcLineScore(MOVES moves1, MOVES moves2, MOVES moves3, int depth) {
+    int calcLineScore(MOVES moves1, MOVES moves2, MOVES moves3) {
 
         int score = 0;
 

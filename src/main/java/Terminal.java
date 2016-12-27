@@ -1,5 +1,3 @@
-import com.sun.org.apache.regexp.internal.RE;
-
 import java.io.*;
 import java.util.*;
 import java.util.stream.IntStream;

@@ -1,5 +1,3 @@
-import com.sun.org.apache.regexp.internal.RE;
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
