@@ -35,11 +35,11 @@ public class MinMaxLogic {
         int bestSpot = -1;
 
 
-        Simulator simulator = new Simulator();
+        ScoreCalculator scoreCalculator = new ScoreCalculator();
 
         // 試合が終了か、深さが0の場合は、スコアを
         if (capableMove.isEmpty() || depth == 0) {
-            score = simulator.calcScore(gameBoard, depth);
+            score = scoreCalculator.calcScore(gameBoard, depth);
             return new int[]{score, bestSpot};
         } else {
             for (int moveSpot : capableMove) {

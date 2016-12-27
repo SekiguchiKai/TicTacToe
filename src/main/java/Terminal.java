@@ -63,9 +63,9 @@ public class Terminal {
      */
     String changeMovesToStone(MOVES moves, int spotNumber) {
         if (moves == MOVES.USER_MOVE) {
-            return RESULT.WIN.getResult();
+            return SIGNAL.CIRCLE.getSignal();
         } else if (moves == MOVES.CPU_MOVE) {
-            return RESULT.LOSE.getResult();
+            return SIGNAL.CROSS.getSignal();
         }
         return String.valueOf(spotNumber);
 

@@ -5,7 +5,7 @@ import java.util.List;
  * 打ち手のシミュレーションを行うためのクラス
  * Created by sekiguchikai on 2016/12/22.
  */
-public class Simulator {
+public class ScoreCalculator {
 
     private String result;
 
