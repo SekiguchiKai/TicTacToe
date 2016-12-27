@@ -4,7 +4,7 @@ import java.util.stream.IntStream;
  * ゲーム番を表すクラス
  * Created by sekiguchikai on 2016/12/20.
  */
-public class GameBoard {
+public class Board {
     /**
      * 打ち手を格納するための配列
      */
@@ -12,16 +12,16 @@ public class GameBoard {
 
     /**
      * コンストラクタ
-     * initStonesArrayメソッドを呼び出す
+     * initGameBoardメソッドを呼び出す
      */
-    public GameBoard() {
-        this.initStonesArray();
+    public Board() {
+        this.initGameBoard();
     }
 
     /**
      * stonesArrayを初期化するためのメソッド
      */
-    public void initStonesArray() {
+    public void initGameBoard() {
         IntStream.range(0, 9).forEach(i -> gameBoard[i] = MOVES.NO_MOVE);
     }
 
@@ -44,13 +44,4 @@ public class GameBoard {
         return this.gameBoard;
     }
 
-    /**
-     * gameBoardに格納されている打ち手を返す
-     *
-     * @param spot ゲーム盤の場所
-     * @return Movesの定数
-     */
-    public MOVES getMoves(int spot) {
-        return gameBoard[spot];
-    }
 }

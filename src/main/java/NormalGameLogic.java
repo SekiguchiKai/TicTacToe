@@ -17,24 +17,24 @@ public class NormalGameLogic implements GameLogic {
      * ゲームを進行していくロジックを担当するメソッド
      */
     public void playGame() {
-        GameBoard gameBoard = new GameBoard();
+        Board board = new Board();
         Terminal terminal = new Terminal();
         MinMaxLogic minMaxLogic = new MinMaxLogic();
-        Player user = new User(gameBoard, minMaxLogic, terminal);
-        Player cpu = new Cpu(gameBoard, minMaxLogic, terminal);
+        Player user = new User(board, minMaxLogic, terminal);
+        Player cpu = new Cpu(board, minMaxLogic, terminal);
 
 
-        terminal.drawBoard(gameBoard.getGameBoard());
+        terminal.drawBoard(board.getGameBoard());
 
         int depthCount = 2;
 
 
-        while (this.judgeResult(gameBoard.getGameBoard()) == RESULT.PENDING) {
+        while (this.judgeResult(board.getGameBoard()) == RESULT.PENDING) {
 
             user.doMove(depthCount);
 
 
-            if (this.judgeResult(gameBoard.getGameBoard()) == RESULT.PENDING) {
+            if (this.judgeResult(board.getGameBoard()) == RESULT.PENDING) {
                 cpu.doMove(depthCount);
             }
 
@@ -42,7 +42,7 @@ public class NormalGameLogic implements GameLogic {
         }
 
         // ここターミナルにすること
-        System.out.println(this.judgeResult(gameBoard.getGameBoard()));
+        System.out.println(this.judgeResult(board.getGameBoard()));
 
 
     }

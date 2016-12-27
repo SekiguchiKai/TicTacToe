@@ -7,7 +7,7 @@ public abstract class Player {
     /**
      * ゲーム盤
      */
-    GameBoard gameBoard;
+    Board board;
 
     /**
      * ミニマックスアルゴリズム
@@ -21,10 +21,10 @@ public abstract class Player {
      * コンストラクタ
      * gameBoardを初期化する
      *
-     * @param gameBoard ゲーム盤
+     * @param board ゲーム盤
      */
-    public Player(GameBoard gameBoard, MinMaxLogic minMaxLogic, Terminal terminal) {
-        this.gameBoard = gameBoard;
+    public Player(Board board, MinMaxLogic minMaxLogic, Terminal terminal) {
+        this.board = board;
         this.minMaxLogic = minMaxLogic;
         this.terminal = terminal;
     }

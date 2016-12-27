@@ -10,10 +10,10 @@ public class User extends Player {
      * コンストラクタ
      * gameBoardを初期化する
      *
-     * @param gameBoard ゲーム盤
+     * @param board ゲーム盤
      */
-    public User(GameBoard gameBoard, MinMaxLogic minMaxLogic, Terminal terminal) {
-        super(gameBoard, minMaxLogic, terminal);
+    public User(Board board, MinMaxLogic minMaxLogic, Terminal terminal) {
+        super(board, minMaxLogic, terminal);
     }
 
     /**
@@ -23,12 +23,12 @@ public class User extends Player {
      */
     public void doMove(int depth) {
         try {
-            gameBoard.addMoves(terminal.receiveCommand(gameBoard.getGameBoard()), MOVES.USER_MOVE);
+            board.addMoves(terminal.receiveCommand(board.getGameBoard()), MOVES.USER_MOVE);
         } catch (IOException e) {
             System.err.println("エラー:" + e.getMessage());
             e.printStackTrace();
         }
-        terminal.drawBoard(gameBoard.getGameBoard());
+        terminal.drawBoard(board.getGameBoard());
 
     }
 }

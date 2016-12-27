@@ -9,10 +9,10 @@ public class Cpu extends Player {
      * コンストラクタ
      * gameBoardを初期化する
      *
-     * @param gameBoard ゲーム盤
+     * @param board ゲーム盤
      */
-    public Cpu(GameBoard gameBoard, MinMaxLogic minMaxLogic, Terminal terminal) {
-        super(gameBoard, minMaxLogic, terminal);
+    public Cpu(Board board, MinMaxLogic minMaxLogic, Terminal terminal) {
+        super(board, minMaxLogic, terminal);
     }
 
 
@@ -20,10 +20,10 @@ public class Cpu extends Player {
      * 打ち手を打つメソッド
      */
     public void doMove(int depth) {
-        int spot = super.minMaxLogic.calcMinMax(depth, gameBoard.getGameBoard(), MOVES.CPU_MOVE, Integer.MIN_VALUE, Integer.MAX_VALUE)[1];
+        int spot = super.minMaxLogic.calcMinMax(depth, board.getGameBoard(), MOVES.CPU_MOVE, Integer.MIN_VALUE, Integer.MAX_VALUE)[1];
         System.out.println("CPUの打ち手は、" + spot);
-        gameBoard.addMoves(spot, MOVES.CPU_MOVE);
+        board.addMoves(spot, MOVES.CPU_MOVE);
 
-        terminal.drawBoard(gameBoard.getGameBoard());
+        terminal.drawBoard(board.getGameBoard());
     }
 }
