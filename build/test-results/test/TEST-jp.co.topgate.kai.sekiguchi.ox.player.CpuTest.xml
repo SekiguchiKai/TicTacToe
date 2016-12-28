@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="jp.co.topgate.kai.sekiguchi.ox.player.CpuTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-12-28T03:04:20" hostname="SekiguchiKai-1.local" time="0.011">
+<testsuite name="jp.co.topgate.kai.sekiguchi.ox.player.CpuTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-12-28T04:03:03" hostname="SekiguchiKai-1.local" time="0.018">
   <properties/>
-  <testcase name="doMove" classname="jp.co.topgate.kai.sekiguchi.ox.player.CpuTest" time="0.011"/>
+  <testcase name="doMove" classname="jp.co.topgate.kai.sekiguchi.ox.player.CpuTest" time="0.018"/>
   <system-out><![CDATA[CPUの打ち手は、4
  ___  ___  ___
 | ○ || 2 || 3 |
@@ -13,37 +13,37 @@
 | 7 || 8 || 9 |
  ---  ---  ---
 自分の打ち手を入力するにはゲーム盤上に表示されている数字を入力し、Enterキーを押してください
-CPUの打ち手は、5
- ___  ___  ___
-| ○ || 2 || 3 |
- ---  ---  ---
- ___  ___  ___
-| 4 || × || × |
- ---  ---  ---
- ___  ___  ___
-| 7 || 8 || 9 |
- ---  ---  ---
-自分の打ち手を入力するにはゲーム盤上に表示されている数字を入力し、Enterキーを押してください
-CPUの打ち手は、3
- ___  ___  ___
-| ○ || 2 || 3 |
- ---  ---  ---
- ___  ___  ___
-| × || × || × |
- ---  ---  ---
- ___  ___  ___
-| 7 || 8 || 9 |
- ---  ---  ---
-自分の打ち手を入力するにはゲーム盤上に表示されている数字を入力し、Enterキーを押してください
 CPUの打ち手は、2
  ___  ___  ___
 | ○ || 2 || × |
  ---  ---  ---
  ___  ___  ___
-| × || × || × |
+| 4 || × || 6 |
  ---  ---  ---
  ___  ___  ___
 | 7 || 8 || 9 |
+ ---  ---  ---
+自分の打ち手を入力するにはゲーム盤上に表示されている数字を入力し、Enterキーを押してください
+CPUの打ち手は、6
+ ___  ___  ___
+| ○ || 2 || × |
+ ---  ---  ---
+ ___  ___  ___
+| 4 || × || 6 |
+ ---  ---  ---
+ ___  ___  ___
+| × || 8 || 9 |
+ ---  ---  ---
+自分の打ち手を入力するにはゲーム盤上に表示されている数字を入力し、Enterキーを押してください
+CPUの打ち手は、8
+ ___  ___  ___
+| ○ || 2 || × |
+ ---  ---  ---
+ ___  ___  ___
+| 4 || × || 6 |
+ ---  ---  ---
+ ___  ___  ___
+| × || 8 || × |
  ---  ---  ---
 自分の打ち手を入力するにはゲーム盤上に表示されている数字を入力し、Enterキーを押してください
 CPUの打ち手は、2

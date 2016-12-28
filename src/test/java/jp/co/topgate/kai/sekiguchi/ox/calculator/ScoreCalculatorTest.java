@@ -20,14 +20,14 @@ public class ScoreCalculatorTest {
      */
     @Test
     public void calcScore() {
-        this.helper(MOVES.CPU_MOVE, MOVES.CPU_MOVE, MOVES.CPU_MOVE, 1000);
-        this.helper(MOVES.USER_MOVE, MOVES.USER_MOVE, MOVES.USER_MOVE, -1000);
+        this.helper(MOVES.CPU_MOVE, MOVES.CPU_MOVE, MOVES.CPU_MOVE, 100);
+        this.helper(MOVES.USER_MOVE, MOVES.USER_MOVE, MOVES.USER_MOVE, -100);
         this.helper(MOVES.NO_MOVE, MOVES.NO_MOVE, MOVES.NO_MOVE, 0);
-        this.helper(MOVES.USER_MOVE, MOVES.CPU_MOVE, MOVES.CPU_MOVE, 0);
-        this.helper(MOVES.USER_MOVE, MOVES.USER_MOVE, MOVES.CPU_MOVE, 0);
+        this.helper(MOVES.USER_MOVE, MOVES.CPU_MOVE, MOVES.CPU_MOVE, 10);
+        this.helper(MOVES.USER_MOVE, MOVES.USER_MOVE, MOVES.CPU_MOVE, -10);
         this.helper(MOVES.NO_MOVE, MOVES.USER_MOVE, MOVES.CPU_MOVE, 0);
-        this.helper(MOVES.NO_MOVE, MOVES.USER_MOVE, MOVES.USER_MOVE, -100);
-        this.helper(MOVES.NO_MOVE, MOVES.CPU_MOVE, MOVES.CPU_MOVE, 100);
+        this.helper(MOVES.NO_MOVE, MOVES.USER_MOVE, MOVES.USER_MOVE, -20);
+        this.helper(MOVES.NO_MOVE, MOVES.CPU_MOVE, MOVES.CPU_MOVE,20);
 
     }
 
@@ -37,14 +37,14 @@ public class ScoreCalculatorTest {
      */
     @Test
     public void calcLineScore() {
-        this.helper(MOVES.CPU_MOVE, MOVES.CPU_MOVE, MOVES.CPU_MOVE, 1000);
-        this.helper(MOVES.USER_MOVE, MOVES.USER_MOVE, MOVES.USER_MOVE, -1000);
+        this.helper(MOVES.CPU_MOVE, MOVES.CPU_MOVE, MOVES.CPU_MOVE, 100);
+        this.helper(MOVES.USER_MOVE, MOVES.USER_MOVE, MOVES.USER_MOVE, -100);
         this.helper(MOVES.NO_MOVE, MOVES.NO_MOVE, MOVES.NO_MOVE, 0);
-        this.helper(MOVES.USER_MOVE, MOVES.CPU_MOVE, MOVES.CPU_MOVE, 0);
-        this.helper(MOVES.USER_MOVE, MOVES.USER_MOVE, MOVES.CPU_MOVE, 0);
+        this.helper(MOVES.USER_MOVE, MOVES.CPU_MOVE, MOVES.CPU_MOVE, 10);
+        this.helper(MOVES.USER_MOVE, MOVES.USER_MOVE, MOVES.CPU_MOVE, -10);
         this.helper(MOVES.NO_MOVE, MOVES.USER_MOVE, MOVES.CPU_MOVE, 0);
-        this.helper(MOVES.NO_MOVE, MOVES.USER_MOVE, MOVES.USER_MOVE, -100);
-        this.helper(MOVES.NO_MOVE, MOVES.CPU_MOVE, MOVES.CPU_MOVE, 100);
+        this.helper(MOVES.NO_MOVE, MOVES.USER_MOVE, MOVES.USER_MOVE, -20);
+        this.helper(MOVES.NO_MOVE, MOVES.CPU_MOVE, MOVES.CPU_MOVE, 20);
 
     }
 

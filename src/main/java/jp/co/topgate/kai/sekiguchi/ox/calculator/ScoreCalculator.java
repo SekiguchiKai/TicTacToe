@@ -2,11 +2,14 @@ package jp.co.topgate.kai.sekiguchi.ox.calculator;
 
 import jp.co.topgate.kai.sekiguchi.ox.constantset.MOVES;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 打ち手のシミュレーションを行うためのクラス
  * Created by sekiguchikai on 2016/12/22.
  */
- class ScoreCalculator {
+class ScoreCalculator {
 
     /**
      * 現在のゲーム盤の点数を計算するためのメソッド
@@ -45,14 +48,14 @@ import jp.co.topgate.kai.sekiguchi.ox.constantset.MOVES;
      * <p>
      * 合計
      * 【CPU】
-     * CPUの石が3つ揃っていた場合 : 1000
-     * CPUの石が2つ揃っていた場合 : 10
-     * CPUの石が1つ揃っていた場合 : 1
+     * CPUの石が3つ揃っていた場合 : 100
+     * CPUの石が2つ揃っていた場合 : 20
+     * CPUの石が1つ揃っていた場合 : 10
      * <p>
      * 【USER】
-     * USERの石が3つ揃っていた場合 : -1000
-     * USERの石が2つ揃っていた場合 : -10
-     * USERの石が1つ揃っていた場合 : -1
+     * USERの石が3つ揃っていた場合 : -100
+     * USERの石が2つ揃っていた場合 : -20
+     * USERの石が1つ揃っていた場合 : -10
      * <p>
      * 【EMPTY】
      * EMPTYの場合 :0
@@ -67,49 +70,22 @@ import jp.co.topgate.kai.sekiguchi.ox.constantset.MOVES;
 
         int score = 0;
 
-        // 1つ目
-        if (moves1 == MOVES.CPU_MOVE) {
-            score = 1;
-        } else if (moves1 == MOVES.USER_MOVE) {
-            score = -1;
-        }
+        List<MOVES> movesList = Arrays.asList(moves1, moves2, moves3);
 
-        // 2つ目
-        if (moves2 == MOVES.CPU_MOVE) {
-            if (score == 1) {
-                score = 10;
-            } else if (score == -1) {
-                return 0;
-            } else {
-                score = 1;
-            }
-        } else if (moves2 == MOVES.USER_MOVE) {
-            if (score == -1) {
-                score = -10;
-            } else if (score == 1) {
-                return 0;
-            } else {
-                score = -1;
+
+        for (MOVES moves : movesList) {
+            if (moves == MOVES.CPU_MOVE) {
+                score += 10;
+            } else if (moves == MOVES.USER_MOVE) {
+                score -= 10;
             }
         }
 
-        // 3つ目
-        if (moves3 == MOVES.CPU_MOVE) {
-            if (score > 0) {
-                score *= 100;
-            } else if (score < 0) {
-                return 0;
-            } else {
-                score = 1;
-            }
-        } else if (moves3 == MOVES.USER_MOVE) {
-            if (score < 0) {
-                score *= 100;
-            } else if (score > 1) {
-                return 0;
-            } else {
-                score = -1;
-            }
+        // 勝敗がつくときには、点数の差を大きくする
+        if (score == 30) {
+            score = 100;
+        } else if (score == -30) {
+            score = -100;
         }
 
         return score;
