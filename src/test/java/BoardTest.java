@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
  * Created by sekiguchikai on 2016/12/27.
  */
 public class BoardTest {
-    Board board = new Board();
+    private Board board = new Board();
 
 
     /**

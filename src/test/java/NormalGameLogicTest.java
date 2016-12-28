@@ -10,13 +10,7 @@ import static org.junit.Assert.*;
  * Created by sekiguchikai on 2016/12/27.
  */
 public class NormalGameLogicTest {
-    /**
-     * playGameメソッドをテストするためのメソッド
-     */
-    @Test
-    public void playGame() {
 
-    }
 
     /**
      * judgeResultメソッドをテストするためのメソッド

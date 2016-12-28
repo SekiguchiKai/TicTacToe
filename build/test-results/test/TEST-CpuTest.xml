@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CpuTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-12-27T11:48:28" hostname="SekiguchiKai-1.local" time="0.021">
+<testsuite name="CpuTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-12-28T02:35:42" hostname="SekiguchiKai-1.local" time="0.025">
   <properties/>
-  <testcase name="doMove" classname="CpuTest" time="0.021"/>
+  <testcase name="doMove" classname="CpuTest" time="0.025"/>
   <system-out><![CDATA[CPUの打ち手は、4
  ___  ___  ___
 | ○ || 2 || 3 |
