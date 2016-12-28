@@ -81,7 +81,7 @@ public class CpuTest {
     /**
      * 引数で受け取ったBoarクラスのインスタンスを初期化するためのメソッド
      *
-     * @param board
+     * @param board Boardクラスのインスタンス
      */
     private void initGameBoard(Board board) {
         IntStream.range(0, 9).forEach(i -> board.addMoves(i, MOVES.NO_MOVE));

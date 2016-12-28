@@ -22,7 +22,7 @@ public enum RESULT {
     }
 
     /**
-     * 列挙型の要素を取得するためのメソッド
+     * 各定数に設定された文字列を返すメソッド
      * @return 列挙型の要素
      */
     public String getResult() {

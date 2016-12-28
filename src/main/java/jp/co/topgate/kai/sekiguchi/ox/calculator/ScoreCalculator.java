@@ -6,15 +6,15 @@ import jp.co.topgate.kai.sekiguchi.ox.constantset.MOVES;
  * 打ち手のシミュレーションを行うためのクラス
  * Created by sekiguchikai on 2016/12/22.
  */
-public class ScoreCalculator {
+ class ScoreCalculator {
 
     /**
-     * 現在のゲーム盤の状況で、指定された場所に石を置いた時の点数を計算するためのメソッド
+     * 現在のゲーム盤の点数を計算するためのメソッド
      *
      * @param gameBoard ゲーム盤
      * @return そのゲーム盤の点数の合計
      */
-    int calcScore(MOVES[] gameBoard, int depth) {
+    int calcScore(MOVES[] gameBoard) {
 
         int totalScore = 0;
         // 横
@@ -36,7 +36,7 @@ public class ScoreCalculator {
 
 
     /**
-     * 引数として受け取ったラインの点数を求める
+     * 引数として受け取った打ち手3つの点数の合計を求める
      * 点数の計算方法は以下
      * <p>
      * CPUの石1つ :1
@@ -45,21 +45,21 @@ public class ScoreCalculator {
      * <p>
      * 合計
      * 【CPU】
-     * CPUの石が3つ揃っていた場合 :3
-     * CPUの石が2つ揃っていた場合 :2
-     * CPUの石が1つ揃っていた場合 :1
+     * CPUの石が3つ揃っていた場合 : 1000
+     * CPUの石が2つ揃っていた場合 : 10
+     * CPUの石が1つ揃っていた場合 : 1
      * <p>
      * 【USER】
-     * USERの石が3つ揃っていた場合 :-3
-     * USERの石が2つ揃っていた場合 :-2
-     * USERの石が1つ揃っていた場合 :-1
+     * USERの石が3つ揃っていた場合 : -1000
+     * USERの石が2つ揃っていた場合 : -10
+     * USERの石が1つ揃っていた場合 : -1
      * <p>
      * 【EMPTY】
      * EMPTYの場合 :0
      *
-     * @param moves1 石1
-     * @param moves2 石2
-     * @param moves3 石3
+     * @param moves1 打ち手1
+     * @param moves2 打ち手2
+     * @param moves3 打ち手3
      * @return ラインの合計点数
      */
 

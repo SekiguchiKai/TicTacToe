@@ -29,6 +29,7 @@ public class User extends Player {
      *
      * @param depth 深さ
      */
+    @Override
     public void doMove(int depth) {
         try {
             int userInput = commandLineIO.receiveCommand(board.getGameBoard());
@@ -47,6 +48,11 @@ public class User extends Player {
 
     }
 
+    /**
+     * ユーザーの入力によって、Userが行うことを決める
+     *
+     * @param userInput ユーザの入力の値
+     */
     private void choiceDO(int userInput) {
         if (userInput == Integer.MAX_VALUE) {
             commandLineIO.drawExistingCaution();

@@ -25,7 +25,7 @@ public class Board {
     /**
      * stonesArrayを初期化するためのメソッド
      */
-    public void initGameBoard() {
+    private void initGameBoard() {
         IntStream.range(0, 9).forEach(i -> gameBoard[i] = MOVES.NO_MOVE);
     }
 

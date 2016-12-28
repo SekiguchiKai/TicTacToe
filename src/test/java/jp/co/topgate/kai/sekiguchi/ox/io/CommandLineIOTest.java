@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  * Created by sekiguchikai on 2016/12/27.
  */
 public class CommandLineIOTest {
-    CommandLineIO commandLineIO = new CommandLineIO();
+    private CommandLineIO commandLineIO = new CommandLineIO();
 
     /**
      * changeMovesToSignalメソッドをテストするためのメソッド

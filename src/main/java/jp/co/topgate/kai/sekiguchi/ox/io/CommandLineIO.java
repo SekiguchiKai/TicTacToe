@@ -60,9 +60,9 @@ public class CommandLineIO {
     /**
      * 列挙型MOVESの各要素を○や×の記号に変換するためのメソッド
      *
-     * @param moves
-     * @param spotNumber
-     * @return
+     * @param moves      プレーヤーの打ち手
+     * @param spotNumber ゲーム盤の場所
+     * @return 打ち手を表す印の文字列
      */
     String changeMovesToSignal(MOVES moves, int spotNumber) {
         if (moves == MOVES.USER_MOVE) {
@@ -84,31 +84,35 @@ public class CommandLineIO {
     }
 
     /**
-     * コマンドラインからの入力を受け取る
+     * コマンドラインからの入力を受け取り、受け取った入力を加工してプログラム上のゲーム盤の位置を返すメソッド
      *
-     * @return 盤の場所を返す（ユーザーからの入力がすでに石が置いてある場合場所だった場合:MAX_VALUE、ユーザーからの入力が不適切な数字だった場合 : MIN_VALUEを返す)
+     * @return 盤の場所（ユーザーからの入力がすでに石が置いてある場合場所だった場合:MAX_VALUE、ユーザーからの入力が不適切な数字だった場合 : MIN_VALUEを返す)
      * @throws java.io.IOException コンソールからの入力を正常に受けてれませんでした
      */
     public int receiveCommand(MOVES[] gameBoard) throws IOException {
         Scanner scanner = new Scanner(System.in);
         int userInput = scanner.nextInt();
 
-
-        if (userInput > 8) {
+        if (userInput > 9) {
             return Integer.MIN_VALUE;
         } else if (!(gameBoard[userInput - 1] == MOVES.NO_MOVE)) {
             return Integer.MAX_VALUE;
         }
-
         return userInput - 1;
     }
 
 
+    /**
+     * ユーザーが既に打ち手の存在する場所選択した場合に、その旨を表示するためのメソッド
+     */
     public void drawExistingCaution() {
         System.out.println("すでに打ち手が入力されています");
         System.out.println("再度数字を入力してください");
     }
 
+    /**
+     * ユーザーが不適切な数字(0未満、10以上)を入力した場合に、その旨を表示するためのメソッド
+     */
     public void drawInappropriateCaution() {
         System.out.println("不適切な数字です");
         System.out.println("再度数字を入力してください");

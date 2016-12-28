@@ -24,7 +24,9 @@ public class Cpu extends Player {
 
     /**
      * 打ち手を打つメソッド
+     * @param depth 深さ
      */
+    @Override
     public void doMove(int depth) {
         int spot = super.minMaxCalculator.calcMinMax(depth, board.getGameBoard(), MOVES.CPU_MOVE, Integer.MIN_VALUE, Integer.MAX_VALUE)[1];
         System.out.println("CPUの打ち手は、" + spot);

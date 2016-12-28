@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 public class MinMaxCalculatorTest {
 
     private MinMaxCalculator minMaxCalculator = new MinMaxCalculator();
-    Board board = new Board();
+    private Board board = new Board();
 
     /**
      * calcMinMaxメソッドをテストするためのメソッド

@@ -1,6 +1,5 @@
 package jp.co.topgate.kai.sekiguchi.ox.constantset;
 
-import jp.co.topgate.kai.sekiguchi.ox.constantset.SIGNAL;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;

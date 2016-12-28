@@ -1,7 +1,7 @@
 package jp.co.topgate.kai.sekiguchi.ox.constantset;
 
 /**
- * 印
+ * プレーヤーの打ち手を表す
  * Created by sekiguchikai on 2016/12/23.
  */
 public enum SIGNAL {
@@ -14,15 +14,17 @@ public enum SIGNAL {
     /**
      * コンストラクタ
      * 初期化を行う
+     *
      * @param signal
      */
-    private SIGNAL(final String signal) {
+    SIGNAL(final String signal) {
         this.signal = signal;
     }
 
     /**
-     * 各定数に設定された文字列を返す
-     * @return
+     * 各定数に設定された文字列を返すメソッド
+     *
+     * @return 列挙型の要素
      */
     public String getSignal() {
         return this.signal;

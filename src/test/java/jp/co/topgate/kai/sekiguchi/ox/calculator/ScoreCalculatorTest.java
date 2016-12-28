@@ -1,6 +1,5 @@
 package jp.co.topgate.kai.sekiguchi.ox.calculator;
 
-import jp.co.topgate.kai.sekiguchi.ox.calculator.ScoreCalculator;
 import jp.co.topgate.kai.sekiguchi.ox.constantset.MOVES;
 import org.junit.Test;
 
@@ -13,7 +12,7 @@ import static org.junit.Assert.*;
  * Created by sekiguchikai on 2016/12/27.
  */
 public class ScoreCalculatorTest {
-    ScoreCalculator scoreCalculator = new ScoreCalculator();
+    private ScoreCalculator scoreCalculator = new ScoreCalculator();
 
 
     /**

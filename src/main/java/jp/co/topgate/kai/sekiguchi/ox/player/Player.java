@@ -27,9 +27,11 @@ public abstract class Player {
      * コンストラクタ
      * gameBoardを初期化する
      *
-     * @param board ゲーム盤
+     * @param board Boardクラスのインスタンス
+     * @param minMaxCalculator MinMaxCalculatorクラスのインスタンス
+     * @param commandLineIO CommandLineIOクラスのインスタンス
      */
-    public Player(Board board, MinMaxCalculator minMaxCalculator, CommandLineIO commandLineIO) {
+    Player(Board board, MinMaxCalculator minMaxCalculator, CommandLineIO commandLineIO) {
         this.board = board;
         this.minMaxCalculator = minMaxCalculator;
         this.commandLineIO = commandLineIO;
@@ -37,6 +39,8 @@ public abstract class Player {
 
     /**
      * 打ち手を打つメソッド
+     *
+     * @param depth 深さ
      */
     public abstract void doMove(int depth);
 

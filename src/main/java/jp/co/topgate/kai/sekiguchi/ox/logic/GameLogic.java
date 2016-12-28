@@ -8,10 +8,8 @@ public interface GameLogic {
 
     /**
      * ゲームを進行していくロジックを担当するメソッド
-     *
-     * @return 勝敗結果
      */
-    public abstract void playGame();
+    void playGame();
 
 
 }
