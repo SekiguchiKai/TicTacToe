@@ -93,7 +93,7 @@ public class CommandLineIO {
         Scanner scanner = new Scanner(System.in);
         int userInput = scanner.nextInt();
 
-        if (userInput > 9) {
+        if (userInput > 9 || userInput <= 0) {
             return Integer.MIN_VALUE;
         } else if (!(gameBoard[userInput - 1] == MOVES.NO_MOVE)) {
             return Integer.MAX_VALUE;

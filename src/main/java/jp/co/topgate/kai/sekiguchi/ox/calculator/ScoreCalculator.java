@@ -72,6 +72,9 @@ class ScoreCalculator {
 
         List<MOVES> movesList = Arrays.asList(moves1, moves2, moves3);
 
+        int counter = 0;
+
+        counter += 10;
 
         for (MOVES moves : movesList) {
             if (moves == MOVES.CPU_MOVE) {
@@ -83,9 +86,9 @@ class ScoreCalculator {
 
         // 勝敗がつくときには、点数の差を大きくする
         if (score == 30) {
-            score = 100;
+            score = 100 - counter;
         } else if (score == -30) {
-            score = -100;
+            score = counter - 100;
         }
 
         return score;
