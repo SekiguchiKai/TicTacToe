@@ -24,14 +24,15 @@ public class Cpu extends Player {
 
     /**
      * 打ち手を打つメソッド
+     *
      * @param depth 深さ
      */
     @Override
     public void doMove(int depth) {
-        int spot = super.minMaxCalculator.calcMinMax(depth, board.getGameBoardState(), Moves.CPU_MOVE, Integer.MIN_VALUE, Integer.MAX_VALUE)[1];
+        int spot = super.minMaxCalculator.calcMinMax(depth, board.getGameBoardState(), Moves.CPU_MOVE, Integer.MIN_VALUE, Integer.MAX_VALUE).getBestSpot();
         System.out.println("CPUの打ち手は、" + spot);
         board.putMoves(spot, Moves.CPU_MOVE);
 
-        ticTacToeCommandLineIO.drawBoard(board.getGameBoardState());
+        ticTacToeCommandLineIO.drawBoard(board);
     }
 }

@@ -12,6 +12,25 @@ import java.util.stream.IntStream;
  */
 public class MinMaxCalculator {
 
+    public static class Best {
+        private int bestScore;
+        private int bestSpot;
+
+        Best(int bestScore, int bestSpot) {
+            this.bestScore = bestScore;
+            this.bestSpot = bestSpot;
+        }
+
+        /**
+         * bestSpotを返すためのメソッド
+         *
+         * @return bestSpot
+         */
+        public int getBestSpot() {
+            return this.bestSpot;
+        }
+    }
+
     /**
      * ミニマックスアルゴリズムαβ法を用い、引数で渡された打ち手のプレイヤーに取って最適な点数とゲーム盤の場所を返す
      * CPUの場合は、最大の点数とその点数を取り得るゲーム盤の場所を返し、USERの場合は、点数とその点数を取り得るゲーム盤の場所を返す
@@ -32,14 +51,15 @@ public class MinMaxCalculator {
      * @param beta       β
      * @return ゲーム盤の位置
      */
-    public int[] calcMinMax(int depth, Moves[] gameBoard, Moves playerMove, int alpha, int beta) {
+    public Best calcMinMax(int depth, Moves[] gameBoard, Moves playerMove, int alpha, int beta) {
+
 
         // 石を置くことが可能な全てのゲーム盤の場所を格納したListを作成
         List<Integer> capableMove = this.makeCapableMOveList(gameBoard);
 
         int score;
 
-        int bestSpot = -1;
+        int spot = -1;
 
 
         ScoreCalculator scoreCalculator = new ScoreCalculator();
@@ -47,7 +67,7 @@ public class MinMaxCalculator {
         // 試合が終了か、深さが0の場合は、スコアを
         if (capableMove.isEmpty() || depth == 0) {
             score = scoreCalculator.calcScore(gameBoard);
-            return new int[]{score, bestSpot};
+            return new Best(score, spot);
         } else {
             // CPUの点数であるαの方が、βよりも大きい場合、それ以上探索しなくても良い(その時のαが最大なので)ので、探索を打ち切る
             for (int moveSpot : capableMove) {
@@ -55,23 +75,24 @@ public class MinMaxCalculator {
                 gameBoard[moveSpot] = playerMove;
 
                 if (playerMove == Moves.CPU_MOVE) {
-                    score = calcMinMax(depth - 1, gameBoard, Moves.USER_MOVE, alpha, beta)[0];
+                    score = calcMinMax(depth - 1, gameBoard, Moves.USER_MOVE, alpha, beta).bestScore;
                     if (score > alpha) {
                         alpha = score;
-                        bestSpot = moveSpot;
+                        spot = moveSpot;
                     }
                 } else if (playerMove == Moves.USER_MOVE) {
-                    score = calcMinMax(depth - 1, gameBoard, Moves.CPU_MOVE, alpha, beta)[0];
+                    score = calcMinMax(depth - 1, gameBoard, Moves.CPU_MOVE, alpha, beta).bestScore;
                     if (score < beta) {
                         beta = score;
-                        bestSpot = moveSpot;
+                        spot = moveSpot;
                     }
                 }
 
                 gameBoard[moveSpot] = Moves.NO_MOVE;
                 if (alpha >= beta) break;
             }
-            return new int[]{(playerMove == Moves.CPU_MOVE) ? alpha : beta, bestSpot};
+
+            return new Best((playerMove == Moves.CPU_MOVE) ? alpha : beta, spot);
         }
 
     }

@@ -10,7 +10,6 @@ import jp.co.topgate.kai.sekiguchi.ox.player.Player;
 import jp.co.topgate.kai.sekiguchi.ox.player.User;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 
 /**
@@ -18,9 +17,7 @@ import java.util.stream.IntStream;
  * Created by sekiguchikai on 2016/12/20.
  */
 public class NormalGameLogic implements GameLogic {
-
     // とりあえず user= ○, cpu= ×
-
 
     /**
      * ゲームを進行していくロジックを担当するメソッド
@@ -34,7 +31,7 @@ public class NormalGameLogic implements GameLogic {
         Player cpu = new Cpu(board, minMaxCalculator, ticTacToeCommandLineIO);
 
 
-        ticTacToeCommandLineIO.drawBoard(board.getGameBoardState());
+        ticTacToeCommandLineIO.drawBoard(board);
 
         int depthCount = 2;
 
@@ -48,12 +45,8 @@ public class NormalGameLogic implements GameLogic {
                 cpu.doMove(depthCount);
             }
 
-
         }
-
         ticTacToeCommandLineIO.drawResult(this.judgeResult(board.getGameBoardState()));
-
-
     }
 
 

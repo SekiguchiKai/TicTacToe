@@ -5,7 +5,7 @@ import jp.co.topgate.kai.sekiguchi.ox.constantset.Moves;
 import java.util.stream.IntStream;
 
 /**
- * ゲーム番を表すクラス
+ * ゲーム盤を表すクラス
  * Created by sekiguchikai on 2016/12/20.
  */
 public class Board {
@@ -18,7 +18,7 @@ public class Board {
 
     /**
      * コンストラクタ
-     * initGameBoardメソッドを呼び出す
+     * gameBoardを初期化する
      */
     public Board() {
         IntStream.range(0, gameBoardLength).forEach(i -> gameBoard[i] = Moves.NO_MOVE);
@@ -35,16 +35,25 @@ public class Board {
         gameBoard[spot] = Moves;
     }
 
+
     /**
-     * ゲーム盤を取得するためのメソッド
+     * gameBoardの指定されたインデックスの要素を返す
      *
-     * @return 打ち手を格納するための配列
+     * @param index gameBoardの要素を指定するためのインデックス
+     * @return インデックスで指定されたcellに格納されている要素
+     */
+    public Moves getCellState(int index) {
+        return this.gameBoard[index];
+    }
+
+    /**
+     * ゲーム盤の現在の状態を取得するためのメソッド
+     *
+     * @return ゲーム盤
      */
     public Moves[] getGameBoardState() {
-
         Moves[] copyArray = new Moves[9];
         IntStream.range(0, Board.gameBoardLength).forEach(i -> copyArray[i] = this.gameBoard[i]);
-
         return copyArray;
     }
 

@@ -1,5 +1,6 @@
 package jp.co.topgate.kai.sekiguchi.ox.io;
 
+import jp.co.topgate.kai.sekiguchi.ox.board.Board;
 import jp.co.topgate.kai.sekiguchi.ox.constantset.Moves;
 import jp.co.topgate.kai.sekiguchi.ox.constantset.Result;
 
@@ -15,9 +16,9 @@ public interface CommandLineIO {
     /**
      * コマンドライン上にゲーム盤を描くためのメソッド
      *
-     * @param gameBoard ゲーム盤
+     * @param board Boardクラスのインスタンス
      */
-    void drawBoard(Moves[] gameBoard);
+    void drawBoard(Board board);
 
 
     /**

@@ -32,19 +32,5 @@ public class TicTacToeCommandLineIOTest {
         assertThat(ticTacToeCommandLineIO.changeMovesToSignal(data1, data2), is(expected));
     }
 
-    private void ahelper() {
-//        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new OutputStream(new FileWriter(1)));
-
-    }
-
-
-    /**
-     * receiveCommandメソッドをテストするためのメソッド
-     */
-    @Test
-    public void receiveCommand() {
-//        IntStream.range(1, 9).forEach(i ->);
-    }
-
 
 }

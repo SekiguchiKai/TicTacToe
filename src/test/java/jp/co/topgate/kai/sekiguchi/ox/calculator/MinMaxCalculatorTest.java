@@ -90,8 +90,8 @@ public class MinMaxCalculatorTest {
      * doMoveメソッドが適切に実行されているかテストするためのメソッド
      */
     private void assertMinMaxLogic(int expectedSpot) {
-        int[] calcResult = this.minMaxCalculator.calcMinMax(2, this.board.getGameBoardState(), Moves.CPU_MOVE, Integer.MIN_VALUE, Integer.MAX_VALUE);
-        assertThat(calcResult[1], is(expectedSpot));
+        MinMaxCalculator.Best calcResult = this.minMaxCalculator.calcMinMax(2, this.board.getGameBoardState(), Moves.CPU_MOVE, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        assertThat(calcResult.getBestSpot(), is(expectedSpot));
 
     }
 
