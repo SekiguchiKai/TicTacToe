@@ -97,7 +97,7 @@ public class TicTacToeCommandLineIO implements CommandLineIO {
         String userInputString = scanner.next();
 
 
-        if (!(Pattern.matches("^[1-9]{1}$", userInputString))) {
+        if (!(Pattern.matches("^[.1-9]$", userInputString))) {
             return Integer.MIN_VALUE;
         } else if (!(gameBoard[Integer.parseInt(userInputString) - 1] == Moves.NO_MOVE)) {
             return Integer.MAX_VALUE;
