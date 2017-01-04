@@ -2,10 +2,9 @@ package jp.co.topgate.kai.sekiguchi.ox.logic;
 
 import jp.co.topgate.kai.sekiguchi.ox.board.Board;
 import jp.co.topgate.kai.sekiguchi.ox.calculator.MinMaxCalculator;
-import jp.co.topgate.kai.sekiguchi.ox.constantset.MOVES;
-import jp.co.topgate.kai.sekiguchi.ox.constantset.RESULT;
-import jp.co.topgate.kai.sekiguchi.ox.io.CommandLineIO;
-import jp.co.topgate.kai.sekiguchi.ox.logic.GameLogic;
+import jp.co.topgate.kai.sekiguchi.ox.constantset.Moves;
+import jp.co.topgate.kai.sekiguchi.ox.constantset.Result;
+import jp.co.topgate.kai.sekiguchi.ox.io.TicTacToeCommandLineIO;
 import jp.co.topgate.kai.sekiguchi.ox.player.Cpu;
 import jp.co.topgate.kai.sekiguchi.ox.player.Player;
 import jp.co.topgate.kai.sekiguchi.ox.player.User;
@@ -22,36 +21,37 @@ public class NormalGameLogic implements GameLogic {
 
     // とりあえず user= ○, cpu= ×
 
+
     /**
      * ゲームを進行していくロジックを担当するメソッド
      */
     @Override
     public void playGame() {
         Board board = new Board();
-        CommandLineIO commandLineIO = new CommandLineIO();
+        TicTacToeCommandLineIO ticTacToeCommandLineIO = new TicTacToeCommandLineIO();
         MinMaxCalculator minMaxCalculator = new MinMaxCalculator();
-        Player user = new User(board, minMaxCalculator, commandLineIO);
-        Player cpu = new Cpu(board, minMaxCalculator, commandLineIO);
+        Player user = new User(board, minMaxCalculator, ticTacToeCommandLineIO);
+        Player cpu = new Cpu(board, minMaxCalculator, ticTacToeCommandLineIO);
 
 
-        commandLineIO.drawBoard(board.getGameBoard());
+        ticTacToeCommandLineIO.drawBoard(board.getGameBoardState());
 
         int depthCount = 2;
 
 
-        while (this.judgeResult(board.getGameBoard()) == RESULT.PENDING) {
+        while (this.judgeResult(board.getGameBoardState()) == Result.PENDING) {
 
             user.doMove(depthCount);
 
 
-            if (this.judgeResult(board.getGameBoard()) == RESULT.PENDING) {
+            if (this.judgeResult(board.getGameBoardState()) == Result.PENDING) {
                 cpu.doMove(depthCount);
             }
 
 
         }
 
-        commandLineIO.drawResult(this.judgeResult(board.getGameBoard()));
+        ticTacToeCommandLineIO.drawResult(this.judgeResult(board.getGameBoardState()));
 
 
     }
@@ -63,21 +63,21 @@ public class NormalGameLogic implements GameLogic {
      * @param gameBoard ゲーム盤
      * @return 勝敗の結果
      */
-    RESULT judgeResult(MOVES[] gameBoard) {
+    Result judgeResult(Moves[] gameBoard) {
 
         if (this.judgeLose(gameBoard)) {
-            return RESULT.LOSE;
+            return Result.LOSE;
         } else if (this.judgeWin(gameBoard)) {
-            return RESULT.WIN;
+            return Result.WIN;
         }
 
-        List<MOVES> gameBoardList = Arrays.asList(gameBoard);
+        List<Moves> gameBoardList = Arrays.asList(gameBoard);
 
-        if (!gameBoardList.contains(MOVES.NO_MOVE)) {
-            return RESULT.DRAW;
+        if (!gameBoardList.contains(Moves.NO_MOVE)) {
+            return Result.DRAW;
         }
 
-        return RESULT.PENDING;
+        return Result.PENDING;
     }
 
 
@@ -87,15 +87,15 @@ public class NormalGameLogic implements GameLogic {
      * @param gameBoard ゲーム盤
      * @return ユーザーが敗北しているかの真偽値
      */
-    boolean judgeLose(MOVES[] gameBoard) {
-        return (gameBoard[0] == MOVES.CPU_MOVE && gameBoard[1] == MOVES.CPU_MOVE && gameBoard[2] == MOVES.CPU_MOVE ||
-                gameBoard[3] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[5] == MOVES.CPU_MOVE ||
-                gameBoard[6] == MOVES.CPU_MOVE && gameBoard[7] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE ||
-                gameBoard[0] == MOVES.CPU_MOVE && gameBoard[3] == MOVES.CPU_MOVE && gameBoard[6] == MOVES.CPU_MOVE ||
-                gameBoard[1] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[7] == MOVES.CPU_MOVE ||
-                gameBoard[2] == MOVES.CPU_MOVE && gameBoard[5] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE ||
-                gameBoard[0] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE ||
-                gameBoard[2] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[6] == MOVES.CPU_MOVE
+    boolean judgeLose(Moves[] gameBoard) {
+        return (gameBoard[0] == Moves.CPU_MOVE && gameBoard[1] == Moves.CPU_MOVE && gameBoard[2] == Moves.CPU_MOVE ||
+                gameBoard[3] == Moves.CPU_MOVE && gameBoard[4] == Moves.CPU_MOVE && gameBoard[5] == Moves.CPU_MOVE ||
+                gameBoard[6] == Moves.CPU_MOVE && gameBoard[7] == Moves.CPU_MOVE && gameBoard[8] == Moves.CPU_MOVE ||
+                gameBoard[0] == Moves.CPU_MOVE && gameBoard[3] == Moves.CPU_MOVE && gameBoard[6] == Moves.CPU_MOVE ||
+                gameBoard[1] == Moves.CPU_MOVE && gameBoard[4] == Moves.CPU_MOVE && gameBoard[7] == Moves.CPU_MOVE ||
+                gameBoard[2] == Moves.CPU_MOVE && gameBoard[5] == Moves.CPU_MOVE && gameBoard[8] == Moves.CPU_MOVE ||
+                gameBoard[0] == Moves.CPU_MOVE && gameBoard[4] == Moves.CPU_MOVE && gameBoard[8] == Moves.CPU_MOVE ||
+                gameBoard[2] == Moves.CPU_MOVE && gameBoard[4] == Moves.CPU_MOVE && gameBoard[6] == Moves.CPU_MOVE
         );
     }
 
@@ -105,15 +105,15 @@ public class NormalGameLogic implements GameLogic {
      * @param gameBoard ゲーム盤
      * @return ユーザーが勝利しているかの真偽値
      */
-    boolean judgeWin(MOVES[] gameBoard) {
-        return (gameBoard[0] == MOVES.USER_MOVE && gameBoard[1] == MOVES.USER_MOVE && gameBoard[2] == MOVES.USER_MOVE ||
-                gameBoard[3] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[5] == MOVES.USER_MOVE ||
-                gameBoard[6] == MOVES.USER_MOVE && gameBoard[7] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE ||
-                gameBoard[0] == MOVES.USER_MOVE && gameBoard[3] == MOVES.USER_MOVE && gameBoard[6] == MOVES.USER_MOVE ||
-                gameBoard[1] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[7] == MOVES.USER_MOVE ||
-                gameBoard[2] == MOVES.USER_MOVE && gameBoard[5] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE ||
-                gameBoard[0] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE ||
-                gameBoard[2] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[6] == MOVES.USER_MOVE
+    boolean judgeWin(Moves[] gameBoard) {
+        return (gameBoard[0] == Moves.USER_MOVE && gameBoard[1] == Moves.USER_MOVE && gameBoard[2] == Moves.USER_MOVE ||
+                gameBoard[3] == Moves.USER_MOVE && gameBoard[4] == Moves.USER_MOVE && gameBoard[5] == Moves.USER_MOVE ||
+                gameBoard[6] == Moves.USER_MOVE && gameBoard[7] == Moves.USER_MOVE && gameBoard[8] == Moves.USER_MOVE ||
+                gameBoard[0] == Moves.USER_MOVE && gameBoard[3] == Moves.USER_MOVE && gameBoard[6] == Moves.USER_MOVE ||
+                gameBoard[1] == Moves.USER_MOVE && gameBoard[4] == Moves.USER_MOVE && gameBoard[7] == Moves.USER_MOVE ||
+                gameBoard[2] == Moves.USER_MOVE && gameBoard[5] == Moves.USER_MOVE && gameBoard[8] == Moves.USER_MOVE ||
+                gameBoard[0] == Moves.USER_MOVE && gameBoard[4] == Moves.USER_MOVE && gameBoard[8] == Moves.USER_MOVE ||
+                gameBoard[2] == Moves.USER_MOVE && gameBoard[4] == Moves.USER_MOVE && gameBoard[6] == Moves.USER_MOVE
         );
 
     }

@@ -1,8 +1,8 @@
 package jp.co.topgate.kai.sekiguchi.ox.logic;
 
 import jp.co.topgate.kai.sekiguchi.ox.board.Board;
-import jp.co.topgate.kai.sekiguchi.ox.constantset.MOVES;
-import jp.co.topgate.kai.sekiguchi.ox.constantset.RESULT;
+import jp.co.topgate.kai.sekiguchi.ox.constantset.Moves;
+import jp.co.topgate.kai.sekiguchi.ox.constantset.Result;
 import org.junit.Test;
 
 import java.util.stream.IntStream;
@@ -24,25 +24,25 @@ public class NormalGameLogicTest {
     public void judgeResult() {
         NormalGameLogic normalGameLogic = new NormalGameLogic();
         Board board = new Board();
-        MOVES[] gameBoard = board.getGameBoard();
-        this.callHelper(gameBoard, MOVES.USER_MOVE, normalGameLogic);
-        this.callHelper(gameBoard, MOVES.CPU_MOVE, normalGameLogic);
-        this.callHelper(gameBoard, MOVES.NO_MOVE, normalGameLogic);
+        Moves[] gameBoard = board.getGameBoardState();
+        this.callHelper(gameBoard, Moves.USER_MOVE, normalGameLogic);
+        this.callHelper(gameBoard, Moves.CPU_MOVE, normalGameLogic);
+        this.callHelper(gameBoard, Moves.NO_MOVE, normalGameLogic);
 
-        IntStream.range(0, 9).forEach(i -> gameBoard[i] = MOVES.NO_MOVE);
+        IntStream.range(0, 9).forEach(i -> gameBoard[i] = Moves.NO_MOVE);
 
-        gameBoard[0] = MOVES.CPU_MOVE;
-        gameBoard[1] = MOVES.CPU_MOVE;
-        gameBoard[2] = MOVES.USER_MOVE;
-        gameBoard[3] = MOVES.USER_MOVE;
-        gameBoard[4] = MOVES.USER_MOVE;
-        gameBoard[5] = MOVES.CPU_MOVE;
-        gameBoard[6] = MOVES.CPU_MOVE;
-        gameBoard[7] = MOVES.USER_MOVE;
-        gameBoard[8] = MOVES.CPU_MOVE;
+        gameBoard[0] = Moves.CPU_MOVE;
+        gameBoard[1] = Moves.CPU_MOVE;
+        gameBoard[2] = Moves.USER_MOVE;
+        gameBoard[3] = Moves.USER_MOVE;
+        gameBoard[4] = Moves.USER_MOVE;
+        gameBoard[5] = Moves.CPU_MOVE;
+        gameBoard[6] = Moves.CPU_MOVE;
+        gameBoard[7] = Moves.USER_MOVE;
+        gameBoard[8] = Moves.CPU_MOVE;
 
 
-        this.assertDraw(board.getGameBoard(), normalGameLogic);
+        this.assertDraw(board.getGameBoardState(), normalGameLogic);
     }
 
     /**
@@ -51,7 +51,7 @@ public class NormalGameLogicTest {
      * @param gameBoard ゲーム盤
      * @param moves     列挙型MOVESの要素
      */
-    private void callHelper(MOVES[] gameBoard, MOVES moves, NormalGameLogic normalGameLogic) {
+    private void callHelper(Moves[] gameBoard, Moves moves, NormalGameLogic normalGameLogic) {
         setGameBoard(gameBoard, 0, 1, 2, moves, moves, moves);
         assertResult(gameBoard, moves, normalGameLogic);
 
@@ -86,7 +86,7 @@ public class NormalGameLogicTest {
      * @param moves3    列挙型MOVESの要素
      * @return セット後のゲーム盤
      */
-    private MOVES[] setGameBoard(MOVES[] gameBoard, int spot1, int spot2, int spot3, MOVES moves1, MOVES moves2, MOVES moves3) {
+    private Moves[] setGameBoard(Moves[] gameBoard, int spot1, int spot2, int spot3, Moves moves1, Moves moves2, Moves moves3) {
         gameBoard[spot1] = moves1;
         gameBoard[spot2] = moves2;
         gameBoard[spot3] = moves3;
@@ -102,16 +102,16 @@ public class NormalGameLogicTest {
      * @param moves           列挙型MOVESの要素
      * @param normalGameLogic ゲームのロジック
      */
-    private void assertResult(MOVES[] gameBoard, MOVES moves, NormalGameLogic normalGameLogic) {
-        if (moves == MOVES.USER_MOVE) {
-            assertThat(normalGameLogic.judgeResult(gameBoard), is(RESULT.WIN));
-        } else if (moves == MOVES.CPU_MOVE) {
-            assertThat(normalGameLogic.judgeResult(gameBoard), is(RESULT.LOSE));
-        } else if (moves == MOVES.NO_MOVE) {
-            assertThat(normalGameLogic.judgeResult(gameBoard), is(RESULT.PENDING));
+    private void assertResult(Moves[] gameBoard, Moves moves, NormalGameLogic normalGameLogic) {
+        if (moves == Moves.USER_MOVE) {
+            assertThat(normalGameLogic.judgeResult(gameBoard), is(Result.WIN));
+        } else if (moves == Moves.CPU_MOVE) {
+            assertThat(normalGameLogic.judgeResult(gameBoard), is(Result.LOSE));
+        } else if (moves == Moves.NO_MOVE) {
+            assertThat(normalGameLogic.judgeResult(gameBoard), is(Result.PENDING));
         }
 
-        IntStream.range(0, 9).forEach(i -> gameBoard[i] = MOVES.NO_MOVE);
+        IntStream.range(0, 9).forEach(i -> gameBoard[i] = Moves.NO_MOVE);
     }
 
     /**
@@ -120,8 +120,8 @@ public class NormalGameLogicTest {
      * @param gameBoard       ゲーム盤
      * @param normalGameLogic ゲームのロジック
      */
-    private void assertDraw(MOVES[] gameBoard, NormalGameLogic normalGameLogic) {
-        assertThat(normalGameLogic.judgeResult(gameBoard), is(RESULT.DRAW));
+    private void assertDraw(Moves[] gameBoard, NormalGameLogic normalGameLogic) {
+        assertThat(normalGameLogic.judgeResult(gameBoard), is(Result.DRAW));
     }
 
 
