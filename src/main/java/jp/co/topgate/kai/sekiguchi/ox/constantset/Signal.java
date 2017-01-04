@@ -4,7 +4,7 @@ package jp.co.topgate.kai.sekiguchi.ox.constantset;
  * プレーヤーの打ち手を表す
  * Created by sekiguchikai on 2016/12/23.
  */
-public enum SIGNAL {
+public enum Signal {
     CIRCLE("○"),
     CROSS("×"),
     EMPTY(" ");
@@ -15,9 +15,9 @@ public enum SIGNAL {
      * コンストラクタ
      * 初期化を行う
      *
-     * @param signal
+     * @param signal 打ち手の印
      */
-    SIGNAL(final String signal) {
+    Signal(final String signal) {
         this.signal = signal;
     }
 
