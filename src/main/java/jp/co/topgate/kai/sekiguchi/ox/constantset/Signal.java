@@ -15,7 +15,7 @@ public enum Signal {
      * コンストラクタ
      * 初期化を行う
      *
-     * @param signal
+     * @param signal 打ち手の印
      */
     Signal(final String signal) {
         this.signal = signal;

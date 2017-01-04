@@ -12,10 +12,26 @@ import java.util.stream.IntStream;
  */
 public class MinMaxCalculator {
 
+    /**
+     * 打ち手にとって、最適なゲーム盤上の場所とそこに打ち手を打った時の得点を格納するためのクラス
+     */
     public static class Best {
+        /**
+         * 打ち手を打つのに最適なゲーム盤上の場所
+         */
         private int bestScore;
+        /**
+         * 最適なゲーム盤上の場所に打ち手を打った際に取得する得点
+         */
         private int bestSpot;
 
+
+        /**
+         * コンストラクタ
+         *
+         * @param bestScore 　打ち手を打つのに最適なゲーム盤上の場所
+         * @param bestSpot  最適なゲーム盤上の場所に打ち手を打った際に取得する得点
+         */
         Best(int bestScore, int bestSpot) {
             this.bestScore = bestScore;
             this.bestSpot = bestSpot;
@@ -32,7 +48,7 @@ public class MinMaxCalculator {
     }
 
     /**
-     * ミニマックスアルゴリズムαβ法を用い、引数で渡された打ち手のプレイヤーに取って最適な点数とゲーム盤の場所を返す
+     * ミニマックスアルゴリズムαβ法を用い、引数で渡された打ち手のプレイヤーに取って最適な点数とゲーム盤の場所を返すメソッド
      * CPUの場合は、最大の点数とその点数を取り得るゲーム盤の場所を返し、USERの場合は、点数とその点数を取り得るゲーム盤の場所を返す
      * <p>
      * このメソッドのアルゴリズム
@@ -49,18 +65,13 @@ public class MinMaxCalculator {
      * @param playerMove player名
      * @param alpha      α
      * @param beta       β
-     * @return ゲーム盤の位置
+     * @return 打ち手を打つのに最適な場所とそこに打ち手を打った場合の点数を格納したBestクラスのインスタンス
      */
     public Best calcMinMax(int depth, Moves[] gameBoard, Moves playerMove, int alpha, int beta) {
-
-
         // 石を置くことが可能な全てのゲーム盤の場所を格納したListを作成
         List<Integer> capableMove = this.makeCapableMOveList(gameBoard);
-
         int score;
-
         int spot = -1;
-
 
         ScoreCalculator scoreCalculator = new ScoreCalculator();
 
@@ -91,14 +102,12 @@ public class MinMaxCalculator {
                 gameBoard[moveSpot] = Moves.NO_MOVE;
                 if (alpha >= beta) break;
             }
-
             return new Best((playerMove == Moves.CPU_MOVE) ? alpha : beta, spot);
         }
-
     }
 
     /**
-     * 現在石を置くことが可能なすべての手をリスト化する（NO_MOVEが存在しているGameBoardの場所）
+     * 現在こと打ち手を打つことが可能なすべてのゲーム盤の場所をリスト化する（NO_MOVEが存在しているGameBoardの場所）
      *
      * @param gameBoard ゲームの盤
      * @return NO_MOVEが存在するGameBoard上の場所の一覧を格納したList

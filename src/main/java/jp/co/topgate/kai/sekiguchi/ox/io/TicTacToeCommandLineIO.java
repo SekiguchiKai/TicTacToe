@@ -93,19 +93,17 @@ public class TicTacToeCommandLineIO implements CommandLineIO {
      */
     public int receiveCommand(Moves[] gameBoard) throws IOException {
         Scanner scanner = new Scanner(System.in);
-        int userInput = scanner.nextInt();
 
-        // 正規表現でmatchさせるためにStringに変換
-        String userInputString = String.valueOf(userInput);
+        String userInputString = scanner.next();
 
 
         if (!(Pattern.matches("^[1-9]{1}$", userInputString))) {
             return Integer.MIN_VALUE;
-        } else if (!(gameBoard[userInput - 1] == Moves.NO_MOVE)) {
+        } else if (!(gameBoard[Integer.parseInt(userInputString) - 1] == Moves.NO_MOVE)) {
             return Integer.MAX_VALUE;
         }
 
-        return userInput - 1;
+        return Integer.parseInt(userInputString) - 1;
     }
 
 
@@ -113,7 +111,7 @@ public class TicTacToeCommandLineIO implements CommandLineIO {
      * ユーザーが不適切な数字(0未満、10以上)を入力した場合に、その旨を表示するためのメソッド
      */
     public void drawInappropriateCaution() {
-        System.out.println("不適切な数字です");
+        System.out.println("不適切な入力です");
         System.out.println("再度数字を入力してください");
     }
 

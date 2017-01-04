@@ -11,7 +11,7 @@ import java.io.IOException;
  * コマンドラインの入出力を扱うインターフェース
  * Created by sekiguchikai on 2017/01/04.
  */
-public interface CommandLineIO {
+interface CommandLineIO {
 
     /**
      * コマンドライン上にゲーム盤を描くためのメソッド
