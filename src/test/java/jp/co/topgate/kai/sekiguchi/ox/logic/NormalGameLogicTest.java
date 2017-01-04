@@ -24,6 +24,7 @@ public class NormalGameLogicTest {
     public void judgeResult() {
         NormalGameLogic normalGameLogic = new NormalGameLogic();
         Board board = new Board();
+
         this.callHelper(board, Moves.USER_MOVE, normalGameLogic);
         this.callHelper(board, Moves.CPU_MOVE, normalGameLogic);
         this.callHelper(board, Moves.NO_MOVE, normalGameLogic);
@@ -50,9 +51,11 @@ public class NormalGameLogicTest {
      * @param board Boardクラスのインスタンス
      * @param moves 列挙型MOVESの要素
      */
+
     private void callHelper(Board board, Moves moves, NormalGameLogic normalGameLogic) {
         setGameBoard(board, 0, 1, 2, moves, moves, moves);
         assertResult(board, moves, normalGameLogic);
+
 
         setGameBoard(board, 3, 4, 5, moves, moves, moves);
         assertResult(board, moves, normalGameLogic);
@@ -84,10 +87,12 @@ public class NormalGameLogicTest {
      * @param moves2 列挙型MOVESの要素
      * @param moves3 列挙型MOVESの要素
      */
+
     private void setGameBoard(Board board, int spot1, int spot2, int spot3, Moves moves1, Moves moves2, Moves moves3) {
         board.putMoves(spot1, moves1);
         board.putMoves(spot2, moves2);
         board.putMoves(spot3, moves3);
+
 
     }
 
@@ -99,6 +104,7 @@ public class NormalGameLogicTest {
      * @param moves           列挙型MOVESの要素
      * @param normalGameLogic ゲームのロジック
      */
+
     private void assertResult(Board board, Moves moves, NormalGameLogic normalGameLogic) {
         if (moves == Moves.USER_MOVE) {
             assertThat(normalGameLogic.judgeResult(board.getGameBoardState()), is(Result.WIN));
@@ -111,12 +117,13 @@ public class NormalGameLogicTest {
         IntStream.range(0, Board.gameBoardLength).forEach(i -> board.putMoves(i, Moves.NO_MOVE));
     }
 
-    /**
-     * 引き分けが適切に決定されているかをテストするためのメソッド
-     *
-     * @param gameBoard       ゲーム盤
-     * @param normalGameLogic ゲームのロジック
-     */
+        /**
+         * 引き分けが適切に決定されているかをテストするためのメソッド
+         *
+         * @param gameBoard       ゲーム盤
+         * @param normalGameLogic ゲームのロジック
+         */
+
     private void assertDraw(Moves[] gameBoard, NormalGameLogic normalGameLogic) {
         assertThat(normalGameLogic.judgeResult(gameBoard), is(Result.DRAW));
     }

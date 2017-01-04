@@ -28,6 +28,7 @@ public class ScoreCalculatorTest {
         this.helper(Moves.NO_MOVE, Moves.USER_MOVE, Moves.CPU_MOVE, 0);
         this.helper(Moves.NO_MOVE, Moves.USER_MOVE, Moves.USER_MOVE, -20);
         this.helper(Moves.NO_MOVE, Moves.CPU_MOVE, Moves.CPU_MOVE, 20);
+        this.helper(Moves.NO_MOVE, Moves.CPU_MOVE, Moves.CPU_MOVE, 20);
 
     }
 

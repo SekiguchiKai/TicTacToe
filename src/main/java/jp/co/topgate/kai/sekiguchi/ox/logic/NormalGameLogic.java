@@ -87,7 +87,9 @@ public class NormalGameLogic implements GameLogic {
      * @param gameBoard ゲーム盤
      * @return ユーザーが敗北しているかの真偽値
      */
+
     private boolean judgeLose(Moves[] gameBoard) {
+
         return (gameBoard[0] == Moves.CPU_MOVE && gameBoard[1] == Moves.CPU_MOVE && gameBoard[2] == Moves.CPU_MOVE ||
                 gameBoard[3] == Moves.CPU_MOVE && gameBoard[4] == Moves.CPU_MOVE && gameBoard[5] == Moves.CPU_MOVE ||
                 gameBoard[6] == Moves.CPU_MOVE && gameBoard[7] == Moves.CPU_MOVE && gameBoard[8] == Moves.CPU_MOVE ||
@@ -105,7 +107,9 @@ public class NormalGameLogic implements GameLogic {
      * @param gameBoard ゲーム盤
      * @return ユーザーが勝利しているかの真偽値
      */
+
     private boolean judgeWin(Moves[] gameBoard) {
+
         return (gameBoard[0] == Moves.USER_MOVE && gameBoard[1] == Moves.USER_MOVE && gameBoard[2] == Moves.USER_MOVE ||
                 gameBoard[3] == Moves.USER_MOVE && gameBoard[4] == Moves.USER_MOVE && gameBoard[5] == Moves.USER_MOVE ||
                 gameBoard[6] == Moves.USER_MOVE && gameBoard[7] == Moves.USER_MOVE && gameBoard[8] == Moves.USER_MOVE ||

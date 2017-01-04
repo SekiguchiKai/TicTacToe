@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="jp.co.topgate.kai.sekiguchi.ox.player.CpuTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2017-01-04T06:15:58" hostname="SekiguchiKai-1.local" time="0.027">
+<testsuite name="jp.co.topgate.kai.sekiguchi.ox.player.CpuTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2017-01-04T06:25:53" hostname="SekiguchiKai-1.local" time="0.019">
   <properties/>
-  <testcase name="doMove" classname="jp.co.topgate.kai.sekiguchi.ox.player.CpuTest" time="0.027"/>
+  <testcase name="doMove" classname="jp.co.topgate.kai.sekiguchi.ox.player.CpuTest" time="0.019"/>
   <system-out><![CDATA[CPUの打ち手は、4
  ___  ___  ___
 | ○ || 2 || 3 |

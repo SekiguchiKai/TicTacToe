@@ -56,10 +56,11 @@ public class BoardTest {
      * @param moves 列挙型MOVESの要素
      */
     private void helper(Moves moves) {
-        IntStream.range(0, 9).forEach(i -> board.putMoves(i, moves));
+        IntStream.range(0, Board.gameBoardLength).forEach(i -> board.putMoves(i, moves));
 
         Moves[] gameBoard = board.getGameBoardState();
-        IntStream.range(0, 9).forEach(t -> assertThat(gameBoard[t], is(moves)));
+
+        IntStream.range(0, Board.gameBoardLength).forEach(t -> assertThat(gameBoard[t], is(moves)));
     }
 
 }
