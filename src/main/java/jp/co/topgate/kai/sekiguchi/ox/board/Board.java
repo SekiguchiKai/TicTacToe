@@ -1,6 +1,6 @@
 package jp.co.topgate.kai.sekiguchi.ox.board;
 
-import jp.co.topgate.kai.sekiguchi.ox.constantset.MOVES;
+import jp.co.topgate.kai.sekiguchi.ox.constantset.Moves;
 
 import java.util.stream.IntStream;
 
@@ -12,31 +12,27 @@ public class Board {
     /**
      * 打ち手を格納するための配列
      */
-    private MOVES[] gameBoard = new MOVES[9];
+    private Moves[] gameBoard = new Moves[9];
+
+    public static int gameBoardLength = 9;
 
     /**
      * コンストラクタ
      * initGameBoardメソッドを呼び出す
      */
     public Board() {
-        this.initGameBoard();
+        IntStream.range(0, gameBoardLength).forEach(i -> gameBoard[i] = Moves.NO_MOVE);
     }
 
-    /**
-     * stonesArrayを初期化するためのメソッド
-     */
-    private void initGameBoard() {
-        IntStream.range(0, 9).forEach(i -> gameBoard[i] = MOVES.NO_MOVE);
-    }
 
     /**
      * ゲーム盤に打ち手を打つためのメソッド
      *
      * @param spot  ゲーム盤の場所
-     * @param MOVES 各プレーヤーの打ち手
+     * @param Moves 各プレーヤーの打ち手
      */
-    public void addMoves(int spot, MOVES MOVES) {
-        gameBoard[spot] = MOVES;
+    public void putMoves(int spot, Moves Moves) {
+        gameBoard[spot] = Moves;
     }
 
     /**
@@ -44,8 +40,12 @@ public class Board {
      *
      * @return 打ち手を格納するための配列
      */
-    public MOVES[] getGameBoard() {
-        return this.gameBoard;
+    public Moves[] getGameBoardState() {
+
+        Moves[] copyArray = new Moves[9];
+        IntStream.range(0, Board.gameBoardLength).forEach(i -> copyArray[i] = this.gameBoard[i]);
+
+        return copyArray;
     }
 
 }

@@ -4,7 +4,7 @@ package jp.co.topgate.kai.sekiguchi.ox.constantset;
  * 結果の要素の集合体である列挙型
  * Created by sekiguchikai on 2016/12/23.
  */
-public enum RESULT {
+public enum Result {
      WIN("君の勝ちだ"),
     LOSE("君の負けだ"),
     DRAW("引き分けだ"),
@@ -17,7 +17,7 @@ public enum RESULT {
      * 初期化する
      * @param result 勝敗結果
      */
-    RESULT(String result) {
+    Result(String result) {
         this.result = result;
     }
 

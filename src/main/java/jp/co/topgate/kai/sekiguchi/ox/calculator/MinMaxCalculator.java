@@ -1,6 +1,7 @@
 package jp.co.topgate.kai.sekiguchi.ox.calculator;
 
-import jp.co.topgate.kai.sekiguchi.ox.constantset.MOVES;
+import jp.co.topgate.kai.sekiguchi.ox.board.Board;
+import jp.co.topgate.kai.sekiguchi.ox.constantset.Moves;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -31,7 +32,7 @@ public class MinMaxCalculator {
      * @param beta       β
      * @return ゲーム盤の位置
      */
-    public int[] calcMinMax(int depth, MOVES[] gameBoard, MOVES playerMove, int alpha, int beta) {
+    public int[] calcMinMax(int depth, Moves[] gameBoard, Moves playerMove, int alpha, int beta) {
 
         // 石を置くことが可能な全てのゲーム盤の場所を格納したListを作成
         List<Integer> capableMove = this.makeCapableMOveList(gameBoard);
@@ -53,24 +54,24 @@ public class MinMaxCalculator {
 
                 gameBoard[moveSpot] = playerMove;
 
-                if (playerMove == MOVES.CPU_MOVE) {
-                    score = calcMinMax(depth - 1, gameBoard, MOVES.USER_MOVE, alpha, beta)[0];
+                if (playerMove == Moves.CPU_MOVE) {
+                    score = calcMinMax(depth - 1, gameBoard, Moves.USER_MOVE, alpha, beta)[0];
                     if (score > alpha) {
                         alpha = score;
                         bestSpot = moveSpot;
                     }
-                } else if (playerMove == MOVES.USER_MOVE) {
-                    score = calcMinMax(depth - 1, gameBoard, MOVES.CPU_MOVE, alpha, beta)[0];
+                } else if (playerMove == Moves.USER_MOVE) {
+                    score = calcMinMax(depth - 1, gameBoard, Moves.CPU_MOVE, alpha, beta)[0];
                     if (score < beta) {
                         beta = score;
                         bestSpot = moveSpot;
                     }
                 }
 
-                gameBoard[moveSpot] = MOVES.NO_MOVE;
+                gameBoard[moveSpot] = Moves.NO_MOVE;
                 if (alpha >= beta) break;
             }
-            return new int[]{(playerMove == MOVES.CPU_MOVE) ? alpha : beta, bestSpot};
+            return new int[]{(playerMove == Moves.CPU_MOVE) ? alpha : beta, bestSpot};
         }
 
     }
@@ -81,11 +82,11 @@ public class MinMaxCalculator {
      * @param gameBoard ゲームの盤
      * @return NO_MOVEが存在するGameBoard上の場所の一覧を格納したList
      */
-    List<Integer> makeCapableMOveList(MOVES[] gameBoard) {
+    List<Integer> makeCapableMOveList(Moves[] gameBoard) {
 
         List<Integer> capableMoveList = new ArrayList<>();
-        IntStream.range(0, 9).forEach(i -> {
-            if (gameBoard[i] == MOVES.NO_MOVE) {
+        IntStream.range(0, Board.gameBoardLength).forEach(i -> {
+            if (gameBoard[i] == Moves.NO_MOVE) {
                 capableMoveList.add(i);
             }
         });

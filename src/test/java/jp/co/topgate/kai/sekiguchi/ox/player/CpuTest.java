@@ -2,8 +2,8 @@ package jp.co.topgate.kai.sekiguchi.ox.player;
 
 import jp.co.topgate.kai.sekiguchi.ox.board.Board;
 import jp.co.topgate.kai.sekiguchi.ox.calculator.MinMaxCalculator;
-import jp.co.topgate.kai.sekiguchi.ox.constantset.MOVES;
-import jp.co.topgate.kai.sekiguchi.ox.io.CommandLineIO;
+import jp.co.topgate.kai.sekiguchi.ox.constantset.Moves;
+import jp.co.topgate.kai.sekiguchi.ox.io.TicTacToeCommandLineIO;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -20,8 +20,8 @@ import static org.junit.Assert.*;
 public class CpuTest {
     private Board board = new Board();
     private MinMaxCalculator minMaxCalculator = new MinMaxCalculator();
-    private CommandLineIO commandLineIO = new CommandLineIO();
-    private Cpu cpu = new Cpu(board, minMaxCalculator, commandLineIO);
+    private TicTacToeCommandLineIO ticTacToeCommandLineIO = new TicTacToeCommandLineIO();
+    private Cpu cpu = new Cpu(board, minMaxCalculator, ticTacToeCommandLineIO);
 
     /**
      * doMoveメソッドをテストするためのメソッド
@@ -31,47 +31,47 @@ public class CpuTest {
         // ユーザーが四隅においた際
         List<Integer> cornerList = Arrays.asList(0, 2, 6, 8);
         cornerList.forEach(i -> {
-            board.addMoves(0, MOVES.USER_MOVE);
-            this.assertDoMOve(2, 4, MOVES.CPU_MOVE);
+            board.putMoves(0, Moves.USER_MOVE);
+            this.assertDoMOve(2, 4, Moves.CPU_MOVE);
         });
 
         this.initGameBoard(board);
 
         // 勝つ時の一手
-        board.addMoves(0, MOVES.CPU_MOVE);
-        board.addMoves(1, MOVES.CPU_MOVE);
-        this.assertDoMOve(2, 2, MOVES.CPU_MOVE);
+        board.putMoves(0, Moves.CPU_MOVE);
+        board.putMoves(1, Moves.CPU_MOVE);
+        this.assertDoMOve(2, 2, Moves.CPU_MOVE);
 
         this.initGameBoard(board);
 
-        board.addMoves(0, MOVES.CPU_MOVE);
-        board.addMoves(4, MOVES.CPU_MOVE);
-        this.assertDoMOve(2, 8, MOVES.CPU_MOVE);
+        board.putMoves(0, Moves.CPU_MOVE);
+        board.putMoves(4, Moves.CPU_MOVE);
+        this.assertDoMOve(2, 8, Moves.CPU_MOVE);
 
         this.initGameBoard(board);
 
-        board.addMoves(1, MOVES.CPU_MOVE);
-        board.addMoves(4, MOVES.CPU_MOVE);
-        this.assertDoMOve(2, 7, MOVES.CPU_MOVE);
+        board.putMoves(1, Moves.CPU_MOVE);
+        board.putMoves(4, Moves.CPU_MOVE);
+        this.assertDoMOve(2, 7, Moves.CPU_MOVE);
 
 
         this.initGameBoard(board);
         // 負けないための一手
-        board.addMoves(0, MOVES.USER_MOVE);
-        board.addMoves(1, MOVES.USER_MOVE);
-        this.assertDoMOve(2, 2, MOVES.CPU_MOVE);
+        board.putMoves(0, Moves.USER_MOVE);
+        board.putMoves(1, Moves.USER_MOVE);
+        this.assertDoMOve(2, 2, Moves.CPU_MOVE);
 
         this.initGameBoard(board);
 
-        board.addMoves(0, MOVES.USER_MOVE);
-        board.addMoves(4, MOVES.USER_MOVE);
-        this.assertDoMOve(2, 8, MOVES.CPU_MOVE);
+        board.putMoves(0, Moves.USER_MOVE);
+        board.putMoves(4, Moves.USER_MOVE);
+        this.assertDoMOve(2, 8, Moves.CPU_MOVE);
 
         this.initGameBoard(board);
 
-        board.addMoves(1, MOVES.USER_MOVE);
-        board.addMoves(4, MOVES.USER_MOVE);
-        this.assertDoMOve(2, 7, MOVES.CPU_MOVE);
+        board.putMoves(1, Moves.USER_MOVE);
+        board.putMoves(4, Moves.USER_MOVE);
+        this.assertDoMOve(2, 7, Moves.CPU_MOVE);
 
         this.initGameBoard(board);
 
@@ -84,7 +84,7 @@ public class CpuTest {
      * @param board Boardクラスのインスタンス
      */
     private void initGameBoard(Board board) {
-        IntStream.range(0, 9).forEach(i -> board.addMoves(i, MOVES.NO_MOVE));
+        IntStream.range(0, 9).forEach(i -> board.putMoves(i, Moves.NO_MOVE));
     }
 
     /**
@@ -94,9 +94,9 @@ public class CpuTest {
      * @param spot     ゲーム版の場所
      * @param expected 期待する値
      */
-    private void assertDoMOve(int depth, int spot, MOVES expected) {
+    private void assertDoMOve(int depth, int spot, Moves expected) {
         cpu.doMove(depth);
-        assertThat(board.getGameBoard()[spot], is(expected));
+        assertThat(board.getGameBoardState()[spot], is(expected));
     }
 
 }
