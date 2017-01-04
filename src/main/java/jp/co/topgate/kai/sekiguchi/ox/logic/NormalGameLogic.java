@@ -11,6 +11,7 @@ import jp.co.topgate.kai.sekiguchi.ox.player.Player;
 import jp.co.topgate.kai.sekiguchi.ox.player.User;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 
 /**
@@ -58,6 +59,7 @@ public class NormalGameLogic implements GameLogic {
 
     /**
      * 勝敗はついているかを確認し、その結果を返すためのメソッド
+     *
      * @param gameBoard ゲーム盤
      * @return 勝敗の結果
      */
@@ -81,11 +83,12 @@ public class NormalGameLogic implements GameLogic {
 
     /**
      * ユーザーが敗北しているかの真偽値を返すメソッド
+     *
      * @param gameBoard ゲーム盤
      * @return ユーザーが敗北しているかの真偽値
      */
     boolean judgeLose(MOVES[] gameBoard) {
-        return  (gameBoard[0] == MOVES.CPU_MOVE && gameBoard[1] == MOVES.CPU_MOVE && gameBoard[2] == MOVES.CPU_MOVE ||
+        return (gameBoard[0] == MOVES.CPU_MOVE && gameBoard[1] == MOVES.CPU_MOVE && gameBoard[2] == MOVES.CPU_MOVE ||
                 gameBoard[3] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[5] == MOVES.CPU_MOVE ||
                 gameBoard[6] == MOVES.CPU_MOVE && gameBoard[7] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE ||
                 gameBoard[0] == MOVES.CPU_MOVE && gameBoard[3] == MOVES.CPU_MOVE && gameBoard[6] == MOVES.CPU_MOVE ||
@@ -93,11 +96,12 @@ public class NormalGameLogic implements GameLogic {
                 gameBoard[2] == MOVES.CPU_MOVE && gameBoard[5] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE ||
                 gameBoard[0] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[8] == MOVES.CPU_MOVE ||
                 gameBoard[2] == MOVES.CPU_MOVE && gameBoard[4] == MOVES.CPU_MOVE && gameBoard[6] == MOVES.CPU_MOVE
-                );
+        );
     }
 
     /**
      * ユーザーが勝利しているかの真偽値を返すメソッド
+     *
      * @param gameBoard ゲーム盤
      * @return ユーザーが勝利しているかの真偽値
      */
@@ -110,7 +114,7 @@ public class NormalGameLogic implements GameLogic {
                 gameBoard[2] == MOVES.USER_MOVE && gameBoard[5] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE ||
                 gameBoard[0] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[8] == MOVES.USER_MOVE ||
                 gameBoard[2] == MOVES.USER_MOVE && gameBoard[4] == MOVES.USER_MOVE && gameBoard[6] == MOVES.USER_MOVE
-                );
+        );
 
     }
 
