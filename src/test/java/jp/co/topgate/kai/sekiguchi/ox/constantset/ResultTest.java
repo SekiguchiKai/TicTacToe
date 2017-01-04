@@ -9,15 +9,15 @@ import static org.junit.Assert.*;
  * 列挙型RESULTをテストするためのクラス
  * Created by sekiguchikai on 2016/12/27.
  */
-public class RESULTTest {
+public class ResultTest {
     /**
      * getResultメソッドをテストするためのメソッド
      */
     @Test
     public void getResult() {
-        this.helper(RESULT.WIN, "君の勝ちだ");
-        this.helper(RESULT.LOSE, "君の負けだ");
-        this.helper(RESULT.DRAW, "引き分けだ");
+        this.helper(Result.WIN, "君の勝ちだ");
+        this.helper(Result.LOSE, "君の負けだ");
+        this.helper(Result.DRAW, "引き分けだ");
 
     }
 
@@ -27,7 +27,7 @@ public class RESULTTest {
      * @param data     テストで使用するデータ
      * @param expected 期待する値
      */
-    private void helper(RESULT data, String expected) {
+    private void helper(Result data, String expected) {
         assertThat(data.getResult(), is(expected));
 
     }

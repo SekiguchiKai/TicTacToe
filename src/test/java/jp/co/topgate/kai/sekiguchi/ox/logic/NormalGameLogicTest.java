@@ -1,8 +1,8 @@
 package jp.co.topgate.kai.sekiguchi.ox.logic;
 
 import jp.co.topgate.kai.sekiguchi.ox.board.Board;
-import jp.co.topgate.kai.sekiguchi.ox.constantset.MOVES;
-import jp.co.topgate.kai.sekiguchi.ox.constantset.RESULT;
+import jp.co.topgate.kai.sekiguchi.ox.constantset.Moves;
+import jp.co.topgate.kai.sekiguchi.ox.constantset.Result;
 import org.junit.Test;
 
 import java.util.stream.IntStream;
@@ -24,104 +24,108 @@ public class NormalGameLogicTest {
     public void judgeResult() {
         NormalGameLogic normalGameLogic = new NormalGameLogic();
         Board board = new Board();
-        MOVES[] gameBoard = board.getGameBoard();
-        this.callHelper(gameBoard, MOVES.USER_MOVE, normalGameLogic);
-        this.callHelper(gameBoard, MOVES.CPU_MOVE, normalGameLogic);
-        this.callHelper(gameBoard, MOVES.NO_MOVE, normalGameLogic);
 
-        IntStream.range(0, 9).forEach(i -> gameBoard[i] = MOVES.NO_MOVE);
+        this.callHelper(board, Moves.USER_MOVE, normalGameLogic);
+        this.callHelper(board, Moves.CPU_MOVE, normalGameLogic);
+        this.callHelper(board, Moves.NO_MOVE, normalGameLogic);
 
-        gameBoard[0] = MOVES.CPU_MOVE;
-        gameBoard[1] = MOVES.CPU_MOVE;
-        gameBoard[2] = MOVES.USER_MOVE;
-        gameBoard[3] = MOVES.USER_MOVE;
-        gameBoard[4] = MOVES.USER_MOVE;
-        gameBoard[5] = MOVES.CPU_MOVE;
-        gameBoard[6] = MOVES.CPU_MOVE;
-        gameBoard[7] = MOVES.USER_MOVE;
-        gameBoard[8] = MOVES.CPU_MOVE;
+        IntStream.range(0, Board.gameBoardLength).forEach(i -> board.putMoves(i, Moves.NO_MOVE));
+
+        board.putMoves(0, Moves.CPU_MOVE);
+        board.putMoves(1, Moves.CPU_MOVE);
+        board.putMoves(2, Moves.USER_MOVE);
+        board.putMoves(3, Moves.USER_MOVE);
+        board.putMoves(4, Moves.USER_MOVE);
+        board.putMoves(5, Moves.CPU_MOVE);
+        board.putMoves(6, Moves.CPU_MOVE);
+        board.putMoves(7, Moves.USER_MOVE);
+        board.putMoves(8, Moves.CPU_MOVE);
 
 
-        this.assertDraw(board.getGameBoard(), normalGameLogic);
+        this.assertDraw(board.getGameBoardState(), normalGameLogic);
     }
 
     /**
      * assertLinesとassertResultを実行するためのメソッド
      *
-     * @param gameBoard ゲーム盤
-     * @param moves     列挙型MOVESの要素
+     * @param board Boardクラスのインスタンス
+     * @param moves 列挙型MOVESの要素
      */
-    private void callHelper(MOVES[] gameBoard, MOVES moves, NormalGameLogic normalGameLogic) {
-        setGameBoard(gameBoard, 0, 1, 2, moves, moves, moves);
-        assertResult(gameBoard, moves, normalGameLogic);
 
-        setGameBoard(gameBoard, 3, 4, 5, moves, moves, moves);
-        assertResult(gameBoard, moves, normalGameLogic);
+    private void callHelper(Board board, Moves moves, NormalGameLogic normalGameLogic) {
+        setGameBoard(board, 0, 1, 2, moves, moves, moves);
+        assertResult(board, moves, normalGameLogic);
 
-        setGameBoard(gameBoard, 6, 7, 8, moves, moves, moves);
-        assertResult(gameBoard, moves, normalGameLogic);
 
-        setGameBoard(gameBoard, 0, 3, 6, moves, moves, moves);
-        assertResult(gameBoard, moves, normalGameLogic);
+        setGameBoard(board, 3, 4, 5, moves, moves, moves);
+        assertResult(board, moves, normalGameLogic);
 
-        setGameBoard(gameBoard, 2, 5, 8, moves, moves, moves);
-        assertResult(gameBoard, moves, normalGameLogic);
+        setGameBoard(board, 6, 7, 8, moves, moves, moves);
+        assertResult(board, moves, normalGameLogic);
 
-        setGameBoard(gameBoard, 0, 4, 8, moves, moves, moves);
-        assertResult(gameBoard, moves, normalGameLogic);
+        setGameBoard(board, 0, 3, 6, moves, moves, moves);
+        assertResult(board, moves, normalGameLogic);
 
-        setGameBoard(gameBoard, 2, 4, 6, moves, moves, moves);
-        assertResult(gameBoard, moves, normalGameLogic);
+        setGameBoard(board, 2, 5, 8, moves, moves, moves);
+        assertResult(board, moves, normalGameLogic);
+
+        setGameBoard(board, 0, 4, 8, moves, moves, moves);
+        assertResult(board, moves, normalGameLogic);
+
+        setGameBoard(board, 2, 4, 6, moves, moves, moves);
+        assertResult(board, moves, normalGameLogic);
     }
 
     /**
      * ゲーム盤をセットするためメソッド
      *
-     * @param gameBoard ゲーム盤
-     * @param spot1     ゲーム盤の場所
-     * @param spot2     ゲーム盤の場所
-     * @param spot3     ゲーム盤の場所
-     * @param moves1    列挙型MOVESの要素
-     * @param moves2    列挙型MOVESの要素
-     * @param moves3    列挙型MOVESの要素
-     * @return セット後のゲーム盤
+     * @param board  Boardクラスのインスタンス
+     * @param spot1  ゲーム盤の場所
+     * @param spot2  ゲーム盤の場所
+     * @param spot3  ゲーム盤の場所
+     * @param moves1 列挙型MOVESの要素
+     * @param moves2 列挙型MOVESの要素
+     * @param moves3 列挙型MOVESの要素
      */
-    private MOVES[] setGameBoard(MOVES[] gameBoard, int spot1, int spot2, int spot3, MOVES moves1, MOVES moves2, MOVES moves3) {
-        gameBoard[spot1] = moves1;
-        gameBoard[spot2] = moves2;
-        gameBoard[spot3] = moves3;
 
-        return gameBoard;
+    private void setGameBoard(Board board, int spot1, int spot2, int spot3, Moves moves1, Moves moves2, Moves moves3) {
+        board.putMoves(spot1, moves1);
+        board.putMoves(spot2, moves2);
+        board.putMoves(spot3, moves3);
+
+
     }
 
 
     /**
      * 勝ち、負け、未決が適切に決定されているかをテストするためのメソッド
      *
-     * @param gameBoard       ゲーム盤
+     * @param board           Boardクラスのインスタンス
      * @param moves           列挙型MOVESの要素
      * @param normalGameLogic ゲームのロジック
      */
-    private void assertResult(MOVES[] gameBoard, MOVES moves, NormalGameLogic normalGameLogic) {
-        if (moves == MOVES.USER_MOVE) {
-            assertThat(normalGameLogic.judgeResult(gameBoard), is(RESULT.WIN));
-        } else if (moves == MOVES.CPU_MOVE) {
-            assertThat(normalGameLogic.judgeResult(gameBoard), is(RESULT.LOSE));
-        } else if (moves == MOVES.NO_MOVE) {
-            assertThat(normalGameLogic.judgeResult(gameBoard), is(RESULT.PENDING));
+
+    private void assertResult(Board board, Moves moves, NormalGameLogic normalGameLogic) {
+        if (moves == Moves.USER_MOVE) {
+            assertThat(normalGameLogic.judgeResult(board.getGameBoardState()), is(Result.WIN));
+        } else if (moves == Moves.CPU_MOVE) {
+            assertThat(normalGameLogic.judgeResult(board.getGameBoardState()), is(Result.LOSE));
+        } else if (moves == Moves.NO_MOVE) {
+            assertThat(normalGameLogic.judgeResult(board.getGameBoardState()), is(Result.PENDING));
         }
 
-        IntStream.range(0, 9).forEach(i -> gameBoard[i] = MOVES.NO_MOVE);
+        IntStream.range(0, Board.gameBoardLength).forEach(i -> board.putMoves(i, Moves.NO_MOVE));
     }
 
-    /**
-     * 引き分けが適切に決定されているかをテストするためのメソッド
-     *
-     * @param gameBoard       ゲーム盤
-     * @param normalGameLogic ゲームのロジック
-     */
-    private void assertDraw(MOVES[] gameBoard, NormalGameLogic normalGameLogic) {
-        assertThat(normalGameLogic.judgeResult(gameBoard), is(RESULT.DRAW));
+        /**
+         * 引き分けが適切に決定されているかをテストするためのメソッド
+         *
+         * @param gameBoard       ゲーム盤
+         * @param normalGameLogic ゲームのロジック
+         */
+
+    private void assertDraw(Moves[] gameBoard, NormalGameLogic normalGameLogic) {
+        assertThat(normalGameLogic.judgeResult(gameBoard), is(Result.DRAW));
     }
 
 
